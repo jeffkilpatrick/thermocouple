@@ -88,6 +88,7 @@
 		4CCAB1461A2C3F1C006D4291 /* PhidgetsSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhidgetsSensor.h; sourceTree = "<group>"; };
 		4CCAB1481A2CD7E3006D4291 /* PhidgetsSensor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhidgetsSensor.cpp; sourceTree = "<group>"; };
 		4CCAB14C1A2D7808006D4291 /* Phidget21.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Phidget21.framework; path = /Library/Frameworks/Phidget21.framework; sourceTree = "<absolute>"; };
+		4CCAB14F1A2D7A8E006D4291 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4CFE23381A21348D0003C02B /* libThermocouple.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libThermocouple.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +233,7 @@
 		4CFE232F1A21348D0003C02B = {
 			isa = PBXGroup;
 			children = (
+				4CCAB14F1A2D7A8E006D4291 /* README.md */,
 				4CCAB0F51A2A45CD006D4291 /* test */,
 				4CFE233A1A21348D0003C02B /* src */,
 				4CCAB1021A2AA742006D4291 /* vendor */,
@@ -513,10 +515,7 @@
 		4CCAB13B1A2C1D33006D4291 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -528,10 +527,7 @@
 		4CCAB13C1A2C1D33006D4291 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -619,7 +615,6 @@
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -638,7 +633,6 @@
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -658,6 +652,7 @@
 				4CCAB0FF1A2AA552006D4291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CCAB1111A2AA888006D4291 /* Build configuration list for PBXNativeTarget "unittest" */ = {
 			isa = XCConfigurationList;
@@ -666,6 +661,7 @@
 				4CCAB1131A2AA888006D4291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CCAB13A1A2C1D33006D4291 /* Build configuration list for PBXNativeTarget "PhidgetsMonitor" */ = {
 			isa = XCConfigurationList;
@@ -674,6 +670,7 @@
 				4CCAB13C1A2C1D33006D4291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CFE23331A21348D0003C02B /* Build configuration list for PBXProject "Thermocouple" */ = {
 			isa = XCConfigurationList;
