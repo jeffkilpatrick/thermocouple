@@ -23,7 +23,7 @@
 		4CCAB1201A2B92CB006D4291 /* RecordingListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAB11E1A2B92CB006D4291 /* RecordingListener.cpp */; };
 		4CCAB1221A2BE315006D4291 /* SensorBrokerTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAB1211A2BE315006D4291 /* SensorBrokerTest.cpp */; };
 		4CCAB1231A2BE481006D4291 /* SensorBroker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAB0ED1A214282006D4291 /* SensorBroker.cpp */; };
-		4CCAB1281A2BF023006D4291 /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CCAB1271A2BF023006D4291 /* Subscription.h */; };
+		4CCAB1281A2BF023006D4291 /* Subscription.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CCAB1271A2BF023006D4291 /* Subscription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CCAB12A1A2BFF94006D4291 /* Subscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAB1291A2BFF94006D4291 /* Subscription.cpp */; };
 		4CCAB12B1A2BFF94006D4291 /* Subscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CCAB1291A2BFF94006D4291 /* Subscription.cpp */; };
 		4CCAB12F1A2C1C3F006D4291 /* PhidgetsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CCAB12E1A2C1C3F006D4291 /* PhidgetsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -130,14 +130,15 @@
 		4CCAB0E61A213DF8006D4291 /* public */ = {
 			isa = PBXGroup;
 			children = (
+				4CCAB1271A2BF023006D4291 /* Subscription.h */,
 				4CCAB0EC1A214129006D4291 /* ISensor.h */,
 				4CCAB0E71A213E2F006D4291 /* IListener.h */,
 				4CCAB0E91A213E9E006D4291 /* SensorBroker.h */,
 				4CCAB12E1A2C1C3F006D4291 /* PhidgetsManager.h */,
 			);
 			name = public;
-			path = ../src/public;
-			sourceTree = "<group>";
+			path = src/public;
+			sourceTree = SOURCE_ROOT;
 		};
 		4CCAB0EB1A21410A006D4291 /* private */ = {
 			isa = PBXGroup;
@@ -148,15 +149,14 @@
 				4CCAB0F31A2A4463006D4291 /* AbstractSensor.cpp */,
 				4CCAB11B1A2B8D92006D4291 /* PollingSensor.cpp */,
 				4CCAB11C1A2B8D92006D4291 /* PollingSensor.h */,
-				4CCAB1271A2BF023006D4291 /* Subscription.h */,
 				4CCAB1291A2BFF94006D4291 /* Subscription.cpp */,
 				4CCAB1301A2C1C9C006D4291 /* PhidgetsManager.cpp */,
 				4CCAB1461A2C3F1C006D4291 /* PhidgetsSensor.h */,
 				4CCAB1481A2CD7E3006D4291 /* PhidgetsSensor.cpp */,
 			);
 			name = private;
-			path = ../src/private;
-			sourceTree = "<group>";
+			path = src/private;
+			sourceTree = SOURCE_ROOT;
 		};
 		4CCAB0F51A2A45CD006D4291 /* test */ = {
 			isa = PBXGroup;
@@ -260,9 +260,8 @@
 				4CCAB0EB1A21410A006D4291 /* private */,
 				4CCAB0E61A213DF8006D4291 /* public */,
 			);
-			name = src;
-			path = Thermocouple;
-			sourceTree = "<group>";
+			path = src;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
