@@ -27,7 +27,7 @@ public:
 
     void Notify(float celsius) override {
         std::lock_guard<std::mutex> lock(s_printingMutex);
-        cout << m_sensorId << ": " << celsius << endl;
+        cout << m_sensorId << ": " << ((9.0/5.0) * celsius) + 32.0 << endl;
     };
 private:
     const ISensor::SensorId m_sensorId;

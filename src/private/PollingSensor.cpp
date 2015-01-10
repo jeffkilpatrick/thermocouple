@@ -106,6 +106,7 @@ PollingSensor::Start()
 {
     if (!m_thread.joinable()) {
         m_threadExit = false;
+        m_pollSleepMutex.lock();
         m_thread = std::thread([this] () { RunLoop(); });
     }
 }
@@ -115,6 +116,7 @@ PollingSensor::Stop()
 {
     if (m_thread.joinable()) {
         m_threadExit = true;
+        m_pollSleepMutex.unlock();
         m_thread.join();
     }
 }
@@ -124,10 +126,10 @@ PollingSensor::RunLoop()
 {
     while (!m_threadExit) {
         float value;
+        auto now = std::chrono::system_clock::now();
         bool valid = Poll(value);
 
         if (valid) {
-            auto now = std::chrono::system_clock::now();
             ScopedRecursiveLock lock(m_subscriptionsMutex);
             for (auto subEntry = m_subscriptions.begin(); subEntry != m_subscriptions.end(); ++subEntry) {
                 auto& sub = subEntry->second;
@@ -150,7 +152,8 @@ PollingSensor::RunLoop()
             }
         } // valid
 
-        std::this_thread::sleep_for(m_interval);
+        auto wake = now + m_interval;
+        m_pollSleepMutex.try_lock_until(wake);
     }
 }
 

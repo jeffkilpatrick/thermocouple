@@ -69,6 +69,7 @@ private:
     mutable RecursiveMutex m_subscriptionsMutex;
 
     std::thread m_thread;
+    std::timed_mutex m_pollSleepMutex;
     std::atomic<bool> m_threadExit;
 
     //

@@ -204,17 +204,23 @@ SensorBroker::Impl::Unregister(const ISensor::SensorId& sensorId)
 // ----------------------------------------------------------------------------------
 
 namespace {
-    SensorBroker* s_instance = nullptr;
+    std::unique_ptr<SensorBroker> s_instance;
 }
 
 /*static*/ SensorBroker&
 SensorBroker::Instance()
 {
     if (!s_instance) {
-        s_instance = new SensorBroker(); // TODO-jrk
+        s_instance.reset(new SensorBroker()); // TODO-jrk
     }
     
     return *s_instance;
+}
+
+/*static*/ SensorBroker*
+SensorBroker::GetInstance()
+{
+    return s_instance.get();
 }
 
 SensorBroker::SensorBroker()

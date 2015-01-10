@@ -57,9 +57,10 @@ PhidgetsManager::Impl::Impl()
 
 PhidgetsManager::Impl::~Impl()
 {
-    Close();
     m_exitRegistration = true;
+    m_registrationCv.notify_one();
     m_registrationThread.join();
+    Close();
 }
 
 namespace {
@@ -95,7 +96,11 @@ PhidgetsManager::Impl::Close()
     if (!m_handle) {
         return;
     }
-    
+
+    while (!m_phidgets.empty()) {
+        UnregisterSensor(m_phidgets.begin()->first);
+    }
+
     CPhidgetManager_close(m_handle);
     CPhidgetManager_delete(m_handle);
     m_handle = nullptr;
@@ -186,9 +191,15 @@ PhidgetsManager::Impl::UnregisterSensor(int serial)
 {
     auto phidget = m_phidgets[serial];
     m_phidgets.erase(serial);
-    SensorBroker::Instance().Unregister(AmbientSensorId(serial));
+
+    auto broker = SensorBroker::GetInstance();
+    if (!broker) {
+        return;
+    }
+
+    broker->Unregister(AmbientSensorId(serial));
     for (int i = 0; i < phidget->GetInputs(); ++i) {
-        SensorBroker::Instance().Unregister(ProbeSensorId(serial, i));
+        broker->Unregister(ProbeSensorId(serial, i));
     }
 }
 
@@ -220,14 +231,14 @@ PhidgetsManager::Impl::RegistrationLoop()
 //
 
 namespace {
-    LocalPhidgetsManager* s_phidgetsManager = nullptr;
+    std::unique_ptr<LocalPhidgetsManager> s_phidgetsManager;
 }
 
 /*static*/ LocalPhidgetsManager&
 LocalPhidgetsManager::Instance()
 {
     if (!s_phidgetsManager) { // TODO-jrk: InitOnce()
-        s_phidgetsManager = new LocalPhidgetsManager();
+        s_phidgetsManager.reset(new LocalPhidgetsManager());
     }
 
     return *s_phidgetsManager;
@@ -259,3 +270,86 @@ LocalPhidgetsManager::LocalPhidgetsManager()
     : m_impl(new Impl())
 { }
 
+//
+//
+//
+
+class RemotePhidgetsManager::Impl : public PhidgetsManager::Impl {
+public:
+    Impl(const char *mdnsService, const char* password);
+    Impl(const char *address, int port, const char* password);
+
+protected:
+    void DoOpen() override;
+private:
+    const char* m_mdnsService;
+    const char* m_address;
+    const char* m_password;
+    const int m_port;
+};
+
+RemotePhidgetsManager::Impl::Impl(const char *mdnsService, const char* password)
+    : m_mdnsService(mdnsService)
+    , m_address(nullptr)
+    , m_password(password)
+    , m_port(0)
+{
+    Open();
+}
+
+RemotePhidgetsManager::Impl::Impl(const char *address, int port, const char* password)
+    : m_mdnsService(nullptr)
+    , m_address(address)
+    , m_password(password)
+    , m_port(port)
+{
+    Open();
+}
+
+void
+RemotePhidgetsManager::Impl::DoOpen()
+{
+    int result;
+    if (m_mdnsService) {
+        result = CPhidgetManager_openRemote(m_handle, m_mdnsService, m_password);
+    }
+    else {
+        result = CPhidgetManager_openRemoteIP(m_handle, m_address, m_port, m_password);
+    }
+
+    if (result) {
+        const char* errorDesc;
+        CPhidget_getErrorDescription(result, &errorDesc);
+        throw std::runtime_error(errorDesc);
+    }
+}
+
+RemotePhidgetsManager::RemotePhidgetsManager(const char *mdnsService, const char* password)
+    : m_impl(new Impl(mdnsService, password))
+{ }
+
+RemotePhidgetsManager::RemotePhidgetsManager(const char *address, int port, const char* password)
+    : m_impl(new Impl(address, port, password))
+{ }
+
+/*static*/ std::shared_ptr<RemotePhidgetsManager>
+RemotePhidgetsManager::OpenMdns(const char *mdnsName, const char* password)
+{
+    try {
+        return std::shared_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(mdnsName, password));
+    }
+    catch (const std::runtime_error&) {
+        return nullptr;
+    }
+}
+
+/*static*/ std::shared_ptr<RemotePhidgetsManager>
+RemotePhidgetsManager::OpenAddress(const char *address, int port, const char* password)
+{
+    try {
+        return std::shared_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(address, port, password));
+    }
+    catch (const std::runtime_error&) {
+        return nullptr;
+    }
+}

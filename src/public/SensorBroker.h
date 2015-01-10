@@ -20,8 +20,11 @@ class SensorBroker {
     class Impl;
 
 public:
-    // Get the SensorBroker instance.
+    // Get the SensorBroker instance, initializing if necessary.
     static SensorBroker& Instance();
+
+    // Get the SensorBroker instance, but do not initialize.
+    static SensorBroker* GetInstance();
 
     // Get the set of currently available sensors.
     std::set<ISensor::SensorId> AvailableSensors() const;
