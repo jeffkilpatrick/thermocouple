@@ -11,6 +11,7 @@
 
 #include "AbstractSensor.h"
 
+#include <atomic>
 #include <mutex>
 #include <thread>
 #include <unordered_map>
@@ -52,7 +53,7 @@ private:
     //
     // Types
     //
-    
+
     typedef std::recursive_mutex RecursiveMutex;
     typedef std::lock_guard<RecursiveMutex> ScopedRecursiveLock;
 

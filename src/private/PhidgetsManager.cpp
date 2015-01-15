@@ -11,9 +11,10 @@
 #include "PhidgetsSensor.h"
 #include "SensorBroker.h"
 
-#include "Phidget21/phidget21.h"
+#include "phidget21.h"
 
 #include <atomic>
+#include <condition_variable>
 #include <mutex>
 #include <queue>
 #include <sstream>

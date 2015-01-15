@@ -8,7 +8,7 @@
 
 #include "PhidgetsSensor.h"
 
-#include "Phidget21/phidget21.h"
+#include "phidget21.h"
 
 class TemperaturePhidget::Impl {
 public:
