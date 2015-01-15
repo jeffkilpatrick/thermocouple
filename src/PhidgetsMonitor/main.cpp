@@ -16,6 +16,7 @@
 
 using std::cout;
 using std::endl;
+using std::flush;
 
 static std::mutex s_printingMutex;
 
@@ -45,15 +46,15 @@ int main(int argc, const char* argv[])
     const std::chrono::seconds interval(1);
     std::vector<std::shared_ptr<IListener>> listeners;
 
-    cout << "Waiting for sensors...";
+    cout << "Waiting for sensors..." << flush;
     auto sensors = broker.AvailableSensors();
     while (sensors.empty()) {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        cout << '.';
+        cout << '.' << flush;
         sensors = broker.AvailableSensors();
     }
     cout << endl;
-    
+
     cout << "Sensors:\n";
     for (auto sid : sensors) {
         cout << "\t" << sid << endl;
