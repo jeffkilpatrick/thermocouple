@@ -39,3 +39,11 @@ add_library(Thermocouple SHARED
 target_link_libraries(Thermocouple
 	${PHIDGET21_LIBRARY}
 )
+
+set_target_properties(Thermocouple
+    PROPERTIES 
+        FRAMEWORK true
+        PUBLIC_HEADER ${PUBHDR}
+)
+
+install(TARGETS Thermocouple DESTINATION lib)
