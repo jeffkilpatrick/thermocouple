@@ -40,7 +40,15 @@ private:
 
 int main(int argc, const char* argv[])
 {
-    LocalPhidgetsManager::Instance();
+    std::shared_ptr<RemotePhidgetsManager> remotePhidgets;
+
+    if (argc > 1) {
+        remotePhidgets = RemotePhidgetsManager::OpenAddress(argv[1]);
+    }
+    else {
+        LocalPhidgetsManager::Instance();
+    }
+
     auto& broker = SensorBroker::Instance();
 
     const std::chrono::seconds interval(1);

@@ -14,9 +14,26 @@
 #include "phidget21.h"
 #endif
 
+namespace {
+const char* GetPhidgetErrorString(int errorCode)
+{
+    const char* errorString;
+    CPhidget_getErrorDescription(errorCode, &errorString);
+
+    return errorString;
+}
+}
+
+PhidgetException::PhidgetException(int errorCode)
+    : std::runtime_error( GetPhidgetErrorString(errorCode) )
+{}
+
 class TemperaturePhidget::Impl {
 public:
-    Impl(int serial);
+    Impl(
+        const PhidgetOpener& opener,
+         int serial);
+
     ~Impl();
 
     int GetInputs() const;
@@ -26,18 +43,21 @@ private:
     int m_inputs;
 };
 
-TemperaturePhidget::Impl::Impl(int serial)
+TemperaturePhidget::Impl::Impl(
+    const PhidgetOpener& opener,
+    int serial)
+
     : m_handle(nullptr)
     , m_inputs(-1)
 {
     CPhidgetTemperatureSensor_create(&m_handle);
 
-    if (CPhidget_open(reinterpret_cast<CPhidgetHandle>(m_handle), serial)) {
-        return; // TODO-jrk: report this
-    }
+    opener.OpenPhidget(m_handle, serial);
 
-    if (CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 1000)) {
-        return; // TODO-jrk: report this
+    int result;
+
+    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 1000))) {
+        throw PhidgetException(result);
     }
 
     CPhidgetTemperatureSensor_getTemperatureInputCount(m_handle, &m_inputs);
@@ -65,8 +85,11 @@ TemperaturePhidget::Impl::GetHandle() const
 //
 //
 
-TemperaturePhidget::TemperaturePhidget(int serial)
-    : m_impl(new Impl(serial))
+TemperaturePhidget::TemperaturePhidget(
+    const PhidgetOpener& opener,
+    int serial)
+
+    : m_impl(new Impl(opener, serial))
 { }
 
 TemperaturePhidget::~TemperaturePhidget()

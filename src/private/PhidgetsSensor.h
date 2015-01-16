@@ -11,11 +11,24 @@
 
 #include "PollingSensor.h"
 
+class PhidgetException : public std::runtime_error {
+public:
+    PhidgetException(int errorCode);
+};
+
+class PhidgetOpener {
+public:
+    virtual void OpenPhidget(void* handle, int serial) const = 0;
+};
+
 class TemperaturePhidget {
     class Impl;
 
 public:
-    TemperaturePhidget(int serial);
+    TemperaturePhidget(
+        const PhidgetOpener& opener,
+        int serial);
+
     ~TemperaturePhidget();
 
     int GetInputs() const;

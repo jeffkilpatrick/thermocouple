@@ -19,12 +19,13 @@
 
 #include <atomic>
 #include <condition_variable>
+#include <iostream>
 #include <mutex>
 #include <queue>
 #include <sstream>
 #include <thread>
 
-class PhidgetsManager::Impl {
+class PhidgetsManager::Impl : public PhidgetOpener {
 public:
     Impl();
     ~Impl();
@@ -180,14 +181,20 @@ ProbeSensorId(int serial, int input)
 void
 PhidgetsManager::Impl::RegisterSensor(int serial)
 {
-    auto phidget = std::make_shared<TemperaturePhidget>(serial);
-    m_phidgets[serial] = phidget;
-    auto ambient = std::make_shared<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial));
-    SensorBroker::Instance().Register(ambient);
+    try {
+        auto phidget = std::make_shared<TemperaturePhidget>(*this, serial);
+        m_phidgets[serial] = phidget;
+        auto ambient = std::make_shared<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial));
+        SensorBroker::Instance().Register(ambient);
 
-    for (int i = 0; i < phidget->GetInputs(); ++i) {
-        auto probe = std::make_shared<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i);
-        SensorBroker::Instance().Register(probe);
+        for (int i = 0; i < phidget->GetInputs(); ++i) {
+            auto probe = std::make_shared<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i);
+            SensorBroker::Instance().Register(probe);
+        }
+    }
+    catch ( PhidgetException& e ) {
+        // TODO-jrk: we need a logger
+        std::cerr << "Failed to register sensor " << serial << ": " << e.what() << std::endl;
     }
 }
 
@@ -256,6 +263,8 @@ LocalPhidgetsManager::Instance()
 class LocalPhidgetsManager::Impl : public PhidgetsManager::Impl {
 public:
     Impl();
+    void OpenPhidget(void* handle, int serial) const override;
+
 protected:
     void DoOpen() override;
 };
@@ -263,6 +272,16 @@ protected:
 LocalPhidgetsManager::Impl::Impl()
 {
     Open();
+}
+
+void
+LocalPhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
+{
+    int result;
+
+    if ((result = CPhidget_open(reinterpret_cast<CPhidgetHandle>(handle), serial))) {
+        throw PhidgetException(result);
+    }
 }
 
 void
@@ -283,6 +302,7 @@ class RemotePhidgetsManager::Impl : public PhidgetsManager::Impl {
 public:
     Impl(const char *mdnsService, const char* password);
     Impl(const char *address, int port, const char* password);
+    void OpenPhidget(void* handle, int serial) const override;
 
 protected:
     void DoOpen() override;
@@ -309,6 +329,23 @@ RemotePhidgetsManager::Impl::Impl(const char *address, int port, const char* pas
     , m_port(port)
 {
     Open();
+}
+
+void
+RemotePhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
+{
+    int result;
+
+    if (m_mdnsService) {
+        result = CPhidget_openRemote(reinterpret_cast<CPhidgetHandle>(handle), serial, m_mdnsService, m_password);
+    }
+    else {
+        result = CPhidget_openRemoteIP(reinterpret_cast<CPhidgetHandle>(handle), serial, m_address, m_port, m_password);
+    }
+
+    if (result) {
+        throw PhidgetException(result);
+    }
 }
 
 void
