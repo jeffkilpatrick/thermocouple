@@ -43,7 +43,10 @@ target_link_libraries(Thermocouple
 set_target_properties(Thermocouple
     PROPERTIES 
         FRAMEWORK true
-        PUBLIC_HEADER ${PUBHDR}
+        PUBLIC_HEADER "${PUBHDR}"
 )
 
-install(TARGETS Thermocouple DESTINATION lib)
+install(TARGETS Thermocouple
+    LIBRARY       DESTINATION lib
+    PUBLIC_HEADER DESTINATION include
+)

@@ -40,6 +40,12 @@ case "$platform" in
 	cmakeOutput=$builddir/Makefile
 
 	runTarget() {
+	    if [ $# -eq 2 ]; then
+		if [ "$2" = "true" ]; then
+		    sudo make $1
+		    return
+		fi
+	    fi
 	    make $1
 	}
 
@@ -64,5 +70,5 @@ else
 fi
 
 if [ "$action" = "install" ]; then
-    runTarget install
+    runTarget install true
 fi
