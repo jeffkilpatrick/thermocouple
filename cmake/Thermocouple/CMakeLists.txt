@@ -47,6 +47,7 @@ set_target_properties(Thermocouple
 )
 
 install(TARGETS Thermocouple
+    FRAMEWORK     DESTINATION /Library/Frameworks
     LIBRARY       DESTINATION lib
     PUBLIC_HEADER DESTINATION include
 )

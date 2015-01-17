@@ -48,10 +48,23 @@ case "$platform" in
 	    fi
 	    make $1
 	}
-
 	;;
     Darwin)
+
+	cmakeGenerator="Unix Makefiles"
+	cmakeOutput=$builddir/Makefile
+
+	runTarget() {
+	    if [ $# -eq 2 ]; then
+		if [ "$2" = "true" ]; then
+		    sudo make $1
+		    return
+		fi
+	    fi
+	    make $1
+	}
 	;;
+
     *)
 	echo "Unknown OS"
 	exit 1;

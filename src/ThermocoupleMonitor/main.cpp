@@ -8,10 +8,13 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cmath>
 #include <iostream>
 #include <map>
+#include <cmath>
 #include <ncurses.h>
 #include <thread>
+#include <vector>
 
 struct SensorInfo {
     std::string Name;
