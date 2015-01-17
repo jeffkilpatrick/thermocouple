@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
+project(Thermocouple)
+
 if(UNIX)
     set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
     if(APPLE)
@@ -11,8 +13,6 @@ if(UNIX)
     endif()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_EXTRA_FLAGS} ${CXX_WARNINGS}")
 endif()
-
-project(Thermocouple)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     if(NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.7.999")
@@ -25,3 +25,4 @@ set(SRCDIR ${ROOTDIR}/src)
 
 add_subdirectory(Thermocouple)
 add_subdirectory(PhidgetsMonitor)
+add_subdirectory(ThermocoupleMonitor)
