@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
-project(Thermocouple)
+project(Thermocouple C CXX)
+
+cmake_policy(SET CMP0042 OLD)
 
 if(UNIX)
     set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
@@ -22,7 +24,10 @@ endif()
 
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)
 set(SRCDIR ${ROOTDIR}/src)
+set(TESTDIR ${ROOTDIR}/test)
 
 add_subdirectory(Thermocouple)
 add_subdirectory(PhidgetsMonitor)
 add_subdirectory(ThermocoupleMonitor)
+add_subdirectory(gtest)
+add_subdirectory(unittest)
