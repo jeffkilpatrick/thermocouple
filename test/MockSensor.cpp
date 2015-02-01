@@ -19,19 +19,22 @@ MockSensor::MockSensor(
     , m_value(value)
 { }
 
-MockSensor::~MockSensor()
+MockSensor::~MockSensor() noexcept
 {
-    Stop();
+	try {
+	    Stop();
+	}
+	catch (...) { } // not worth crashing
 }
 
 void
-MockSensor::SetValue(float value)
+MockSensor::SetValue(float value) noexcept
 {
     m_value = value;
 }
 
 bool
-MockSensor::Poll(float& value) const
+MockSensor::Poll(float& value) const noexcept
 {
     value = m_value;
     return true;

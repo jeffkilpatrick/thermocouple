@@ -19,14 +19,15 @@ public:
         std::chrono::milliseconds interval = std::chrono::seconds(1),
         float value = 35.0);
 
-    ~MockSensor();
+    ~MockSensor() noexcept;
 
-    void SetValue(float value);
+    void SetValue(float value) noexcept;
 protected:
-    bool Poll(float& value) const override;
+    bool Poll(float& value) const noexcept override;
 
     std::atomic<float> m_value;
 
+public:
     MockSensor(const MockSensor&) = delete;
     MockSensor& operator=(const MockSensor&) = delete;
 };

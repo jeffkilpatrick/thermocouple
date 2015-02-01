@@ -54,8 +54,8 @@ private:
     // Types
     //
 
-    typedef std::recursive_mutex RecursiveMutex;
-    typedef std::lock_guard<RecursiveMutex> ScopedRecursiveLock;
+    using RecursiveMutex = std::recursive_mutex;
+    using ScopedRecursiveLock = std::lock_guard<RecursiveMutex>;
 
     //
     // The thread's main()

@@ -22,7 +22,7 @@ public:
         PAUSED
     };
 
-    typedef std::chrono::system_clock Clock;
+    using Clock = std::chrono::system_clock;
 
     virtual ~Subscription() = default;
 
@@ -52,7 +52,7 @@ private:
 //
 class IntervalSubscription : public Subscription {
 public:
-    typedef std::chrono::milliseconds Interval;
+    using Interval = std::chrono::milliseconds;
 
     IntervalSubscription(
         std::weak_ptr<IListener> listener,
