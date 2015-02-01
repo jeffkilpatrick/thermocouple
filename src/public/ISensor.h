@@ -58,6 +58,8 @@ public:
 
 protected:
     ISensor() = default;
+
+public:
     ISensor(const ISensor&) = delete;
     ISensor& operator=(const ISensor&) = delete;
 };

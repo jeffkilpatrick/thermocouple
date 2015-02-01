@@ -20,12 +20,15 @@ PollingSensor::PollingSensor(
     , m_interval(interval)
 { }
 
-PollingSensor::~PollingSensor()
+PollingSensor::~PollingSensor() noexcept
 {
-    // Last ditch effort. If this does anything, we're going to
-    // crash with some regularity. Our child should have
-    // called Stop() in their destructor.
-    Stop();
+    try {
+        // Last ditch effort. If this does anything, we're going to
+        // crash with some regularity. Our child should have
+        // called Stop() in their destructor.
+        Stop();
+    }
+    catch (...) { } // nothing worth crashing over here
 }
 
 void
@@ -97,7 +100,7 @@ PollingSensor::GetStatus(SubscriptionId subId) const
     if (sub == m_subscriptions.end()) {
         return Subscription::Status::UNKNOWN_SUBSCRIPTION;
     }
-    
+
     return sub->second->GetStatus();
 }
 

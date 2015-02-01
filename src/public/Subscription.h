@@ -24,7 +24,7 @@ public:
 
     typedef std::chrono::system_clock Clock;
 
-    virtual ~Subscription();
+    virtual ~Subscription() = default;
 
     std::weak_ptr<IListener> GetListener() const;
 

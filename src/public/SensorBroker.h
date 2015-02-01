@@ -17,8 +17,6 @@
 #pragma GCC visibility push(default)
 
 class SensorBroker {
-    class Impl;
-
 public:
     // Get the SensorBroker instance, initializing if necessary.
     static SensorBroker& Instance();
@@ -40,7 +38,7 @@ public:
         std::weak_ptr<IListener> listener,
         const ISensor::SensorId& sensor,
         float delta);
-    
+
     // Purge the speicifed subscription.
     // @return true if the given subscription is valid.
     bool Unsubscribe(ISensor::SubscriptionId subscription);
@@ -55,7 +53,7 @@ public:
 
     // Get the status of the given subscription.
     Subscription::Status GetStatus(ISensor::SubscriptionId subscription) const;
-    
+
     // Register a sensor.
     // @return true if the given sensor's ID is unique and registration succeeds.
     bool Register(std::shared_ptr<ISensor> sensor);
@@ -67,10 +65,12 @@ public:
     // Reset the broker, forgetting all sensors and subscriptions.
     void Reset();
 private:
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 
     SensorBroker();
 
+public:
     SensorBroker(const SensorBroker&) = delete;
     SensorBroker& operator=(const SensorBroker&) = delete;
 };

@@ -22,21 +22,21 @@ public:
 };
 
 class TemperaturePhidget {
-    class Impl;
-
 public:
     TemperaturePhidget(
         const PhidgetOpener& opener,
         int serial);
 
-    ~TemperaturePhidget();
+    ~TemperaturePhidget() noexcept;
 
     int GetInputs() const;
     void* GetHandle() const;
 
 private:
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 
+public:
     TemperaturePhidget(const TemperaturePhidget&) = delete;
     TemperaturePhidget& operator=(const TemperaturePhidget&) = delete;
 };
@@ -59,7 +59,7 @@ public:
         const SensorId& sensorId,
         int input,
         std::chrono::milliseconds interval = DefaultInterval);
-    ~PhidgetsProbeSensor();
+    ~PhidgetsProbeSensor() noexcept;
 
     bool Poll(float& value) const override;
 
@@ -73,7 +73,7 @@ public:
         std::shared_ptr<TemperaturePhidget> phidget,
         const SensorId& sensorId,
         std::chrono::milliseconds interval = DefaultInterval);
-    ~PhidgetsAmbientSensor();
+    ~PhidgetsAmbientSensor() noexcept;
 
     bool Poll(float& value) const override;
 };

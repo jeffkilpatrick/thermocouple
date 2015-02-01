@@ -56,7 +56,7 @@ TemperaturePhidget::Impl::Impl(
 
     int result;
 
-    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 1000))) {
+    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 2000))) {
         throw PhidgetException(result);
     }
 
@@ -92,8 +92,8 @@ TemperaturePhidget::TemperaturePhidget(
     : m_impl(new Impl(opener, serial))
 { }
 
-TemperaturePhidget::~TemperaturePhidget()
-{}
+TemperaturePhidget::~TemperaturePhidget() noexcept
+{ }
 
 int
 TemperaturePhidget::GetInputs() const
@@ -132,9 +132,12 @@ PhidgetsProbeSensor::PhidgetsProbeSensor(
     Start();
 }
 
-PhidgetsProbeSensor::~PhidgetsProbeSensor()
+PhidgetsProbeSensor::~PhidgetsProbeSensor() noexcept
 {
-    Stop();
+    try {
+        Stop();
+    }
+    catch (...) { } // nothing worth crashing here
 }
 
 bool
@@ -160,9 +163,12 @@ PhidgetsAmbientSensor::PhidgetsAmbientSensor(
     Start();
 }
 
-PhidgetsAmbientSensor::~PhidgetsAmbientSensor()
+PhidgetsAmbientSensor::~PhidgetsAmbientSensor() noexcept
 {
-    Stop();
+    try {
+        Stop();
+    }
+    catch (...) { } // nothing worth crashing here.
 }
 
 bool

@@ -19,17 +19,17 @@ public:
 };
 
 class LocalPhidgetsManager : public PhidgetsManager {
-    class Impl;
 public:
     static LocalPhidgetsManager& Instance();
 
 private:
     LocalPhidgetsManager();
+
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 };
 
 class RemotePhidgetsManager : public PhidgetsManager {
-    class Impl;
 public:
 
     // Open a Phidgets web service via mDNS.
@@ -53,6 +53,8 @@ public:
 private:
     RemotePhidgetsManager(const char* mdnsName, const char* password);
     RemotePhidgetsManager(const char* address, int port, const char* password);
+
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 };
 

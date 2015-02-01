@@ -22,7 +22,7 @@
 class PollingSensor : public AbstractSensor {
 
 public:
-    virtual ~PollingSensor();
+    virtual ~PollingSensor() noexcept;
 
     void AddNotification(
         SubscriptionId subId,
