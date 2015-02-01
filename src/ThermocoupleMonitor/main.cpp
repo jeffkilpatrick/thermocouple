@@ -22,17 +22,17 @@ struct SensorInfo {
     std::atomic<float> Value;
 
     SensorInfo(std::string name, int row)
-	: Name(name)
-	, Row(row)
+        : Name(name)
+        , Row(row)
     {
-	Value = std::nanf("");
+        Value = std::nanf("");
     }
 
     SensorInfo(const SensorInfo& other)
         : Name(other.Name)
         , Row(other.Row)
     {
-	Value = (float)other.Value;
+        Value = (float)other.Value;
     }
 };
 
@@ -61,26 +61,26 @@ void AttachRunLoop()
 
     std::set<ISensor::SensorId> knownSensors;
     while (true) {
-	auto currentSensors = broker.AvailableSensors();
-	decltype(currentSensors) newSensors;
+        auto currentSensors = broker.AvailableSensors();
+        decltype(currentSensors) newSensors;
 
-	std::set_difference(
+        std::set_difference(
             currentSensors.begin(), currentSensors.end(),
-	    knownSensors.begin(), knownSensors.end(),
-	    std::inserter(newSensors, newSensors.begin()) );
+            knownSensors.begin(), knownSensors.end(),
+            std::inserter(newSensors, newSensors.begin()) );
 
-	for ( auto& n : newSensors ) {
-	    knownSensors.insert(n);
+        for ( auto& n : newSensors ) {
+            knownSensors.insert(n);
 
-	    auto s = Sensors.find(n);
-	    if (s != Sensors.end()) {
-		auto listener = std::make_shared<UpdateListener>( s->second );
-		broker.NotifyInterval( listener, n, std::chrono::seconds(1) );
-		listeners.push_back( listener );
-	    }
-	}
-	
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            auto s = Sensors.find(n);
+            if (s != Sensors.end()) {
+                auto listener = std::make_shared<UpdateListener>( s->second );
+                broker.NotifyInterval( listener, n, std::chrono::seconds(1) );
+                listeners.push_back( listener );
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 
@@ -94,44 +94,44 @@ public:
 class StdoutOutputter : public Outputter{
 public:
     void Flush() const override {
-	printf("\n");
-	fflush(stdout);
+        printf("\n");
+        fflush(stdout);
     }
     void OutputReading( const SensorInfo& s ) const override {
-	float value = s.Value;
-	if ( !std::isnan( value ) ) {
-	    printf("%-10s%g\n", s.Name.substr(0, 9).c_str(), value );
-	}
-	else {
-	    printf("%-10sNAN\n", s.Name.substr(0, 9).c_str() );
-	}
+        float value = s.Value;
+        if ( !std::isnan( value ) ) {
+            printf("%-10s%g\n", s.Name.substr(0, 9).c_str(), value );
+        }
+        else {
+            printf("%-10sNAN\n", s.Name.substr(0, 9).c_str() );
+        }
     }
 };
 
 class CursesOutputter : public Outputter {
 public:
     CursesOutputter() {
-	initscr();
+        initscr();
     }
     ~CursesOutputter() {
-	endwin();
+        endwin();
     }
 
     void Flush() const override {
-	refresh();
+        refresh();
     }
 
     void OutputHeader() const override {
-	for (const auto& s : Sensors ) {
-	    mvprintw( s.second.Row,  0, "%s", s.second.Name.substr(0, 9).c_str() );
-	}
+        for (const auto& s : Sensors ) {
+            mvprintw( s.second.Row,  0, "%s", s.second.Name.substr(0, 9).c_str() );
+        }
     }
 
     void OutputReading( const SensorInfo& s ) const override {
-	float value = s.Value;
-	if ( !std::isnan(value) ) {
-	    mvprintw( s.Row, 10, "%g", value );
-	}
+        float value = s.Value;
+        if ( !std::isnan(value) ) {
+            mvprintw( s.Row, 10, "%g", value );
+        }
     }
 };
 
@@ -145,11 +145,11 @@ int main(int argc, char* argv[])
 
     outputter.OutputHeader();
     while (true) {
-	for (const auto& s : Sensors ) {
-	    outputter.OutputReading( s.second );
-	}
-	outputter.Flush();
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    for (const auto& s : Sensors ) {
+        outputter.OutputReading( s.second );
+    }
+    outputter.Flush();
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
     attachThread.join();
