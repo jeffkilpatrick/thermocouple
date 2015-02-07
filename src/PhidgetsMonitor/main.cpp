@@ -64,7 +64,7 @@ int main(int argc, const char* argv[])
     cout << endl;
 
     cout << "Sensors:\n";
-    for (auto sid : sensors) {
+    for (const auto& sid : sensors) {
         cout << "\t" << sid << endl;
 
         auto listener = std::make_shared<PrintingListener>(sid);

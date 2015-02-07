@@ -16,17 +16,17 @@
 class SensorBroker::Impl {
 public:
     std::set<ISensor::SensorId> AvailableSensors() const;
-    
+
     ISensor::SubscriptionId NotifyInterval(
         std::weak_ptr<IListener> listener,
         const ISensor::SensorId& sensorId,
         std::chrono::milliseconds interval);
-    
+
     ISensor::SubscriptionId NotifyOnChange(
         std::weak_ptr<IListener> listener,
         const ISensor::SensorId& sensorId,
         float delta);
-    
+
     bool Unsubscribe(ISensor::SubscriptionId subscription);
     bool Pause(ISensor::SubscriptionId subscription);
     bool Unpause(ISensor::SubscriptionId subscription);
@@ -52,13 +52,13 @@ std::set<ISensor::SensorId>
 SensorBroker::Impl::AvailableSensors() const
 {
     std::set<ISensor::SensorId> sensors;
-    
-    for (auto s : m_sensors) {
+
+    for (const auto& s : m_sensors) {
         if (s.second && s.second->GetStatus() != Subscription::Status::NO_SENSOR) {
             sensors.insert(s.first);
         }
     }
-    
+
     return std::move(sensors);
 }
 
@@ -77,7 +77,7 @@ SensorBroker::Impl::AddNotification(
     if (sensor != m_sensors.end()) {
         sensor->second->AddNotification(subId, sub);
     }
-    
+
     return subId;
 }
 
@@ -180,10 +180,10 @@ SensorBroker::Impl::Register(std::shared_ptr<ISensor> sensor)
             return false;
         }
 
-        for (auto sub = m_subscriptions.begin(); sub != m_subscriptions.end(); ++sub) {
-            if (sub->second.first == ident) {
-                sub->second.second->SetStatus(Subscription::Status::ACTIVE);
-                sensor->AddNotification(sub->first, sub->second.second);
+        for (const auto& sub : m_subscriptions) {
+            if (sub.second.first == ident) {
+                sub.second.second->SetStatus(Subscription::Status::ACTIVE);
+                sensor->AddNotification(sub.first, sub.second.second);
             }
         }
 
@@ -213,7 +213,7 @@ SensorBroker::Instance()
     if (!s_instance) {
         s_instance.reset(new SensorBroker()); // TODO-jrk
     }
-    
+
     return *s_instance;
 }
 

@@ -9,24 +9,26 @@
 #ifndef Thermocouple_MockSensor_h
 #define Thermocouple_MockSensor_h
 
-#include "PollingSensor.h"
+#include "SensorPoller.h"
 
-class MockSensor : public PollingSensor {
-
+class MockSensor
+    : public IPollableSensor
+    , public AbstractSensor
+{
 public:
     MockSensor(
         const SensorId& sensorId,
-        std::chrono::milliseconds interval = std::chrono::seconds(1),
+        std::shared_ptr<SensorPoller> poller,
         float value = 35.0);
-
-    ~MockSensor();
 
     void SetValue(float value);
 protected:
-    bool Poll(float& value) const override;
+    void PollAndNotify() override;
 
+    std::shared_ptr<SensorPoller> m_poller;
     std::atomic<float> m_value;
 
+public:
     MockSensor(const MockSensor&) = delete;
     MockSensor& operator=(const MockSensor&) = delete;
 };

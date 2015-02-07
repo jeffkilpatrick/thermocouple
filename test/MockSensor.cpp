@@ -12,17 +12,13 @@
 
 MockSensor::MockSensor(
     const SensorId& sensorId,
-    std::chrono::milliseconds interval,
+    std::shared_ptr<SensorPoller> poller,
     float value)
 
-    : PollingSensor(sensorId, interval)
+    : AbstractSensor(sensorId)
+    , m_poller(poller)
     , m_value(value)
 { }
-
-MockSensor::~MockSensor()
-{
-    Stop();
-}
 
 void
 MockSensor::SetValue(float value)
@@ -30,9 +26,8 @@ MockSensor::SetValue(float value)
     m_value = value;
 }
 
-bool
-MockSensor::Poll(float& value) const
+void
+MockSensor::PollAndNotify()
 {
-    value = m_value;
-    return true;
+    Notify(m_value);
 }

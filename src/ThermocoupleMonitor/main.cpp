@@ -66,21 +66,21 @@ void AttachRunLoop()
 
 	std::set_difference(
             currentSensors.begin(), currentSensors.end(),
-	    knownSensors.begin(), knownSensors.end(),
-	    std::inserter(newSensors, newSensors.begin()) );
+            knownSensors.begin(), knownSensors.end(),
+            std::inserter(newSensors, newSensors.begin()) );
 
-	for ( auto& n : newSensors ) {
-	    knownSensors.insert(n);
+        for ( const auto& n : newSensors ) {
+            knownSensors.insert(n);
 
-	    auto s = Sensors.find(n);
-	    if (s != Sensors.end()) {
-		auto listener = std::make_shared<UpdateListener>( s->second );
-		broker.NotifyInterval( listener, n, std::chrono::seconds(1) );
-		listeners.push_back( listener );
-	    }
-	}
-	
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            auto s = Sensors.find(n);
+            if (s != Sensors.end()) {
+                auto listener = std::make_shared<UpdateListener>( s->second );
+                broker.NotifyInterval( listener, n, std::chrono::seconds(1) );
+                listeners.push_back( listener );
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 

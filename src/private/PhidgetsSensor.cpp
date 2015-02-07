@@ -34,7 +34,7 @@ public:
         const PhidgetOpener& opener,
          int serial);
 
-    ~Impl();
+    ~Impl() noexcept;
 
     int GetInputs() const;
     void* GetHandle() const;
@@ -63,7 +63,7 @@ TemperaturePhidget::Impl::Impl(
     CPhidgetTemperatureSensor_getTemperatureInputCount(m_handle, &m_inputs);
 }
 
-TemperaturePhidget::Impl::~Impl()
+TemperaturePhidget::Impl::~Impl() noexcept
 {
     CPhidget_close(reinterpret_cast<CPhidgetHandle>(m_handle));
     CPhidget_delete(reinterpret_cast<CPhidgetHandle>(m_handle));
@@ -114,67 +114,60 @@ TemperaturePhidget::GetHandle() const
 PhidgetsSensor::PhidgetsSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
     const SensorId& sensorId,
-    std::chrono::milliseconds interval)
+    std::shared_ptr<SensorPoller> sensorPoller)
 
-    : PollingSensor(sensorId, interval)
+    : AbstractSensor(sensorId)
     , m_phidget(phidget)
+    , m_poller(sensorPoller)
 { }
+
+//
+//
+//
 
 PhidgetsProbeSensor::PhidgetsProbeSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
     const SensorId& sensorId,
     int input,
-    std::chrono::milliseconds interval)
+    std::shared_ptr<SensorPoller> sensorPoller)
 
-    : PhidgetsSensor(phidget, sensorId, interval)
+    : PhidgetsSensor(phidget, sensorId, sensorPoller)
     , m_input(input)
-{
-    Start();
-}
+{ }
 
-PhidgetsProbeSensor::~PhidgetsProbeSensor()
-{
-    Stop();
-}
-
-bool
-PhidgetsProbeSensor::Poll(float& value) const
+void
+PhidgetsProbeSensor::PollAndNotify()
 {
     auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
     double temperature = 0.0;
     if (CPhidgetTemperatureSensor_getTemperature(handle, m_input, &temperature)) {
-        return false;
+        return;
     }
 
-    value = temperature;
-    return true;
+    Notify(temperature);
 }
+
+//
+//
+//
 
 PhidgetsAmbientSensor::PhidgetsAmbientSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
     const SensorId& sensorId,
-    std::chrono::milliseconds interval)
+    std::shared_ptr<SensorPoller> sensorPoller)
 
-    : PhidgetsSensor(phidget, sensorId, interval)
-{
-    Start();
-}
+    : PhidgetsSensor(phidget, sensorId, sensorPoller)
+{ }
 
-PhidgetsAmbientSensor::~PhidgetsAmbientSensor()
-{
-    Stop();
-}
-
-bool
-PhidgetsAmbientSensor::Poll(float& value) const
+void
+PhidgetsAmbientSensor::PollAndNotify()
 {
     auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
     double ambient = 0.0;
     if (CPhidgetTemperatureSensor_getAmbientTemperature(handle, &ambient)) {
-        return false;
+        return;
     }
 
-    value = ambient;
-    return true;
+    Notify(ambient);
 }
 
