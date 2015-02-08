@@ -65,7 +65,7 @@ public:
     // Reset the broker, forgetting all sensors and subscriptions.
     void Reset();
 private:
-    class Impl;
+    struct Impl;
     std::unique_ptr<Impl> m_impl;
 
     SensorBroker();
