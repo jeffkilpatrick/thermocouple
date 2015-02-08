@@ -61,7 +61,9 @@ PhidgetsManager::Impl::Impl()
     : m_handle(nullptr)
     , m_registrationThread([this] () { RegistrationLoop(); })
     , m_poller(new SensorPoller())
-{ }
+{
+    m_poller->Start();
+}
 
 PhidgetsManager::Impl::~Impl()
 {
