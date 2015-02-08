@@ -33,6 +33,7 @@ public:
 private:
     const ISensor::SensorId m_sensorId;
 
+public:
     PrintingListener() = delete;
     PrintingListener(const PrintingListener&) = delete;
     PrintingListener& operator=(const PrintingListener&) = delete;

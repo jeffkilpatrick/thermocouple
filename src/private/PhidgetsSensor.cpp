@@ -56,7 +56,7 @@ TemperaturePhidget::Impl::Impl(
 
     int result;
 
-    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 1000))) {
+    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 2000))) {
         throw PhidgetException(result);
     }
 
@@ -117,6 +117,9 @@ PhidgetsSensor::PhidgetsSensor(
 
     : AbstractSensor(sensorId)
     , m_phidget(phidget)
+{ }
+
+PhidgetsSensor::~PhidgetsSensor()
 { }
 
 //

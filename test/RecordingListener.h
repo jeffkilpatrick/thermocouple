@@ -17,7 +17,7 @@
 
 class RecordingListener : public IListener {
 public:
-    typedef std::pair<std::chrono::system_clock::time_point, float> Value;
+    using Value = std::pair<std::chrono::system_clock::time_point, float>;
 
     RecordingListener() = default;
     void Notify(float celsius) override;
@@ -27,6 +27,7 @@ public:
 private:
     std::vector<Value> m_values;
 
+public:
     RecordingListener(const RecordingListener&) = delete;
     RecordingListener& operator=(const RecordingListener&) = delete;
 };

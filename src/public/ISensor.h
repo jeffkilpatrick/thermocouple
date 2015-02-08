@@ -21,8 +21,8 @@ class IListener;
 
 class ISensor {
 public:
-    typedef std::string SensorId;
-    typedef uint32_t SubscriptionId;
+    using SensorId = std::string;
+    using SubscriptionId = uint32_t;
 
     // Get this sensor's unique identifier.
     virtual const SensorId& Identifier() const = 0;
@@ -58,6 +58,8 @@ public:
 
 protected:
     ISensor() = default;
+
+public:
     ISensor(const ISensor&) = delete;
     ISensor& operator=(const ISensor&) = delete;
 };

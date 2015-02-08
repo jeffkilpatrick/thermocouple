@@ -30,8 +30,6 @@ public:
 //
 
 class TemperaturePhidget {
-    class Impl;
-
 public:
     TemperaturePhidget(
         const PhidgetOpener& opener,
@@ -43,8 +41,10 @@ public:
     void* GetHandle() const;
 
 private:
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 
+public:
     TemperaturePhidget(const TemperaturePhidget&) = delete;
     TemperaturePhidget& operator=(const TemperaturePhidget&) = delete;
 };
@@ -61,6 +61,8 @@ protected:
     PhidgetsSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
         const SensorId& sensorId);
+
+    ~PhidgetsSensor();
 
     std::shared_ptr<TemperaturePhidget> m_phidget;
 };

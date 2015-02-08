@@ -16,8 +16,6 @@ Subscription::Subscription(std::weak_ptr<IListener> listener)
     , m_status(Subscription::Status::ACTIVE)
 { }
 
-Subscription::~Subscription() { }
-
 Subscription::Status
 Subscription::GetStatus() const
 {
