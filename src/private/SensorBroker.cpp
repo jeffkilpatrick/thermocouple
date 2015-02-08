@@ -88,7 +88,7 @@ SensorBroker::AvailableSensors() const
         }
     }
 
-    return std::move(sensors);
+    return sensors;
 }
 
 ISensor::SubscriptionId
