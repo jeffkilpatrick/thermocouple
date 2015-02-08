@@ -18,14 +18,12 @@ class MockSensor
 public:
     MockSensor(
         const SensorId& sensorId,
-        std::shared_ptr<SensorPoller> poller,
         float value = 35.0);
 
     void SetValue(float value);
 protected:
     void PollAndNotify() override;
 
-    std::shared_ptr<SensorPoller> m_poller;
     std::atomic<float> m_value;
 
 public:

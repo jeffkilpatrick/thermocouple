@@ -73,7 +73,6 @@ esac
 if [ "$action" = "build" -o "$action" = "install" ]; then
     mkdir -p "$builddir"
     cd "$builddir"
-    #test -e "$cmakeOutput" || 
     cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config
     runTarget all
 elif [ "$action" = "clean" ]; then

@@ -34,7 +34,7 @@ public:
         const PhidgetOpener& opener,
          int serial);
 
-    ~Impl() noexcept;
+    ~Impl();
 
     int GetInputs() const;
     void* GetHandle() const;
@@ -63,7 +63,7 @@ TemperaturePhidget::Impl::Impl(
     CPhidgetTemperatureSensor_getTemperatureInputCount(m_handle, &m_inputs);
 }
 
-TemperaturePhidget::Impl::~Impl() noexcept
+TemperaturePhidget::Impl::~Impl()
 {
     CPhidget_close(reinterpret_cast<CPhidgetHandle>(m_handle));
     CPhidget_delete(reinterpret_cast<CPhidgetHandle>(m_handle));
@@ -113,12 +113,10 @@ TemperaturePhidget::GetHandle() const
 
 PhidgetsSensor::PhidgetsSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
-    const SensorId& sensorId,
-    std::shared_ptr<SensorPoller> sensorPoller)
+    const SensorId& sensorId)
 
     : AbstractSensor(sensorId)
     , m_phidget(phidget)
-    , m_poller(sensorPoller)
 { }
 
 //
@@ -128,10 +126,9 @@ PhidgetsSensor::PhidgetsSensor(
 PhidgetsProbeSensor::PhidgetsProbeSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
     const SensorId& sensorId,
-    int input,
-    std::shared_ptr<SensorPoller> sensorPoller)
+    int input)
 
-    : PhidgetsSensor(phidget, sensorId, sensorPoller)
+    : PhidgetsSensor(phidget, sensorId)
     , m_input(input)
 { }
 
@@ -153,10 +150,9 @@ PhidgetsProbeSensor::PollAndNotify()
 
 PhidgetsAmbientSensor::PhidgetsAmbientSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
-    const SensorId& sensorId,
-    std::shared_ptr<SensorPoller> sensorPoller)
+    const SensorId& sensorId)
 
-    : PhidgetsSensor(phidget, sensorId, sensorPoller)
+    : PhidgetsSensor(phidget, sensorId)
 { }
 
 void

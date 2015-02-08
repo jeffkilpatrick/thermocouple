@@ -19,8 +19,8 @@ TEST(MockSensorTest, Interval) {
     const auto startTime = std::chrono::system_clock::now();
     auto listener = std::make_shared<RecordingListener>();
     {
-        auto poller = std::make_shared<SensorPoller>(pollInterval);
-        auto s = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+        auto poller = std::make_unique<SensorPoller>(pollInterval);
+        auto s = poller->CreateSensor<MockSensor>("mock", 35.0);
         s->AddNotification(subId, std::make_shared<IntervalSubscription>(listener, pollInterval));
         poller->Start();
         std::this_thread::sleep_for(sleepTime);
@@ -43,8 +43,8 @@ TEST(MockSensorTest, Delta) {
 
     auto listener = std::make_shared<RecordingListener>();
     {
-        auto poller = std::make_shared<SensorPoller>(pollInterval);
-        auto s = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+        auto poller = std::make_unique<SensorPoller>(pollInterval);
+        auto s = poller->CreateSensor<MockSensor>("mock", 35.0);
         s->AddNotification(subId, std::make_shared<OnChangeSubscription>(listener, 0.5));
         poller->Start();
 
@@ -64,8 +64,8 @@ TEST(MockSensorTest, Pause) {
     auto listener = std::make_shared<RecordingListener>();
     auto& values = listener->GetValues();
     {
-        auto poller = std::make_shared<SensorPoller>(pollInterval);
-        auto s = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+        auto poller = std::make_unique<SensorPoller>(pollInterval);
+        auto s = poller->CreateSensor<MockSensor>("mock", 35.0);
         s->AddNotification(subId, std::make_shared<OnChangeSubscription>(listener, 0.5));
         poller->Start();
 
@@ -96,8 +96,8 @@ TEST(MockSensorTest, DeletedListener) {
     auto listener1 = std::make_shared<RecordingListener>();
     auto listener2 = std::make_shared<RecordingListener>();
 
-    auto poller = std::make_shared<SensorPoller>(pollInterval);
-    auto s = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+    auto poller = std::make_unique<SensorPoller>(pollInterval);
+    auto s = poller->CreateSensor<MockSensor>("mock", 35.0);
     s->AddNotification(1, std::make_shared<IntervalSubscription>(listener1, pollInterval));
     s->AddNotification(2, std::make_shared<IntervalSubscription>(listener2, pollInterval));
     poller->Start();

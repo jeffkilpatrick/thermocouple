@@ -12,11 +12,9 @@
 
 MockSensor::MockSensor(
     const SensorId& sensorId,
-    std::shared_ptr<SensorPoller> poller,
     float value)
 
     : AbstractSensor(sensorId)
-    , m_poller(poller)
     , m_value(value)
 { }
 

@@ -28,7 +28,7 @@
 class PhidgetsManager::Impl : public PhidgetOpener {
 public:
     Impl();
-    ~Impl() noexcept;
+    ~Impl();
 
     void Open();
     void Close();
@@ -51,6 +51,7 @@ private:
     std::queue<int> m_unregisterQueue;
     std::atomic<bool> m_exitRegistration;
     std::unordered_map<int, std::shared_ptr<TemperaturePhidget>> m_phidgets;
+    std::unique_ptr<SensorPoller> m_poller;
 
     mutable std::mutex m_registrationMutex;
     std::condition_variable m_registrationCv;
@@ -59,9 +60,10 @@ private:
 PhidgetsManager::Impl::Impl()
     : m_handle(nullptr)
     , m_registrationThread([this] () { RegistrationLoop(); })
+    , m_poller(std::make_unique<SensorPoller>())
 { }
 
-PhidgetsManager::Impl::~Impl() noexcept
+PhidgetsManager::Impl::~Impl()
 {
     try {
         m_exitRegistration = true;
@@ -185,14 +187,13 @@ void
 PhidgetsManager::Impl::RegisterSensor(int serial)
 {
     try {
-        auto sensorPoller = std::make_shared<SensorPoller>();
         auto phidget = std::make_shared<TemperaturePhidget>(*this, serial);
         m_phidgets[serial] = phidget;
-        auto ambient = sensorPoller->CreateSensor<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial), sensorPoller);
+        auto ambient = m_poller->CreateSensor<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial));
         SensorBroker::Instance().Register(ambient);
 
         for (int i = 0; i < phidget->GetInputs(); ++i) {
-            auto probe = sensorPoller->CreateSensor<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i, sensorPoller);
+            auto probe = m_poller->CreateSensor<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i);
             SensorBroker::Instance().Register(probe);
         }
     }

@@ -21,10 +21,10 @@ public:
 
 TEST_F(SensorBrokerTest, Register) {
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_shared<SensorPoller>();
+    auto poller = std::make_unique<SensorPoller>();
 
-    auto sensor1 = poller->CreateSensor<MockSensor>("mock1", poller);
-    auto sensor2 = poller->CreateSensor<MockSensor>("mock2", poller);
+    auto sensor1 = poller->CreateSensor<MockSensor>("mock1");
+    auto sensor2 = poller->CreateSensor<MockSensor>("mock2");
 
     EXPECT_TRUE(broker.Register(sensor1));
     auto sensors = broker.AvailableSensors();
@@ -42,9 +42,9 @@ TEST_F(SensorBrokerTest, Register) {
 TEST_F(SensorBrokerTest, NotifyAvailableSensor) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_shared<SensorPoller>(interval);
+    auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     poller->Start();
 
     EXPECT_TRUE(broker.Register(sensor));
@@ -58,9 +58,9 @@ TEST_F(SensorBrokerTest, NotifyAvailableSensor) {
 TEST_F(SensorBrokerTest, NotifyUnavailableSensor) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_shared<SensorPoller>(interval);
+    auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     poller->Start();
 
     auto listener = std::make_shared<RecordingListener>();
@@ -81,9 +81,9 @@ TEST_F(SensorBrokerTest, NotifyUnavailableSensor) {
 TEST_F(SensorBrokerTest, Unsubscribe) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_shared<SensorPoller>(interval);
+    auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     broker.Register(sensor);
     poller->Start();
 
@@ -104,9 +104,9 @@ TEST_F(SensorBrokerTest, Unsubscribe) {
 TEST_F(SensorBrokerTest, Pause) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_shared<SensorPoller>(interval);
+    auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", poller, 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     broker.Register(sensor);
     poller->Start();
 

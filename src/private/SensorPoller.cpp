@@ -40,7 +40,9 @@ SensorPoller::Stop()
     if (m_thread.joinable()) {
         m_threadExit = true;
         m_pollSleepMutex.unlock();
-        m_thread.join();
+        if (m_thread.get_id() != std::this_thread::get_id()) {
+            m_thread.join();
+        }
     }
 }
 
@@ -49,13 +51,7 @@ SensorPoller::RunLoop()
 {
     while (!m_threadExit) {
         auto now = std::chrono::system_clock::now();
-        for (const auto& sensorPtr : m_sensors ) {
-            auto sensor = sensorPtr.lock();
-            if (!sensor) {
-                // TODO-jrk: remove sensor
-                continue;
-            }
-
+        for (const auto& sensor : m_sensors ) {
             sensor->PollAndNotify();
         }
 

@@ -60,11 +60,9 @@ class PhidgetsSensor
 protected:
     PhidgetsSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
-        const SensorId& sensorId,
-        std::shared_ptr<SensorPoller> poller);
+        const SensorId& sensorId);
 
     std::shared_ptr<TemperaturePhidget> m_phidget;
-    std::shared_ptr<SensorPoller>       m_poller;
 };
 
 //
@@ -77,8 +75,7 @@ public:
     PhidgetsProbeSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
         const SensorId& sensorId,
-        int input,
-        std::shared_ptr<SensorPoller> poller);
+        int input);
 
     void PollAndNotify() override;
 
@@ -94,8 +91,7 @@ class PhidgetsAmbientSensor : public PhidgetsSensor {
 public:
     PhidgetsAmbientSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
-        const SensorId& sensorId,
-        std::shared_ptr<SensorPoller> poller);
+        const SensorId& sensorId);
 
     void PollAndNotify() override;
 };

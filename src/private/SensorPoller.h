@@ -55,7 +55,7 @@ private:
     const std::chrono::milliseconds m_interval;
 
     std::thread m_thread;
-    std::vector<std::weak_ptr<IPollableSensor>> m_sensors;
+    std::vector<std::shared_ptr<IPollableSensor>> m_sensors;
     std::timed_mutex m_pollSleepMutex;
     std::atomic<bool> m_threadExit;
 
