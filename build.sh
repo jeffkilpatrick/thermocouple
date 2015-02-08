@@ -9,7 +9,7 @@ set -euo pipefail
 
 usage() {
     echo "Usage: $0 ACTION FLAVOR"
-    echo "   ACTION -- build|clean"
+    echo "   ACTION -- build|clean|test|install"
     echo "   FLAVOR -- debug|release"
     exit 1
 }
@@ -36,51 +36,64 @@ builddir=$rootdir/build/$flavor
 platform=$(uname)
 case "$platform" in
     Linux)
-	cmakeGenerator="Unix Makefiles"
-	cmakeOutput=$builddir/Makefile
+		cmakeGenerator="Unix Makefiles"
+		cmakeOutput=$builddir/Makefile
+		;;
 
-	runTarget() {
-	    if [ $# -eq 2 ]; then
-		if [ "$2" = "true" ]; then
-		    sudo make $1
-		    return
-		fi
-	    fi
-	    make $1
-	}
-	;;
     Darwin)
-
-	cmakeGenerator="Unix Makefiles"
-	cmakeOutput=$builddir/Makefile
-
-	runTarget() {
-	    if [ $# -eq 2 ]; then
-		if [ "$2" = "true" ]; then
-		    sudo make $1
-		    return
-		fi
-	    fi
-	    make $1
-	}
-	;;
+		cmakeGenerator="Unix Makefiles"
+		cmakeOutput=$builddir/Makefile
+		;;
 
     *)
 	echo "Unknown OS"
 	exit 1;
 esac
 
-if [ "$action" = "build" -o "$action" = "install" ]; then
+runTarget() {
+    if [ $# -eq 2 ]; then
+	if [ "$2" = "true" ]; then
+	    sudo make $1
+	    return
+	fi
+    fi
+    make $1
+}
+
+doClean() {
+    rm -fr "$builddir"
+}
+
+doBuild() {
     mkdir -p "$builddir"
     cd "$builddir"
     cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config
     runTarget all
-elif [ "$action" = "clean" ]; then
-    rm -fr "$builddir"
-else
-    usage
-fi
+}
 
-if [ "$action" = "install" ]; then
+doTest() {
+	"$builddir/unittest/unittest"
+}
+
+doInstall() {
     runTarget install true
-fi
+}
+
+case "$action" in
+	clean)
+		doClean
+		;;
+	build)
+		doBuild
+		;;
+	test)
+		doBuild
+		doTest
+		;;
+	install)
+		doBuild
+		doInstall
+		;;
+	*)
+		usage;
+esac
