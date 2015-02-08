@@ -60,7 +60,7 @@ private:
 PhidgetsManager::Impl::Impl()
     : m_handle(nullptr)
     , m_registrationThread([this] () { RegistrationLoop(); })
-    , m_poller(std::make_unique<SensorPoller>())
+    , m_poller(new SensorPoller())
 { }
 
 PhidgetsManager::Impl::~Impl()

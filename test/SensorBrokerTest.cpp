@@ -21,7 +21,7 @@ public:
 
 TEST_F(SensorBrokerTest, Register) {
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_unique<SensorPoller>();
+    std::unique_ptr<SensorPoller> poller(new SensorPoller());
 
     auto sensor1 = poller->CreateSensor<MockSensor>("mock1");
     auto sensor2 = poller->CreateSensor<MockSensor>("mock2");
@@ -42,7 +42,7 @@ TEST_F(SensorBrokerTest, Register) {
 TEST_F(SensorBrokerTest, NotifyAvailableSensor) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_unique<SensorPoller>(interval);
+    std::unique_ptr<SensorPoller> poller(new SensorPoller(interval));
 
     auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     poller->Start();
@@ -58,7 +58,7 @@ TEST_F(SensorBrokerTest, NotifyAvailableSensor) {
 TEST_F(SensorBrokerTest, NotifyUnavailableSensor) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_unique<SensorPoller>(interval);
+    std::unique_ptr<SensorPoller> poller(new SensorPoller(interval));
 
     auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     poller->Start();
@@ -81,7 +81,7 @@ TEST_F(SensorBrokerTest, NotifyUnavailableSensor) {
 TEST_F(SensorBrokerTest, Unsubscribe) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_unique<SensorPoller>(interval);
+    std::unique_ptr<SensorPoller> poller(new SensorPoller(interval));
 
     auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     broker.Register(sensor);
@@ -104,7 +104,7 @@ TEST_F(SensorBrokerTest, Unsubscribe) {
 TEST_F(SensorBrokerTest, Pause) {
     const std::chrono::milliseconds interval(5);
     auto& broker = SensorBroker::Instance();
-    auto poller = std::make_unique<SensorPoller>(interval);
+    std::unique_ptr<SensorPoller> poller(new SensorPoller(interval));
 
     auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
     broker.Register(sensor);
