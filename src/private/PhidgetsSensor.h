@@ -9,17 +9,25 @@
 #ifndef Thermocouple_PhidgetsSensor_h
 #define Thermocouple_PhidgetsSensor_h
 
-#include "PollingSensor.h"
+#include "SensorPoller.h"
 
 class PhidgetException : public std::runtime_error {
 public:
     PhidgetException(int errorCode);
 };
 
+//
+//
+//
+
 class PhidgetOpener {
 public:
     virtual void OpenPhidget(void* handle, int serial) const = 0;
 };
+
+//
+//
+//
 
 class TemperaturePhidget {
 public:
@@ -27,7 +35,7 @@ public:
         const PhidgetOpener& opener,
         int serial);
 
-    ~TemperaturePhidget() noexcept;
+    ~TemperaturePhidget();
 
     int GetInputs() const;
     void* GetHandle() const;
@@ -41,40 +49,53 @@ public:
     TemperaturePhidget& operator=(const TemperaturePhidget&) = delete;
 };
 
-class PhidgetsSensor : public PollingSensor {
-public:
+//
+//
+//
+
+class PhidgetsSensor
+    : public IPollableSensor
+    , public AbstractSensor
+{
+protected:
     PhidgetsSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
-        const SensorId& sensorId,
-        std::chrono::milliseconds interval = DefaultInterval);
+        const SensorId& sensorId);
 
-protected:
+    ~PhidgetsSensor();
+
     std::shared_ptr<TemperaturePhidget> m_phidget;
 };
 
-class PhidgetsProbeSensor : public PhidgetsSensor {
+//
+//
+//
+
+class PhidgetsProbeSensor : public PhidgetsSensor
+{
 public:
     PhidgetsProbeSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
         const SensorId& sensorId,
-        int input,
-        std::chrono::milliseconds interval = DefaultInterval);
-    ~PhidgetsProbeSensor() noexcept;
+        int input);
 
-    bool Poll(float& value) const override;
+    void PollAndNotify() override;
 
 private:
     const int m_input;
 };
 
+//
+//
+//
+
 class PhidgetsAmbientSensor : public PhidgetsSensor {
 public:
     PhidgetsAmbientSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
-        const SensorId& sensorId,
-        std::chrono::milliseconds interval = DefaultInterval);
-    ~PhidgetsAmbientSensor() noexcept;
+        const SensorId& sensorId);
 
-    bool Poll(float& value) const override;
+    void PollAndNotify() override;
 };
+
 #endif

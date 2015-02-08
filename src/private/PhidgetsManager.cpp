@@ -51,6 +51,7 @@ private:
     std::queue<int> m_unregisterQueue;
     std::atomic<bool> m_exitRegistration;
     std::unordered_map<int, std::shared_ptr<TemperaturePhidget>> m_phidgets;
+    std::unique_ptr<SensorPoller> m_poller;
 
     mutable std::mutex m_registrationMutex;
     std::condition_variable m_registrationCv;
@@ -59,14 +60,20 @@ private:
 PhidgetsManager::Impl::Impl()
     : m_handle(nullptr)
     , m_registrationThread([this] () { RegistrationLoop(); })
-{ }
+    , m_poller(new SensorPoller())
+{
+    m_poller->Start();
+}
 
 PhidgetsManager::Impl::~Impl()
 {
-    m_exitRegistration = true;
-    m_registrationCv.notify_one();
-    m_registrationThread.join();
-    Close();
+    try {
+        m_exitRegistration = true;
+        m_registrationCv.notify_one();
+        m_registrationThread.join();
+        Close();
+    }
+    catch (...) { }
 }
 
 namespace {
@@ -127,7 +134,7 @@ PhidgetsManager::Impl::OnAttach(CPhidgetHandle phid)
         m_registerQueue.push(serialNo);
     }
     m_registrationCv.notify_one();
-    
+
     return 0;
 }
 
@@ -184,11 +191,11 @@ PhidgetsManager::Impl::RegisterSensor(int serial)
     try {
         auto phidget = std::make_shared<TemperaturePhidget>(*this, serial);
         m_phidgets[serial] = phidget;
-        auto ambient = std::make_shared<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial));
+        auto ambient = m_poller->CreateSensor<PhidgetsAmbientSensor>(phidget, AmbientSensorId(serial));
         SensorBroker::Instance().Register(ambient);
 
         for (int i = 0; i < phidget->GetInputs(); ++i) {
-            auto probe = std::make_shared<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i);
+            auto probe = m_poller->CreateSensor<PhidgetsProbeSensor>(phidget, ProbeSensorId(serial, i), i);
             SensorBroker::Instance().Register(probe);
         }
     }
@@ -221,7 +228,7 @@ PhidgetsManager::Impl::RegistrationLoop()
     while (!m_exitRegistration) {
         std::unique_lock<std::mutex> lock(m_registrationMutex);
         m_registrationCv.wait(lock);
-        
+
         while (!m_registerQueue.empty()) {
             auto serial = m_registerQueue.front();
             m_registerQueue.pop();
@@ -233,7 +240,7 @@ PhidgetsManager::Impl::RegistrationLoop()
             m_unregisterQueue.pop();
             UnregisterSensor(serial);
         }
-        
+
         lock.unlock();
     }
 }
@@ -374,22 +381,25 @@ RemotePhidgetsManager::RemotePhidgetsManager(const char *address, int port, cons
     : m_impl(new Impl(address, port, password))
 { }
 
-/*static*/ std::shared_ptr<RemotePhidgetsManager>
+RemotePhidgetsManager::~RemotePhidgetsManager()
+{ }
+
+/*static*/ std::unique_ptr<RemotePhidgetsManager>
 RemotePhidgetsManager::OpenMdns(const char *mdnsName, const char* password)
 {
     try {
-        return std::shared_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(mdnsName, password));
+        return std::unique_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(mdnsName, password));
     }
     catch (const std::runtime_error&) {
         return nullptr;
     }
 }
 
-/*static*/ std::shared_ptr<RemotePhidgetsManager>
+/*static*/ std::unique_ptr<RemotePhidgetsManager>
 RemotePhidgetsManager::OpenAddress(const char *address, int port, const char* password)
 {
     try {
-        return std::shared_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(address, port, password));
+        return std::unique_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(address, port, password));
     }
     catch (const std::runtime_error&) {
         return nullptr;

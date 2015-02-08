@@ -69,7 +69,7 @@ void AttachRunLoop()
             knownSensors.begin(), knownSensors.end(),
             std::inserter(newSensors, newSensors.begin()) );
 
-        for ( auto& n : newSensors ) {
+        for ( const auto& n : newSensors ) {
             knownSensors.insert(n);
 
             auto s = Sensors.find(n);
@@ -137,7 +137,8 @@ public:
 
 int main(int argc, char* argv[])
 {
-    std::shared_ptr<RemotePhidgetsManager> phidgetsManager = RemotePhidgetsManager::OpenAddress(PHIDGETS_HOST);
+    const char* host = argc > 1 ? argv[1] : PHIDGETS_HOST;
+    std::shared_ptr<RemotePhidgetsManager> phidgetsManager = RemotePhidgetsManager::OpenAddress(host);
 
     auto attachThread = std::thread(AttachRunLoop);
     //StdoutOutputter outputter;

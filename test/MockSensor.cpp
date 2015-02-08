@@ -12,30 +12,20 @@
 
 MockSensor::MockSensor(
     const SensorId& sensorId,
-    std::chrono::milliseconds interval,
     float value)
 
-    : PollingSensor(sensorId, interval)
+    : AbstractSensor(sensorId)
     , m_value(value)
 { }
 
-MockSensor::~MockSensor() noexcept
-{
-	try {
-	    Stop();
-	}
-	catch (...) { } // not worth crashing
-}
-
 void
-MockSensor::SetValue(float value) noexcept
+MockSensor::SetValue(float value)
 {
     m_value = value;
 }
 
-bool
-MockSensor::Poll(float& value) const noexcept
+void
+MockSensor::PollAndNotify()
 {
-    value = m_value;
-    return true;
+    Notify(m_value);
 }

@@ -10,8 +10,8 @@ set(SRC
     ${SRCDIR}/private/AbstractSensor.cpp
     ${SRCDIR}/private/PhidgetsManager.cpp
     ${SRCDIR}/private/PhidgetsSensor.cpp
-    ${SRCDIR}/private/PollingSensor.cpp
     ${SRCDIR}/private/SensorBroker.cpp
+    ${SRCDIR}/private/SensorPoller.cpp
     ${SRCDIR}/private/Subscription.cpp
 )
 
@@ -19,7 +19,7 @@ set(PRIVHDR
     ${SRCDIR}/private/AbstractSensor.h
     ${SRCDIR}/private/InitOnce.h
     ${SRCDIR}/private/PhidgetsSensor.h
-    ${SRCDIR}/private/PollingSensor.h
+    ${SRCDIR}/private/SensorPoller.h
 )
 
 set(PUBHDR
@@ -41,7 +41,7 @@ target_link_libraries(Thermocouple
 )
 
 set_target_properties(Thermocouple
-    PROPERTIES 
+    PROPERTIES
         FRAMEWORK true
         PUBLIC_HEADER "${PUBHDR}"
 )

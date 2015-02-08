@@ -4,7 +4,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
 project(Thermocouple C CXX)
 
-cmake_policy(SET CMP0042 OLD)
+if(CMAKE_VERSION VERSION_GREATER 2.99)
+    cmake_policy(SET CMP0042 OLD)
+endif()
 
 if(UNIX)
     set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
