@@ -113,9 +113,9 @@ TemperaturePhidget::GetHandle() const
 
 PhidgetsSensor::PhidgetsSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
-    const SensorId& sensorId)
+    SensorId sensorId)
 
-    : AbstractSensor(sensorId)
+    : AbstractSensor(std::move(sensorId))
     , m_phidget(phidget)
 { }
 
@@ -128,10 +128,10 @@ PhidgetsSensor::~PhidgetsSensor()
 
 PhidgetsProbeSensor::PhidgetsProbeSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
-    const SensorId& sensorId,
+    SensorId sensorId,
     int input)
 
-    : PhidgetsSensor(phidget, sensorId)
+    : PhidgetsSensor(phidget, std::move(sensorId))
     , m_input(input)
 { }
 
@@ -153,9 +153,9 @@ PhidgetsProbeSensor::PollAndNotify()
 
 PhidgetsAmbientSensor::PhidgetsAmbientSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
-    const SensorId& sensorId)
+    SensorId sensorId)
 
-    : PhidgetsSensor(phidget, sensorId)
+    : PhidgetsSensor(phidget, std::move(sensorId))
 { }
 
 void

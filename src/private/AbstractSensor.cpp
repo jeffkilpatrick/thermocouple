@@ -8,8 +8,8 @@
 
 #include "AbstractSensor.h"
 
-AbstractSensor::AbstractSensor(const ISensor::SensorId& sensorId)
-    : m_identifier(sensorId)
+AbstractSensor::AbstractSensor(ISensor::SensorId sensorId)
+    : m_identifier(std::move(sensorId))
 { }
 
 const ISensor::SensorId&

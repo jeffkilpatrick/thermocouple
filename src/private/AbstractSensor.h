@@ -16,7 +16,7 @@
 class AbstractSensor : public ISensor {
 
 protected:
-    AbstractSensor(const SensorId& sensorId);
+    AbstractSensor(SensorId sensorId);
 
 public:
     const SensorId& Identifier() const override;
