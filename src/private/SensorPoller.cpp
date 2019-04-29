@@ -51,8 +51,12 @@ SensorPoller::RunLoop()
 {
     while (!m_threadExit) {
         auto now = std::chrono::system_clock::now();
-        for (const auto& sensor : m_sensors ) {
-            sensor->PollAndNotify();
+
+        {
+            std::shared_lock lock(m_sensorMutex);
+            for (const auto& sensor : m_sensors ) {
+                sensor->PollAndNotify();
+            }
         }
 
         auto wake = now + m_interval;
