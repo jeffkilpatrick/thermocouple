@@ -263,6 +263,12 @@ LocalPhidgetsManager::Instance()
     return *s_phidgetsManager;
 }
 
+/*static*/ void
+LocalPhidgetsManager::ReleaseInstance()
+{
+    s_phidgetsManager.reset();
+}
+
 //
 //
 //
