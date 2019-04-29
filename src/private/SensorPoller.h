@@ -17,6 +17,10 @@
 
 class IPollableSensor {
 public:
+
+    //
+    // Poll the sensor and notify any watchers.
+    //
     virtual void PollAndNotify() = 0;
 };
 

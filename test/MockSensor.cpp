@@ -11,21 +11,25 @@
 #include "IListener.h"
 
 MockSensor::MockSensor(
-    const SensorId& sensorId,
-    float value)
+    SensorId sensorId,
+    ValuesVec&& values)
 
-    : AbstractSensor(sensorId)
-    , m_value(value)
+    : AbstractSensor(std::move(sensorId))
+    , m_values(std::move(values))
 { }
 
 void
-MockSensor::SetValue(float value)
+MockSensor::SetValues(ValuesVec&& values)
 {
-    m_value = value;
+    std::unique_lock lock(m_valuesMutex);
+    m_values = std::move(values);
+    m_valueIndex = 0;
 }
 
 void
 MockSensor::PollAndNotify()
 {
-    Notify(m_value);
+    std::shared_lock lock(m_valuesMutex);
+    Notify(m_values[m_valueIndex]);
+    m_valueIndex = (m_valueIndex + 1) % m_values.size();
 }
