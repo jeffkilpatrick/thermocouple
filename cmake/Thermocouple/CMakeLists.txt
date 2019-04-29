@@ -17,7 +17,6 @@ set(SRC
 )
 
 set(PRIVHDR
-    ${SRCDIR}/private/InitOnce.h
     ${SRCDIR}/private/PhidgetsSensor.h
 )
 
