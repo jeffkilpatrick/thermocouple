@@ -85,7 +85,7 @@ AbstractSensor::Notify(
 	const SystemTime& time)
 {
     ScopedRecursiveLock lock(m_subscriptionsMutex);
-    for (auto subEntry = m_subscriptions.cbegin(); subEntry != m_subscriptions.cend(); ++subEntry) {
+    for (auto subEntry = cbegin(m_subscriptions); subEntry != cend(m_subscriptions); ++subEntry) {
         auto& sub = subEntry->second;
         // Erase subscriptions that go nowhere
         if (sub->GetListener().expired()) {
