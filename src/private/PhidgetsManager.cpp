@@ -46,6 +46,7 @@ private:
     void UnregisterSensor(int serial);
     void RegistrationLoop();
 
+    std::condition_variable m_registrationCv;
     std::thread m_registrationThread;
     std::queue<int> m_registerQueue;
     std::queue<int> m_unregisterQueue;
@@ -54,7 +55,6 @@ private:
     std::unique_ptr<SensorPoller> m_poller;
 
     mutable std::mutex m_registrationMutex;
-    std::condition_variable m_registrationCv;
 };
 
 PhidgetsManager::Impl::Impl()
