@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_PollingSensor_h
-#define Thermocouple_PollingSensor_h
+#pragma once
 
 #include "AbstractSensor.h"
 
@@ -79,5 +78,3 @@ private:
     PollingSensor(const PollingSensor&) = delete;
     PollingSensor& operator=(const PollingSensor&) = delete;
 };
-
-#endif

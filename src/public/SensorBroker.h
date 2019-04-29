@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_SensorBroker_h
-#define Thermocouple_SensorBroker_h
+#pragma once
 
 #include "IListener.h"
 #include "ISensor.h"
@@ -76,5 +75,3 @@ public:
 };
 
 #pragma GCC visibility pop
-
-#endif

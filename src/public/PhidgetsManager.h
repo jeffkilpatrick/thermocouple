@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_PhidgetsManager_h
-#define Thermocouple_PhidgetsManager_h
+#pragma once
 
 #pragma GCC visibility push(default)
 
@@ -66,5 +65,3 @@ private:
 };
 
 #pragma GCC visibility pop
-
-#endif

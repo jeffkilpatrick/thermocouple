@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_IListener_h
-#define Thermocouple_IListener_h
+#pragma once
 
 #pragma GCC visibility push(default)
 
@@ -21,5 +20,3 @@ public:
 };
 
 #pragma GCC visibility pop
-
-#endif

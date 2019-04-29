@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_AbstractSensor_h
-#define Thermocouple_AbstractSensor_h
+#pragma once
 
 #include "ISensor.h"
 #include <mutex>
@@ -46,5 +45,3 @@ private:
 	std::unordered_map<SubscriptionId, std::shared_ptr<Subscription>> m_subscriptions;
 	mutable RecursiveMutex m_subscriptionsMutex;
 };
-
-#endif
