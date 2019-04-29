@@ -11,6 +11,7 @@
 #include "AbstractSensor.h"
 
 #include <atomic>
+#include <shared_mutex>
 #include <thread>
 #include <vector>
 
@@ -38,7 +39,12 @@ public:
     std::shared_ptr<T> CreateSensor(Ts&&... params)
     {
         auto sensor = std::make_shared<T>(std::forward<Ts>(params)...);
-        m_sensors.push_back(sensor);
+
+        {
+            std::unique_lock lock(m_sensorMutex);
+            m_sensors.push_back(sensor);
+        }
+
         return sensor;
     }
 
@@ -59,6 +65,7 @@ private:
 
     std::thread m_thread;
     std::vector<std::shared_ptr<IPollableSensor>> m_sensors;
+    std::shared_mutex m_sensorMutex;
     std::timed_mutex m_pollSleepMutex;
     std::atomic<bool> m_threadExit;
 
