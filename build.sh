@@ -24,7 +24,7 @@ case "$flavor" in
 	config="Debug"
 	;;
     "release")
-	config="Release"
+	config="RelWithDebInfo"
 	;;
     *)
 	usage
