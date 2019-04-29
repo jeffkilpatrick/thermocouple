@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_ISensor_h
-#define Thermocouple_ISensor_h
+#pragma once
 
 #include "Subscription.h"
 
@@ -65,5 +64,3 @@ public:
 };
 
 #pragma GCC visibility pop
-
-#endif

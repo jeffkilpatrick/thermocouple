@@ -7,14 +7,12 @@ include_directories(
 )
 
 set(SRC
-    ${TESTDIR}/MockSensor.cpp
     ${TESTDIR}/MockSensorTest.cpp
     ${TESTDIR}/RecordingListener.cpp
     ${TESTDIR}/SensorBrokerTest.cpp
 )
 
 set(PRIVHDR
-    ${TESTDIR}/MockSensor.h
     ${TESTDIR}/RecordingListener.h
 )
 

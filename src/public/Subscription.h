@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_Subscription_h
-#define Thermocouple_Subscription_h
+#pragma once
 
 #include <chrono>
 #include <memory>
@@ -92,4 +91,3 @@ private:
     const float m_delta;
     float m_lastValue;
 };
-#endif

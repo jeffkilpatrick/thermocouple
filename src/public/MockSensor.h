@@ -6,29 +6,35 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_MockSensor_h
-#define Thermocouple_MockSensor_h
+#pragma once
 
 #include "SensorPoller.h"
+
+#include <shared_mutex>
+#include <vector>
 
 class MockSensor
     : public IPollableSensor
     , public AbstractSensor
 {
 public:
-    MockSensor(
-        const SensorId& sensorId,
-        float value = 35.0);
+    using ValuesVec = std::vector<float>;
 
-    void SetValue(float value);
+    MockSensor(
+        SensorId sensorId,
+        ValuesVec&& values);
+
+    void SetValues(ValuesVec&& values);
+
 protected:
     void PollAndNotify() override;
 
-    std::atomic<float> m_value;
+    ValuesVec m_values;
+    mutable std::shared_mutex m_valuesMutex;
+
+    ValuesVec::size_type m_valueIndex{0};
 
 public:
     MockSensor(const MockSensor&) = delete;
     MockSensor& operator=(const MockSensor&) = delete;
 };
-
-#endif

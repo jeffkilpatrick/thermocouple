@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Jeff Kilpatrick. All rights reserved.
 //
 
-#ifndef Thermocouple_PhidgetsSensor_h
-#define Thermocouple_PhidgetsSensor_h
+#pragma once
 
 #include "SensorPoller.h"
 
@@ -98,4 +97,3 @@ public:
     void PollAndNotify() override;
 };
 
-#endif

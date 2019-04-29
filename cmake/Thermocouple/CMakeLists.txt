@@ -8,6 +8,7 @@ include_directories(
 
 set(SRC
     ${SRCDIR}/private/AbstractSensor.cpp
+    ${SRCDIR}/private/MockSensor.cpp
     ${SRCDIR}/private/PhidgetsManager.cpp
     ${SRCDIR}/private/PhidgetsSensor.cpp
     ${SRCDIR}/private/SensorBroker.cpp
@@ -16,17 +17,17 @@ set(SRC
 )
 
 set(PRIVHDR
-    ${SRCDIR}/private/AbstractSensor.h
-    ${SRCDIR}/private/InitOnce.h
     ${SRCDIR}/private/PhidgetsSensor.h
-    ${SRCDIR}/private/SensorPoller.h
 )
 
 set(PUBHDR
+    ${SRCDIR}/public/AbstractSensor.h
     ${SRCDIR}/public/IListener.h
     ${SRCDIR}/public/ISensor.h
+    ${SRCDIR}/public/MockSensor.h
     ${SRCDIR}/public/PhidgetsManager.h
     ${SRCDIR}/public/SensorBroker.h
+    ${SRCDIR}/public/SensorPoller.h
     ${SRCDIR}/public/Subscription.h
 )
 

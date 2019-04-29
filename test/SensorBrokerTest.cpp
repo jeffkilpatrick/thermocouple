@@ -23,8 +23,8 @@ TEST_F(SensorBrokerTest, Register) {
     auto& broker = SensorBroker::Instance();
     auto poller = std::make_unique<SensorPoller>();
 
-    auto sensor1 = poller->CreateSensor<MockSensor>("mock1");
-    auto sensor2 = poller->CreateSensor<MockSensor>("mock2");
+    auto sensor1 = poller->CreateSensor<MockSensor>("mock1", MockSensor::ValuesVec{ 35.0 });
+    auto sensor2 = poller->CreateSensor<MockSensor>("mock2", MockSensor::ValuesVec{ 35.0 });
 
     EXPECT_TRUE(broker.Register(sensor1));
     auto sensors = broker.AvailableSensors();
@@ -44,7 +44,7 @@ TEST_F(SensorBrokerTest, NotifyAvailableSensor) {
     auto& broker = SensorBroker::Instance();
     auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", MockSensor::ValuesVec{ 35.0 });
     poller->Start();
 
     EXPECT_TRUE(broker.Register(sensor));
@@ -60,7 +60,7 @@ TEST_F(SensorBrokerTest, NotifyUnavailableSensor) {
     auto& broker = SensorBroker::Instance();
     auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", MockSensor::ValuesVec{ 35.0 });
     poller->Start();
 
     auto listener = std::make_shared<RecordingListener>();
@@ -83,7 +83,7 @@ TEST_F(SensorBrokerTest, Unsubscribe) {
     auto& broker = SensorBroker::Instance();
     auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", MockSensor::ValuesVec{ 35.0 });
     broker.Register(sensor);
     poller->Start();
 
@@ -94,7 +94,7 @@ TEST_F(SensorBrokerTest, Unsubscribe) {
     EXPECT_EQ(1, listener->GetValues().size());
 
     EXPECT_TRUE(broker.Unsubscribe(subId));
-    sensor->SetValue(36.0);
+    sensor->SetValues({ 36.0 });
     std::this_thread::sleep_for(interval * 2);
 
     EXPECT_EQ(1, listener->GetValues().size());
@@ -106,7 +106,7 @@ TEST_F(SensorBrokerTest, Pause) {
     auto& broker = SensorBroker::Instance();
     auto poller = std::make_unique<SensorPoller>(interval);
 
-    auto sensor = poller->CreateSensor<MockSensor>("mock", 35.0);
+    auto sensor = poller->CreateSensor<MockSensor>("mock", MockSensor::ValuesVec{ 35.0 });
     broker.Register(sensor);
     poller->Start();
 
@@ -121,7 +121,7 @@ TEST_F(SensorBrokerTest, Pause) {
     // Changed value
     EXPECT_TRUE(broker.Pause(subId));
     EXPECT_EQ(Subscription::Status::PAUSED, broker.GetStatus(subId));
-    sensor->SetValue(36.0);
+    sensor->SetValues({ 36.0 });
     std::this_thread::sleep_for(interval * 2);
     EXPECT_EQ(1, listener->GetValues().size());
     EXPECT_FALSE(broker.Pause(subId)); // NOP == false
