@@ -1,21 +1,26 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
 project(Thermocouple C CXX)
 
-if(CMAKE_VERSION VERSION_GREATER 2.99)
-    cmake_policy(SET CMP0042 OLD)
+# https://gitlab.kitware.com/cmake/cmake/issues/15943
+if(POLICY CMP0025)
+    cmake_policy(SET CMP0025 NEW)
 endif()
+
+# Disable @rpath on macOS. This was introduced for compatibility with older cmake
+# versions. We should migrate to rpath.
+cmake_policy(SET CMP0042 OLD)
+
+set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
     set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
     if(APPLE)
-        set(CXX_EXTRA_FLAGS "-std=c++11 -stdlib=libc++")
-    else()
-        set(CXX_EXTRA_FLAGS "-std=c++11")
+        add_compile_options(-stdlib=libc++)
+        add_link_options(-stdlib=libc++)
     endif()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_EXTRA_FLAGS} ${CXX_WARNINGS}")
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
