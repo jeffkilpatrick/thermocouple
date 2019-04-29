@@ -20,6 +20,7 @@ public:
 class LocalPhidgetsManager : public PhidgetsManager {
 public:
     static LocalPhidgetsManager& Instance();
+    static void ReleaseInstance();
 
     LocalPhidgetsManager(const LocalPhidgetsManager&) = delete;
     LocalPhidgetsManager& operator=(LocalPhidgetsManager&) = delete;
