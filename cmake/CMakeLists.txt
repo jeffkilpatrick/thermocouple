@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
@@ -27,6 +27,15 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     if(NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.7.999")
         MESSAGE(FATAL_ERROR "Version 4.8+ required when using g++")
     endif()
+endif()
+
+find_program(
+    CLANG_TIDY_EXE
+    NAMES "clang-tidy"
+    PATHS "/usr/local/opt/llvm/bin")
+
+if(CLANG_TIDY_EXE)
+    set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-clang-analyzer-alpha.*")
 endif()
 
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)
