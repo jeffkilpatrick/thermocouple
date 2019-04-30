@@ -56,7 +56,7 @@ public:
     virtual Subscription::Status GetStatus(SubscriptionId) const = 0;
 
 protected:
-    ISensor() = default;
+    ISensor() {};
 
 public:
     ISensor(const ISensor&) = delete;

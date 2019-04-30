@@ -70,7 +70,7 @@ protected:
 //
 //
 
-class PhidgetsProbeSensor : public PhidgetsSensor
+class PhidgetsProbeSensor final : public PhidgetsSensor
 {
 public:
     PhidgetsProbeSensor(
@@ -88,7 +88,7 @@ private:
 //
 //
 
-class PhidgetsAmbientSensor : public PhidgetsSensor {
+class PhidgetsAmbientSensor final : public PhidgetsSensor {
 public:
     PhidgetsAmbientSensor(
         std::shared_ptr<TemperaturePhidget> phidget,

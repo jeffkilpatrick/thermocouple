@@ -43,7 +43,7 @@ std::map<ISensor::SensorId, SensorInfo> Sensors = {
     { "167056:amb", SensorInfo("AMB", 3) }
 };
 
-class UpdateListener : public IListener {
+class UpdateListener final : public IListener {
 public:
     UpdateListener( SensorInfo& info ) : m_info(info) { }
     void Notify(float celsius) override { m_info.Value = ((9.0/5.0) * celsius) + 32.0; }

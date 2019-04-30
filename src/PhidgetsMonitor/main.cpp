@@ -20,7 +20,7 @@ using std::flush;
 
 static std::mutex s_printingMutex;
 
-class PrintingListener : public IListener {
+class PrintingListener final : public IListener {
 public:
     PrintingListener(const ISensor::SensorId& sensorId)
         : m_sensorId(sensorId)

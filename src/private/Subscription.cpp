@@ -12,7 +12,7 @@
 #include <cmath>
 
 Subscription::Subscription(std::weak_ptr<IListener> listener)
-    : m_listener(listener)
+    : m_listener(std::move(listener))
     , m_status(Subscription::Status::ACTIVE)
 { }
 
@@ -37,7 +37,7 @@ Subscription::SetStatus(Subscription::Status s)
 void
 Subscription::Notify(
     float currentValue,
-    Clock::time_point currentTime)
+    Clock::time_point /*currentTime*/)
 {
     auto listener = m_listener.lock();
     if (listener) {
@@ -53,14 +53,13 @@ IntervalSubscription::IntervalSubscription(
     std::weak_ptr<IListener> listener,
     Interval interval)
 
-    : Subscription(listener)
+    : Subscription(std::move(listener))
     , m_interval(interval)
-    , m_lastNotification()
 { }
 
 bool
 IntervalSubscription::ShouldNotify(
-    float currentValue,
+    float /*currentValue*/,
     Clock::time_point currentTime) const
 {
     auto interval = currentTime - m_lastNotification;
@@ -84,7 +83,7 @@ OnChangeSubscription::OnChangeSubscription(
     std::weak_ptr<IListener> listener,
     float delta)
 
-    : Subscription(listener)
+    : Subscription(std::move(listener))
     , m_delta(delta)
     , m_lastValue(std::numeric_limits<float>::min())
 { }
@@ -92,7 +91,7 @@ OnChangeSubscription::OnChangeSubscription(
 bool
 OnChangeSubscription::ShouldNotify(
     float currentValue,
-    Clock::time_point currentTime) const
+    Clock::time_point /*currentTime*/) const
 {
     auto delta = fabsf(currentValue - m_lastValue);
     return delta >= m_delta;

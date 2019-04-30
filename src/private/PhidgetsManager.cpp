@@ -273,7 +273,7 @@ LocalPhidgetsManager::ReleaseInstance()
 //
 //
 
-class LocalPhidgetsManager::Impl : public PhidgetsManager::Impl {
+class LocalPhidgetsManager::Impl final : public PhidgetsManager::Impl {
 public:
     Impl();
     void OpenPhidget(void* handle, int serial) const override;
@@ -311,7 +311,7 @@ LocalPhidgetsManager::LocalPhidgetsManager()
 //
 //
 
-class RemotePhidgetsManager::Impl : public PhidgetsManager::Impl {
+class RemotePhidgetsManager::Impl final : public PhidgetsManager::Impl {
 public:
     Impl(const char *mdnsService, const char* password);
     Impl(const char *address, int port, const char* password);

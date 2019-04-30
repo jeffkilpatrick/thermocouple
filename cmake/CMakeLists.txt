@@ -16,7 +16,7 @@ cmake_policy(SET CMP0042 OLD)
 set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
-    set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
+    add_compile_options(-Werror -Wall -Wno-unknown-pragmas)
     if(APPLE)
         add_compile_options(-stdlib=libc++)
         add_link_options(-stdlib=libc++)
@@ -34,9 +34,9 @@ find_program(
     NAMES "clang-tidy"
     PATHS "/usr/local/opt/llvm/bin")
 
-if(CLANG_TIDY_EXE)
-    set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-clang-analyzer-alpha.*")
-endif()
+#if(CLANG_TIDY_EXE)
+#    set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-clang-analyzer-alpha.*")
+#endif()
 
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)
 set(SRCDIR ${ROOTDIR}/src)
