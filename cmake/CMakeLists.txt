@@ -29,14 +29,16 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     endif()
 endif()
 
-find_program(
-    CLANG_TIDY_EXE
-    NAMES "clang-tidy"
-    PATHS "/usr/local/opt/llvm/bin")
+if(DEFINED ENV{CLANG_TIDY})
+    find_program(
+        CLANG_TIDY_EXE
+        NAMES "clang-tidy"
+        PATHS "/usr/local/opt/llvm/bin")
 
-#if(CLANG_TIDY_EXE)
-#    set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-clang-analyzer-alpha.*")
-#endif()
+    if(CLANG_TIDY_EXE)
+        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-*-magic-numbers,-clang-analyzer-alpha.*,-cppcoreguidelines-pro-type-reinterpret-cast,-fuchsia-*,-google-readability-todo,-*-non-private-member-variables-in-classes")
+    endif()
+endif()
 
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)
 set(SRCDIR ${ROOTDIR}/src)
