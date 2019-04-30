@@ -10,10 +10,11 @@
 
 #include "IListener.h"
 
-/*static*/ const std::chrono::milliseconds SensorPoller::DefaultInterval = std::chrono::milliseconds(1000);
+/*static*/ const std::chrono::milliseconds SensorPoller::DefaultInterval = std::chrono::milliseconds(1000); // NOLINT
 
 SensorPoller::SensorPoller(std::chrono::milliseconds interval)
     : m_interval(interval)
+    , m_threadExit{false}
 { }
 
 SensorPoller::~SensorPoller()

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Modules/")
 
@@ -16,7 +16,7 @@ cmake_policy(SET CMP0042 OLD)
 set(CMAKE_CXX_STANDARD 17)
 
 if(UNIX)
-    set(CXX_WARNINGS "-Werror -Wall -Wno-unknown-pragmas")
+    add_compile_options(-Werror -Wall -Wno-unknown-pragmas)
     if(APPLE)
         add_compile_options(-stdlib=libc++)
         add_link_options(-stdlib=libc++)
@@ -26,6 +26,17 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX)
     if(NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.7.999")
         MESSAGE(FATAL_ERROR "Version 4.8+ required when using g++")
+    endif()
+endif()
+
+if(DEFINED ENV{CLANG_TIDY})
+    find_program(
+        CLANG_TIDY_EXE
+        NAMES "clang-tidy"
+        PATHS "/usr/local/opt/llvm/bin")
+
+    if(CLANG_TIDY_EXE)
+        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-*-magic-numbers,-clang-analyzer-alpha.*,-cppcoreguidelines-pro-type-reinterpret-cast,-fuchsia-*,-google-readability-todo,-*-non-private-member-variables-in-classes")
     endif()
 endif()
 

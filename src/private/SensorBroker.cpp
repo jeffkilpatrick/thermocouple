@@ -20,7 +20,7 @@ struct SensorBroker::Impl {
 
     std::unordered_map<ISensor::SensorId, std::shared_ptr<ISensor>> m_sensors;
     std::unordered_map<ISensor::SubscriptionId, std::pair<ISensor::SensorId, std::shared_ptr<Subscription>>> m_subscriptions;
-    std::atomic<ISensor::SubscriptionId> m_lastSubscriptionId;
+    std::atomic<ISensor::SubscriptionId> m_lastSubscriptionId{};
 };
 
 ISensor::SubscriptionId
@@ -36,7 +36,7 @@ SensorBroker::Impl::AddNotification(
     // If we do have a sensor, start up notifications.
     auto sensor = m_sensors.find(sensorId);
     if (sensor != m_sensors.end()) {
-        sensor->second->AddNotification(subId, sub);
+        sensor->second->AddNotification(subId, std::move(sub));
     }
 
     return subId;
@@ -48,13 +48,13 @@ SensorBroker::Impl::AddNotification(
 
 namespace {
     std::unique_ptr<SensorBroker> s_instance;
-}
+} // unnamed namespace
 
 /*static*/ SensorBroker&
 SensorBroker::Instance()
 {
     if (!s_instance) {
-        s_instance.reset(new SensorBroker()); // TODO-jrk
+        s_instance.reset(new SensorBroker()); // NOLINT(cppcoreguidelines-owning-memory)
     }
 
     return *s_instance;
@@ -112,16 +112,16 @@ SensorBroker::NotifyOnChange(
 }
 
 bool
-SensorBroker::Unsubscribe(ISensor::SubscriptionId subId)
+SensorBroker::Unsubscribe(ISensor::SubscriptionId subscription)
 {
-    auto sub = m_impl->m_subscriptions.find(subId);
+    auto sub = m_impl->m_subscriptions.find(subscription);
     if (sub == m_impl->m_subscriptions.end()) {
         return false;
     }
 
     auto sensor = m_impl->m_sensors.find(sub->second.first);
     if (sensor != m_impl->m_sensors.end()) {
-        sensor->second->Unsubscribe(subId);
+        sensor->second->Unsubscribe(subscription);
     }
 
     m_impl->m_subscriptions.erase(sub);
@@ -130,9 +130,9 @@ SensorBroker::Unsubscribe(ISensor::SubscriptionId subId)
 }
 
 bool
-SensorBroker::Pause(ISensor::SubscriptionId subId)
+SensorBroker::Pause(ISensor::SubscriptionId subscription)
 {
-    auto subEntry = m_impl->m_subscriptions.find(subId);
+    auto subEntry = m_impl->m_subscriptions.find(subscription);
     if (subEntry == m_impl->m_subscriptions.end()) {
         return false;
     }
@@ -148,9 +148,9 @@ SensorBroker::Pause(ISensor::SubscriptionId subId)
 }
 
 bool
-SensorBroker::Unpause(ISensor::SubscriptionId subId)
+SensorBroker::Unpause(ISensor::SubscriptionId subscription)
 {
-    auto subEntry = m_impl->m_subscriptions.find(subId);
+    auto subEntry = m_impl->m_subscriptions.find(subscription);
     if (subEntry == m_impl->m_subscriptions.end()) {
         return false;
     }
@@ -166,9 +166,9 @@ SensorBroker::Unpause(ISensor::SubscriptionId subId)
 }
 
 Subscription::Status
-SensorBroker::GetStatus(ISensor::SubscriptionId subId) const
+SensorBroker::GetStatus(ISensor::SubscriptionId subscription) const
 {
-    auto sub = m_impl->m_subscriptions.find(subId);
+    auto sub = m_impl->m_subscriptions.find(subscription);
     if (sub == m_impl->m_subscriptions.end()) {
         return Subscription::Status::UNKNOWN_SUBSCRIPTION;
     }
@@ -178,7 +178,7 @@ SensorBroker::GetStatus(ISensor::SubscriptionId subId) const
         return Subscription::Status::NO_SENSOR;
     }
 
-    return sensor->second->GetStatus(subId);
+    return sensor->second->GetStatus(subscription);
 }
 
 bool
@@ -186,14 +186,15 @@ SensorBroker::Register(std::shared_ptr<ISensor> sensor)
 {
     if (sensor) {
         auto ident = sensor->Identifier();
-        if (!m_impl->m_sensors.insert(std::make_pair(ident, sensor)).second) {
+        auto iterAndInserted = m_impl->m_sensors.insert(std::make_pair(ident, std::move(sensor)));
+        if (!iterAndInserted.second) {
             return false;
         }
 
         for (const auto& sub : m_impl->m_subscriptions) {
             if (sub.second.first == ident) {
                 sub.second.second->SetStatus(Subscription::Status::ACTIVE);
-                sensor->AddNotification(sub.first, sub.second.second);
+                iterAndInserted.first->second->AddNotification(sub.first, sub.second.second);
             }
         }
 

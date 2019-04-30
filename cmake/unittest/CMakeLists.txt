@@ -3,6 +3,10 @@ include(gtest)
 include_directories(
     ${SRCDIR}/private
     ${SRCDIR}/public
+)
+
+include_directories(
+    SYSTEM
     ${GTESTDIR}/include
 )
 

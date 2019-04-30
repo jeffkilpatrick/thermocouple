@@ -20,6 +20,8 @@ class MockSensor
 public:
     using ValuesVec = std::vector<float>;
 
+    virtual ~MockSensor() = default;
+
     MockSensor(
         SensorId sensorId,
         ValuesVec&& values);

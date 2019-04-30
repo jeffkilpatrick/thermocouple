@@ -47,6 +47,10 @@ set_target_properties(Thermocouple
         PUBLIC_HEADER "${PUBHDR}"
 )
 
+if(RUN_CLANG_TIDY)
+    set_target_properties(Thermocouple PROPERTIES CXX_CLANG_TIDY "${RUN_CLANG_TIDY}")
+endif()
+
 install(TARGETS Thermocouple
     FRAMEWORK     DESTINATION /Library/Frameworks
     LIBRARY       DESTINATION lib

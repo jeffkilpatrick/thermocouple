@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 
-class RecordingListener : public IListener {
+class RecordingListener final : public IListener {
 public:
     using Value = std::pair<std::chrono::system_clock::time_point, float>;
 
