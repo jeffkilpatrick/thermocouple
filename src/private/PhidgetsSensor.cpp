@@ -22,7 +22,7 @@ const char* GetPhidgetErrorString(int errorCode)
 
     return errorString;
 }
-}
+} // unnamed namespace
 
 PhidgetException::PhidgetException(int errorCode)
     : std::runtime_error( GetPhidgetErrorString(errorCode) )
@@ -30,14 +30,23 @@ PhidgetException::PhidgetException(int errorCode)
 
 class TemperaturePhidget::Impl {
 public:
+    ~Impl();
+
+    Impl(const Impl&) = delete;
+    Impl(Impl&&) = delete;
+    Impl& operator=(const Impl&) = delete;
+    Impl& operator=(Impl&&) = delete;
+
     Impl(
         const PhidgetOpener& opener,
          int serial);
 
-    ~Impl();
-
+    [[nodiscard]]
     int GetInputs() const;
+
+    [[nodiscard]]
     void* GetHandle() const;
+
 private:
     CPhidgetTemperatureSensorHandle m_handle;
     int m_inputs;
@@ -56,7 +65,7 @@ TemperaturePhidget::Impl::Impl(
 
     int result;
 
-    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 5000))) {
+    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 5000)) != 0) {
         throw PhidgetException(result);
     }
 
@@ -92,8 +101,7 @@ TemperaturePhidget::TemperaturePhidget(
     : m_impl(new Impl(opener, serial))
 { }
 
-TemperaturePhidget::~TemperaturePhidget()
-{}
+TemperaturePhidget::~TemperaturePhidget() = default;
 
 int
 TemperaturePhidget::GetInputs() const
@@ -116,11 +124,10 @@ PhidgetsSensor::PhidgetsSensor(
     SensorId sensorId)
 
     : AbstractSensor(std::move(sensorId))
-    , m_phidget(phidget)
+    , m_phidget(std::move(phidget))
 { }
 
-PhidgetsSensor::~PhidgetsSensor()
-{ }
+PhidgetsSensor::~PhidgetsSensor() = default;
 
 //
 //
@@ -131,7 +138,7 @@ PhidgetsProbeSensor::PhidgetsProbeSensor(
     SensorId sensorId,
     int input)
 
-    : PhidgetsSensor(phidget, std::move(sensorId))
+    : PhidgetsSensor(std::move(phidget), std::move(sensorId))
     , m_input(input)
 { }
 
@@ -140,11 +147,11 @@ PhidgetsProbeSensor::PollAndNotify()
 {
     auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
     double temperature = 0.0;
-    if (CPhidgetTemperatureSensor_getTemperature(handle, m_input, &temperature)) {
+    if (CPhidgetTemperatureSensor_getTemperature(handle, m_input, &temperature) != 0) {
         return;
     }
 
-    Notify(temperature);
+    Notify(static_cast<float>(temperature), std::chrono::system_clock::now());
 }
 
 //
@@ -155,7 +162,7 @@ PhidgetsAmbientSensor::PhidgetsAmbientSensor(
     std::shared_ptr<TemperaturePhidget> phidget,
     SensorId sensorId)
 
-    : PhidgetsSensor(phidget, std::move(sensorId))
+    : PhidgetsSensor(std::move(phidget), std::move(sensorId))
 { }
 
 void
@@ -163,10 +170,10 @@ PhidgetsAmbientSensor::PollAndNotify()
 {
     auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
     double ambient = 0.0;
-    if (CPhidgetTemperatureSensor_getAmbientTemperature(handle, &ambient)) {
+    if (CPhidgetTemperatureSensor_getAmbientTemperature(handle, &ambient) != 0) {
         return;
     }
 
-    Notify(ambient);
+    Notify(static_cast<float>(ambient), std::chrono::system_clock::now());
 }
 

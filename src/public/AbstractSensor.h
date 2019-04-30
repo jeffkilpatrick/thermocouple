@@ -35,7 +35,7 @@ protected:
 	using SystemTime = std::chrono::time_point<std::chrono::system_clock>;
 	virtual void Notify(
 		float value,
-		const SystemTime& time = std::chrono::system_clock::now());
+		const SystemTime& time);
 
 private:
     using RecursiveMutex = std::recursive_mutex;

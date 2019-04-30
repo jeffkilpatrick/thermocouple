@@ -30,6 +30,6 @@ void
 MockSensor::PollAndNotify()
 {
     std::shared_lock lock(m_valuesMutex);
-    Notify(m_values[m_valueIndex]);
+    Notify(m_values[m_valueIndex], std::chrono::system_clock::now());
     m_valueIndex = (m_valueIndex + 1) % m_values.size();
 }

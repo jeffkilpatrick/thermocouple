@@ -27,8 +27,13 @@
 
 class PhidgetsManager::Impl : public PhidgetOpener {
 public:
-    Impl();
     ~Impl();
+
+    Impl();
+    Impl(const Impl&) = delete;
+    Impl(Impl&&) = delete;
+    Impl& operator=(const Impl&) = delete;
+    Impl& operator=(Impl&&) = delete;
 
     void Open();
     void Close();
@@ -38,7 +43,7 @@ public:
 
 protected:
     virtual void DoOpen() = 0;
-    CPhidgetManagerHandle m_handle;
+    CPhidgetManagerHandle m_handle{nullptr};
 
 private:
     static bool IsTempSensor(CPhidgetHandle h);
@@ -50,7 +55,7 @@ private:
     std::thread m_registrationThread;
     std::queue<int> m_registerQueue;
     std::queue<int> m_unregisterQueue;
-    std::atomic<bool> m_exitRegistration;
+    std::atomic<bool> m_exitRegistration{false};
     std::unordered_map<int, std::shared_ptr<TemperaturePhidget>> m_phidgets;
     std::unique_ptr<SensorPoller> m_poller;
 
@@ -58,8 +63,7 @@ private:
 };
 
 PhidgetsManager::Impl::Impl()
-    : m_handle(nullptr)
-    , m_registrationThread([this] () { RegistrationLoop(); })
+    : m_registrationThread([this] () { RegistrationLoop(); })
     , m_poller(std::make_unique<SensorPoller>())
 {
     m_poller->Start();
@@ -88,11 +92,11 @@ AttachHandler(CPhidgetHandle h, void* anImpl)
 int
 DetachHandler(CPhidgetHandle h, void* anImpl)
 {
-    PhidgetsManager::Impl* impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
+    auto impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
     return impl->OnDetach(h);
 }
 
-}
+} // unnamed namespace
 
 void
 PhidgetsManager::Impl::Open()
@@ -106,7 +110,7 @@ PhidgetsManager::Impl::Open()
 void
 PhidgetsManager::Impl::Close()
 {
-    if (!m_handle) {
+    if (m_handle == nullptr) {
         return;
     }
 
@@ -120,14 +124,14 @@ PhidgetsManager::Impl::Close()
 }
 
 int
-PhidgetsManager::Impl::OnAttach(CPhidgetHandle phid)
+PhidgetsManager::Impl::OnAttach(CPhidgetHandle h)
 {
-    if (!IsTempSensor(phid)) {
+    if (!IsTempSensor(h)) {
         return 0;
     }
 
 	int serialNo;
-	CPhidget_getSerialNumber(phid, &serialNo);
+	CPhidget_getSerialNumber(h, &serialNo);
 
     {
         std::lock_guard<std::mutex> lock(m_registrationMutex);
@@ -139,14 +143,14 @@ PhidgetsManager::Impl::OnAttach(CPhidgetHandle phid)
 }
 
 int
-PhidgetsManager::Impl::OnDetach(CPhidgetHandle phid)
+PhidgetsManager::Impl::OnDetach(CPhidgetHandle h)
 {
-    if (!IsTempSensor(phid)) {
+    if (!IsTempSensor(h)) {
         return 0;
     }
 
 	int serialNo;
-	CPhidget_getSerialNumber(phid, &serialNo);
+	CPhidget_getSerialNumber(h, &serialNo);
 
     {
         std::lock_guard<std::mutex> lock(m_registrationMutex);
@@ -183,7 +187,7 @@ ProbeSensorId(int serial, int input)
     return str.str();
 }
 
-}
+} // unnamed namespace
 
 void
 PhidgetsManager::Impl::RegisterSensor(int serial)
@@ -212,7 +216,7 @@ PhidgetsManager::Impl::UnregisterSensor(int serial)
     m_phidgets.erase(serial);
 
     auto broker = SensorBroker::GetInstance();
-    if (!broker) {
+    if (broker == nullptr) {
         return;
     }
 
@@ -251,13 +255,13 @@ PhidgetsManager::Impl::RegistrationLoop()
 
 namespace {
     std::unique_ptr<LocalPhidgetsManager> s_phidgetsManager;
-}
+} // unnamed namespace
 
 /*static*/ LocalPhidgetsManager&
 LocalPhidgetsManager::Instance()
 {
-    if (!s_phidgetsManager) { // TODO-jrk: InitOnce()
-        s_phidgetsManager.reset(new LocalPhidgetsManager());
+    if (!s_phidgetsManager) {
+        s_phidgetsManager.reset(new LocalPhidgetsManager()); // NOLINT(cppcoreguidelines-owning-memory)
     }
 
     return *s_phidgetsManager;
@@ -292,7 +296,7 @@ LocalPhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
 {
     int result;
 
-    if ((result = CPhidget_open(reinterpret_cast<CPhidgetHandle>(handle), serial))) {
+    if ((result = CPhidget_open(reinterpret_cast<CPhidgetHandle>(handle), serial)) != 0) {
         throw PhidgetException(result);
     }
 }
@@ -349,14 +353,14 @@ RemotePhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
 {
     int result;
 
-    if (m_mdnsService) {
+    if (m_mdnsService != nullptr) {
         result = CPhidget_openRemote(reinterpret_cast<CPhidgetHandle>(handle), serial, m_mdnsService, m_password);
     }
     else {
         result = CPhidget_openRemoteIP(reinterpret_cast<CPhidgetHandle>(handle), serial, m_address, m_port, m_password);
     }
 
-    if (result) {
+    if (result != 0) {
         throw PhidgetException(result);
     }
 }
@@ -365,30 +369,29 @@ void
 RemotePhidgetsManager::Impl::DoOpen()
 {
     int result;
-    if (m_mdnsService) {
+    if (m_mdnsService != nullptr) {
         result = CPhidgetManager_openRemote(m_handle, m_mdnsService, m_password);
     }
     else {
         result = CPhidgetManager_openRemoteIP(m_handle, m_address, m_port, m_password);
     }
 
-    if (result) {
+    if (result != 0) {
         const char* errorDesc;
         CPhidget_getErrorDescription(result, &errorDesc);
         throw std::runtime_error(errorDesc);
     }
 }
 
-RemotePhidgetsManager::RemotePhidgetsManager(const char *mdnsService, const char* password)
-    : m_impl(new Impl(mdnsService, password))
+RemotePhidgetsManager::RemotePhidgetsManager(const char *mdnsName, const char* password)
+    : m_impl(new Impl(mdnsName, password))
 { }
 
 RemotePhidgetsManager::RemotePhidgetsManager(const char *address, int port, const char* password)
     : m_impl(new Impl(address, port, password))
 { }
 
-RemotePhidgetsManager::~RemotePhidgetsManager()
-{ }
+RemotePhidgetsManager::~RemotePhidgetsManager() = default;
 
 /*static*/ std::unique_ptr<RemotePhidgetsManager>
 RemotePhidgetsManager::OpenMdns(const char *mdnsName, const char* password)
