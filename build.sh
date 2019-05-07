@@ -9,7 +9,7 @@ set -euo pipefail
 
 usage() {
     echo "Usage: $0 ACTION FLAVOR"
-    echo "   ACTION -- build|clean|test|tidy|install"
+    echo "   ACTION -- build|rebuild|clean|test|tidy|install"
     echo "   FLAVOR -- debug|release"
     exit 1
 }
@@ -84,6 +84,10 @@ case "$action" in
 		doClean
 		;;
 	build)
+		doBuild
+		;;
+	rebuild)
+		doClean
 		doBuild
 		;;
 	test)
