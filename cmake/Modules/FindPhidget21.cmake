@@ -1,11 +1,11 @@
 find_path(
     PHIDGET21_INCLUDE_DIR phidget21.h
-    HINTS /usr/include /Library/Frameworks
+    PATHS /usr/include /Library/Frameworks
 )
 
 find_library(
     PHIDGET21_LIBRARY NAMES phidget21 libphidget21
-    HINTS /usr/lib /Library/Frameworks
+    PATHS /usr/lib /Library/Frameworks
 )
 
 include(FindPackageHandleStandardArgs)
