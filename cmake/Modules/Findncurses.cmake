@@ -1,11 +1,11 @@
 find_path(
     NCURSES_INCLUDE_DIR ncurses.h
-    HINTS /usr/include /usr/local/include
+    PATHS /usr/include /usr/local/include
 )
 
 find_library(
     NCURSES_LIBRARY NAMES ncurses ncurses
-    HINTS /usr/lib /usr/local/lib
+    PATHS /usr/lib /usr/local/lib
 )
 
 include(FindPackageHandleStandardArgs)
