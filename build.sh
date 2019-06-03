@@ -3,8 +3,9 @@
 # Build everything.
 #
 # Args
-#  action -- build|clean
+#  action -- build|rebuild|clean|test|tidy|install
 #  flavor -- debug|release
+#  target -- a make target name
 #
 # Environment
 #  TC_MAX_PROCS -- number of make jobs to run simultaneously
@@ -12,16 +13,26 @@
 set -euo pipefail
 
 usage() {
-    echo "Usage: $0 ACTION FLAVOR"
+    echo "Usage: $0 ACTION FLAVOR [TARGET]"
     echo "   ACTION -- build|rebuild|clean|test|tidy|install"
     echo "   FLAVOR -- debug|release"
+    echo "   TARGET -- name of a build target"
     exit 1
 }
 
-test $# -ne 2 && usage
-
 action=$1
 flavor=$2
+target=all
+
+case $# in
+    2)
+        ;;
+    3)
+        target=$3
+        ;;
+    *)
+        usage
+esac
 
 case "$flavor" in
     "debug")
@@ -52,21 +63,13 @@ case "$platform" in
         ;;
 
     *)
-    echo "Unknown OS"
-    exit 1;
+        echo "Unknown OS"
+        exit 1;
 esac
 
 runTarget() {
     jobs=${TC_MAX_PROCS-$defaultMaxProcs}
-
-    if [ $# -eq 2 ]; then
-        if [ "$2" = "true" ]; then
-            sudo make -j "${jobs}" $1
-            return
-        fi
-    fi
-
-    make -j "${jobs}" $1
+    make -j "${jobs}" $@
 }
 
 doClean() {
@@ -76,8 +79,12 @@ doClean() {
 doBuild() {
     mkdir -p "$builddir"
     cd "$builddir"
-    cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config
-    runTarget all
+
+    if [ ! -f "${cmakeOutput}" ]; then
+        cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config
+    fi
+
+    runTarget $@
 }
 
 doTest() {
@@ -85,7 +92,7 @@ doTest() {
 }
 
 doInstall() {
-    runTarget install true
+    runTarget install
 }
 
 case "$action" in
@@ -93,11 +100,11 @@ case "$action" in
         doClean
         ;;
     build)
-        doBuild
+        doBuild "${target}"
         ;;
     rebuild)
         doClean
-        doBuild
+        doBuild "${target}"
         ;;
     test)
         doBuild
@@ -105,10 +112,10 @@ case "$action" in
         ;;
     tidy)
         export CLANG_TIDY=yes
-        doBuild
+        doBuild "${target}"
         ;;
     install)
-        doBuild
+        doBuild "${target}"
         doInstall
         ;;
     *)
