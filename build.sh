@@ -5,6 +5,10 @@
 # Args
 #  action -- build|clean
 #  flavor -- debug|release
+#
+# Environment
+#  TC_MAX_PROCS -- number of make jobs to run simultaneously
+#
 set -euo pipefail
 
 usage() {
@@ -21,13 +25,13 @@ flavor=$2
 
 case "$flavor" in
     "debug")
-	config="Debug"
-	;;
+        config="Debug"
+        ;;
     "release")
-	config="RelWithDebInfo"
-	;;
+        config="RelWithDebInfo"
+        ;;
     *)
-	usage
+    usage
 esac
 
 rootdir=$(cd $(dirname $BASH_SOURCE) && echo $PWD)
@@ -36,28 +40,33 @@ builddir=$rootdir/build/$flavor
 platform=$(uname)
 case "$platform" in
     Linux)
-		cmakeGenerator="Unix Makefiles"
-		cmakeOutput=$builddir/Makefile
-		;;
+        cmakeGenerator="Unix Makefiles"
+        cmakeOutput=$builddir/Makefile
+        defaultMaxProcs=1
+        ;;
 
     Darwin)
-		cmakeGenerator="Unix Makefiles"
-		cmakeOutput=$builddir/Makefile
-		;;
+        cmakeGenerator="Unix Makefiles"
+        cmakeOutput=$builddir/Makefile
+        defaultMaxProcs=$(sysctl -n hw.ncpu)
+        ;;
 
     *)
-	echo "Unknown OS"
-	exit 1;
+    echo "Unknown OS"
+    exit 1;
 esac
 
 runTarget() {
+    jobs=${TC_MAX_PROCS-$defaultMaxProcs}
+
     if [ $# -eq 2 ]; then
-	if [ "$2" = "true" ]; then
-	    sudo make $1
-	    return
-	fi
+        if [ "$2" = "true" ]; then
+            sudo make -j "${jobs}" $1
+            return
+        fi
     fi
-    make $1
+
+    make -j "${jobs}" $1
 }
 
 doClean() {
@@ -72,7 +81,7 @@ doBuild() {
 }
 
 doTest() {
-	"$builddir/unittest/unittest"
+    "$builddir/unittest/unittest"
 }
 
 doInstall() {
@@ -80,28 +89,28 @@ doInstall() {
 }
 
 case "$action" in
-	clean)
-		doClean
-		;;
-	build)
-		doBuild
-		;;
-	rebuild)
-		doClean
-		doBuild
-		;;
-	test)
-		doBuild
-		doTest
-		;;
-	tidy)
-		export CLANG_TIDY=yes
-		doBuild
-		;;
-	install)
-		doBuild
-		doInstall
-		;;
-	*)
-		usage;
+    clean)
+        doClean
+        ;;
+    build)
+        doBuild
+        ;;
+    rebuild)
+        doClean
+        doBuild
+        ;;
+    test)
+        doBuild
+        doTest
+        ;;
+    tidy)
+        export CLANG_TIDY=yes
+        doBuild
+        ;;
+    install)
+        doBuild
+        doInstall
+        ;;
+    *)
+        usage;
 esac
