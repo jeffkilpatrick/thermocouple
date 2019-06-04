@@ -9,6 +9,7 @@
 #
 # Environment
 #  TC_MAX_PROCS -- number of make jobs to run simultaneously
+#  TC_BUILDDIR  -- location of build artifacts
 #
 set -euo pipefail
 
@@ -20,10 +21,6 @@ usage() {
     exit 1
 }
 
-action=$1
-flavor=$2
-target=all
-
 case $# in
     2)
         ;;
@@ -33,6 +30,10 @@ case $# in
     *)
         usage
 esac
+
+action=$1
+flavor=$2
+target=all
 
 case "$flavor" in
     "debug")
@@ -46,7 +47,7 @@ case "$flavor" in
 esac
 
 rootdir=$(cd $(dirname $BASH_SOURCE) && echo $PWD)
-builddir=$rootdir/build/$flavor
+builddir=${TC_BUILDDIR-$rootdir/build/$flavor}
 
 platform=$(uname)
 case "$platform" in
