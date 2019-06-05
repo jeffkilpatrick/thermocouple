@@ -21,6 +21,8 @@ usage() {
     exit 1
 }
 
+target=all
+
 case $# in
     2)
         ;;
@@ -33,7 +35,6 @@ esac
 
 action=$1
 flavor=$2
-target=all
 
 case "$flavor" in
     "debug")
