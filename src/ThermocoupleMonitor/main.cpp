@@ -1,9 +1,11 @@
 
-#ifndef PHIDGETS_HOST
-#define PHIDGETS_HOST "localhost"
+#if defined(HAVE_PHIGETS21)
+#  if !defined(PHIDGETS_HOST)
+#    define PHIDGETS_HOST "localhost"
+#  endif
+#  include <PhidgetsManager.h>
 #endif
 
-#include <PhidgetsManager.h>
 #include <SensorBroker.h>
 
 #include <algorithm>
@@ -137,8 +139,10 @@ public:
 
 int main(int argc, char* argv[])
 {
+#if defined(HAVE_PHIGETS21)
     const char* host = argc > 1 ? argv[1] : PHIDGETS_HOST;
     std::shared_ptr<RemotePhidgetsManager> phidgetsManager = RemotePhidgetsManager::OpenAddress(host);
+#endif
 
     auto attachThread = std::thread(AttachRunLoop);
     //StdoutOutputter outputter;
