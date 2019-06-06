@@ -1,5 +1,6 @@
 find_package(ncurses REQUIRED)
 find_package(Phidget21)
+find_package(Threads REQUIRED)
 
 include_directories(
     ${NCURSES_INCLUDE_DIR}
@@ -21,6 +22,7 @@ endif()
 target_link_libraries(ThermocoupleMonitor
     Thermocouple
     ${NCURSES_LIBRARY}
+    ${CMAKE_THREAD_LIBS_INIT}
 )
 
 install(TARGETS ThermocoupleMonitor

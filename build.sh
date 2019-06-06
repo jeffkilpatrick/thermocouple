@@ -55,7 +55,7 @@ case "$platform" in
     Linux)
         cmakeGenerator="Unix Makefiles"
         cmakeOutput=$builddir/Makefile
-        defaultMaxProcs=1
+        defaultMaxProcs=$(cat /proc/cpuinfo | grep '^processor' | wc -l)
         ;;
 
     Darwin)
