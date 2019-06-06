@@ -36,7 +36,6 @@ set(SRCDIR ${ROOTDIR}/src)
 set(TESTDIR ${ROOTDIR}/test)
 
 add_subdirectory(Thermocouple)
-add_subdirectory(PhidgetsMonitor)
 add_subdirectory(ThermocoupleMonitor)
 add_subdirectory(gtest)
 add_subdirectory(unittest)
