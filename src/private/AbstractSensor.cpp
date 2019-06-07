@@ -23,6 +23,7 @@ AbstractSensor::AddNotification(
     SubscriptionId subId,
     std::shared_ptr<Subscription> subscription)
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     Unsubscribe(subId);
     m_subscriptions.emplace(subId, subscription);
 }
@@ -30,6 +31,7 @@ AbstractSensor::AddNotification(
 void
 AbstractSensor::Pause(SubscriptionId subId)
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     auto sub = m_subscriptions.find(subId);
     if (sub != m_subscriptions.end()) {
         sub->second->SetStatus(Subscription::Status::PAUSED);
@@ -39,6 +41,7 @@ AbstractSensor::Pause(SubscriptionId subId)
 void
 AbstractSensor::Unpause(SubscriptionId subId)
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     auto sub = m_subscriptions.find(subId);
     if (sub != m_subscriptions.end()) {
         sub->second->SetStatus(Subscription::Status::ACTIVE);
@@ -48,12 +51,14 @@ AbstractSensor::Unpause(SubscriptionId subId)
 void
 AbstractSensor::Unsubscribe(SubscriptionId subId)
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     m_subscriptions.erase(subId);
 }
 
 Subscription::Status
 AbstractSensor::GetStatus() const
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     if (m_subscriptions.empty()) {
         return Subscription::Status::UNKNOWN_SUBSCRIPTION;
     }
@@ -71,6 +76,7 @@ AbstractSensor::GetStatus() const
 Subscription::Status
 AbstractSensor::GetStatus(SubscriptionId subId) const
 {
+    ScopedRecursiveLock lock(m_subscriptionsMutex);
     auto sub = m_subscriptions.find(subId);
     if (sub == m_subscriptions.end()) {
         return Subscription::Status::UNKNOWN_SUBSCRIPTION;
@@ -85,11 +91,12 @@ AbstractSensor::Notify(
 	const SystemTime& time)
 {
     ScopedRecursiveLock lock(m_subscriptionsMutex);
-    for (auto subEntry = cbegin(m_subscriptions); subEntry != cend(m_subscriptions); ++subEntry) {
-        auto& sub = subEntry->second;
-        // Erase subscriptions that go nowhere
+    for (auto& idAndSub : m_subscriptions) {
+        auto& sub = idAndSub.second;
+
+        // Disable subscriptions that go nowhere
         if (sub->GetListener().expired()) {
-            m_subscriptions.erase(subEntry);
+            sub->SetStatus(Subscription::Status::UNKNOWN_SUBSCRIPTION);
             continue;
         }
 
