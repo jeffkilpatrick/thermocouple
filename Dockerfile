@@ -22,4 +22,4 @@ ADD build.sh /opt/thermocouple/
 WORKDIR /opt/thermocouple
 
 # build and test the app
-CMD [ "./build.sh", "build", "release" ]
+CMD [ "./build.sh", "test", "release" ]
