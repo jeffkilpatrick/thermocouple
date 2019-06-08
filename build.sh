@@ -10,6 +10,7 @@
 # Environment
 #  TC_MAX_PROCS -- number of make jobs to run simultaneously
 #  TC_BUILDDIR  -- location of build artifacts
+#  TC_FRAMEWORK_PATH -- search path for macOS frameworks
 #
 set -euo pipefail
 
@@ -79,11 +80,13 @@ doClean() {
 }
 
 doBuild() {
+    frameworkPath="${TC_FRAMEWORK_PATH-}"
+
     mkdir -p "$builddir"
     cd "$builddir"
 
     if [ ! -f "${cmakeOutput}" ]; then
-        cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config
+        cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config "-DCMAKE_FRAMEWORK_PATH=${frameworkPath}"
     fi
 
     runTarget $@
