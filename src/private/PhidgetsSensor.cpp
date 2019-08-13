@@ -61,11 +61,9 @@ TemperaturePhidget::Impl::Impl(
 {
     CPhidgetTemperatureSensor_create(&m_handle);
 
-    int result = opener.OpenPhidget(m_handle, serial);
-    if (result != EPHIDGET_OK) {
-        throw PhidgetException(result);
-    }
+    opener.OpenPhidget(m_handle, serial);
 
+    int result = 0;
     if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 5000)) != 0) {
         throw PhidgetException(result);
     }

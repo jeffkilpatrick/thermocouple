@@ -1,0 +1,1517 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		71CA71F494F9441C84BA6E13 /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BC737FFC6DE7411AB9BF2CC7 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				D5A5BE0C15FD46B783789F08 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				2DB5B81404C84D9193953F7F /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
+		8E7AB1E8F3B3420ABA7D4C67 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = ECD9A4BB3A0A42E2B01ED5A1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				8037DE76BAC8460EA6F702ED /* CMake Rules */,
+			);
+			dependencies = (
+				7191FBC9D0D347149094271C /* PBXTargetDependency */,
+				E9F7FE84FCBC4CD6B380A087 /* PBXTargetDependency */,
+				1DB7B2E8B3A6416290A03602 /* PBXTargetDependency */,
+				C7D5B42AD219429DBEA4FA7E /* PBXTargetDependency */,
+				09EBF369628F4E6AA0B3EE5E /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		962C0324D70644A1A908E195 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FC1C7D2EA66D4888920D68D8 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				759145E79B194C03BDC97525 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0AD7047F1A9C40A2A3F2D401 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsManager.cpp */ = {isa = PBXBuildFile; fileRef = 04B167A1AE0840D8A3B33181 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsManager.cpp */; };
+		11080D7C5B6542449962EB23 /* /Users/kilpatjr/src/thermocouple/cmake/ThermocoupleMonitor/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 0E2CF6F639674BD887AA6A92 /* /Users/kilpatjr/src/thermocouple/cmake/ThermocoupleMonitor/CMakeLists.txt */; };
+		1690C250A5FF404096990FE0 /* /Users/kilpatjr/src/thermocouple/src/public/AbstractSensor.h */ = {isa = PBXBuildFile; fileRef = 1D5F48FA4B0E45C686D4AD94 /* /Users/kilpatjr/src/thermocouple/src/public/AbstractSensor.h */; settings = {ATTRIBUTES = (Public); }; };
+		20A00E105AAF4249A73EA76F /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.h */ = {isa = PBXBuildFile; fileRef = E784A79580AB43ACAE3A318A /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.h */; };
+		2137C51F541D41178254F7C2 /* /Users/kilpatjr/src/thermocouple/src/ThermocoupleMonitor/main.cpp */ = {isa = PBXBuildFile; fileRef = 6957ED92B287446BB7C10B2E /* /Users/kilpatjr/src/thermocouple/src/ThermocoupleMonitor/main.cpp */; };
+		2C593D89FC3E486CA1885C30 /* /Users/kilpatjr/src/thermocouple/src/public/SensorPoller.h */ = {isa = PBXBuildFile; fileRef = C9929F580676465CAD922470 /* /Users/kilpatjr/src/thermocouple/src/public/SensorPoller.h */; settings = {ATTRIBUTES = (Public); }; };
+		3CE2822F2FCF415FA8597ECC /* /Users/kilpatjr/src/thermocouple/src/public/ISensor.h */ = {isa = PBXBuildFile; fileRef = 6A28F14C432D48B9B24FDA06 /* /Users/kilpatjr/src/thermocouple/src/public/ISensor.h */; settings = {ATTRIBUTES = (Public); }; };
+		4E3687B74C8844E5BF7198E3 /* /Users/kilpatjr/src/thermocouple/cmake/Thermocouple/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 38C1EB55ADFF4B499C1ECF5C /* /Users/kilpatjr/src/thermocouple/cmake/Thermocouple/CMakeLists.txt */; };
+		4F982F0494094AC6A147F9B1 /* /Users/kilpatjr/src/thermocouple/src/private/SensorBroker.cpp */ = {isa = PBXBuildFile; fileRef = 7C6B400FAC0D447A97664653 /* /Users/kilpatjr/src/thermocouple/src/private/SensorBroker.cpp */; };
+		52BDB32647D942F281C146F0 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXBuildFile; fileRef = 093852CA6BCB4A8389790854 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest-all.cc */; };
+		5A68080017124B70A589F1B4 /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.cpp */ = {isa = PBXBuildFile; fileRef = 159306FE6D164F7BB5DFBE7F /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.cpp */; };
+		6096BB101BC94448AC7D009F /* /Users/kilpatjr/src/thermocouple/src/public/SensorBroker.h */ = {isa = PBXBuildFile; fileRef = BCC335F160F14645AAF5498C /* /Users/kilpatjr/src/thermocouple/src/public/SensorBroker.h */; settings = {ATTRIBUTES = (Public); }; };
+		61CB6446A4264BA5814C5B23 /* /Users/kilpatjr/src/thermocouple/src/private/SensorPoller.cpp */ = {isa = PBXBuildFile; fileRef = E157430675694C7B8F9FAB94 /* /Users/kilpatjr/src/thermocouple/src/private/SensorPoller.cpp */; };
+		69EF280F14AE4EA7A10FEA10 /* /Users/kilpatjr/src/thermocouple/src/public/IListener.h */ = {isa = PBXBuildFile; fileRef = 13560A07AEE14A74A4309388 /* /Users/kilpatjr/src/thermocouple/src/public/IListener.h */; settings = {ATTRIBUTES = (Public); }; };
+		6DEF18895D7F4E9F94C60193 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.h */ = {isa = PBXBuildFile; fileRef = 52C6D601D8E047708A0497D9 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.h */; };
+		7F44F6C89ADA454E89F16279 /* /Users/kilpatjr/src/thermocouple/src/private/Subscription.cpp */ = {isa = PBXBuildFile; fileRef = 42641631CE0A45D5825A8001 /* /Users/kilpatjr/src/thermocouple/src/private/Subscription.cpp */; };
+		8003AAE31590467EBD32AE87 /* /Users/kilpatjr/src/thermocouple/src/private/MockSensor.cpp */ = {isa = PBXBuildFile; fileRef = AE3AC3C9D9E44F2A88566D4F /* /Users/kilpatjr/src/thermocouple/src/private/MockSensor.cpp */; };
+		82029272387E4F2894DCF61E /* /Users/kilpatjr/src/thermocouple/src/private/AbstractSensor.cpp */ = {isa = PBXBuildFile; fileRef = 800476118708439DAFB3A940 /* /Users/kilpatjr/src/thermocouple/src/private/AbstractSensor.cpp */; };
+		AA007A06E42445119C2CB895 /* /Users/kilpatjr/src/thermocouple/cmake/gtest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = A29ED4D56647443FB5C23AD7 /* /Users/kilpatjr/src/thermocouple/cmake/gtest/CMakeLists.txt */; };
+		AE495BEF70CD4356B397F6E3 /* /Users/kilpatjr/src/thermocouple/src/public/PhidgetsManager.h */ = {isa = PBXBuildFile; fileRef = C16526F7E12E46AD9FE7F7E0 /* /Users/kilpatjr/src/thermocouple/src/public/PhidgetsManager.h */; settings = {ATTRIBUTES = (Public); }; };
+		B1E0995AF350490BB099730A /* /Users/kilpatjr/src/thermocouple/test/MockSensorTest.cpp */ = {isa = PBXBuildFile; fileRef = 08500E2B41C84A2FBC7AC53B /* /Users/kilpatjr/src/thermocouple/test/MockSensorTest.cpp */; };
+		B3222C7C5A5B4C69AC7D1ED2 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.cpp */ = {isa = PBXBuildFile; fileRef = 2281A0D8F1254982BC79FA3A /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.cpp */; };
+		C5F5139373714F32849C5D7D /* /Users/kilpatjr/src/thermocouple/src/public/MockSensor.h */ = {isa = PBXBuildFile; fileRef = 983A2F5CC5E343ADB05C9A2F /* /Users/kilpatjr/src/thermocouple/src/public/MockSensor.h */; settings = {ATTRIBUTES = (Public); }; };
+		E5DEA43B5C2848FDB13104DA /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXBuildFile; fileRef = 429E3A92EFC74066A551C1B5 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest_main.cc */; };
+		E71D5D39894E4BC4B7A6BF5D /* /Users/kilpatjr/src/thermocouple/src/public/Subscription.h */ = {isa = PBXBuildFile; fileRef = A24597F836CA46DEB0F65B4D /* /Users/kilpatjr/src/thermocouple/src/public/Subscription.h */; settings = {ATTRIBUTES = (Public); }; };
+		F1FACCBD750240888F0094DC /* /Users/kilpatjr/src/thermocouple/cmake/unittest/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = F96FCC05BE014889A47F218C /* /Users/kilpatjr/src/thermocouple/cmake/unittest/CMakeLists.txt */; };
+		FFA575046F9D4048B4AA2AE5 /* /Users/kilpatjr/src/thermocouple/test/SensorBrokerTest.cpp */ = {isa = PBXBuildFile; fileRef = B70FA4057920426A8A0890FE /* /Users/kilpatjr/src/thermocouple/test/SensorBrokerTest.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		13109B951E054956B7E59EED /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		1877BFA9A2E54549AA6E2A37 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		2976B1BA4C734A29A15C8C1B /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		D5A572D9606841AC94C69142 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		46C156B72BAF45C9BFF93F55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 962C0324D70644A1A908E195;
+			remoteInfo = ZERO_CHECK;
+		};
+		48598D795F144A11B2FA7538 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 962C0324D70644A1A908E195;
+			remoteInfo = ZERO_CHECK;
+		};
+		743323BC40094FD7BBC0402B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E1D65253DBE44B8A9C20386;
+			remoteInfo = gtest;
+		};
+		75A4883BB08E4DE68915A920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 962C0324D70644A1A908E195;
+			remoteInfo = ZERO_CHECK;
+		};
+		77566E61CC0F4D7283C00C79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E1D65253DBE44B8A9C20386;
+			remoteInfo = gtest;
+		};
+		8BA364760061433989D0EC07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A775B560AF444A099B627B4C;
+			remoteInfo = unittest;
+		};
+		B48B3151BB884491A7EF17BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 962C0324D70644A1A908E195;
+			remoteInfo = ZERO_CHECK;
+		};
+		BE287E19FE9045E7B68592E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5AB9281A219342BCA650044E;
+			remoteInfo = ThermocoupleMonitor;
+		};
+		D05C5FC5A79E440E893BEF2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 962C0324D70644A1A908E195;
+			remoteInfo = ZERO_CHECK;
+		};
+		D4451C092BDD459A80B6923C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9359B4795C9C4FC89A0CB296;
+			remoteInfo = Thermocouple;
+		};
+		DB5E3BEDCAA14D538400A1FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E7AB1E8F3B3420ABA7D4C67;
+			remoteInfo = ALL_BUILD;
+		};
+		E7A78E38597C4D14A2D83EB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9359B4795C9C4FC89A0CB296;
+			remoteInfo = Thermocouple;
+		};
+		F18025936FC54D07A9053BFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEB0A4E4A89644C8920B399E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9359B4795C9C4FC89A0CB296;
+			remoteInfo = Thermocouple;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		04B167A1AE0840D8A3B33181 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PhidgetsManager.cpp; path = ../src/private/PhidgetsManager.cpp; sourceTree = SOURCE_ROOT; };
+		08500E2B41C84A2FBC7AC53B /* /Users/kilpatjr/src/thermocouple/test/MockSensorTest.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MockSensorTest.cpp; path = ../test/MockSensorTest.cpp; sourceTree = SOURCE_ROOT; };
+		093852CA6BCB4A8389790854 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = "gtest-all.cc"; path = "../vendor/gtest-1.7.0/src/gtest-all.cc"; sourceTree = SOURCE_ROOT; };
+		0E2CF6F639674BD887AA6A92 /* /Users/kilpatjr/src/thermocouple/cmake/ThermocoupleMonitor/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = ThermocoupleMonitor/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		13560A07AEE14A74A4309388 /* /Users/kilpatjr/src/thermocouple/src/public/IListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IListener.h; path = ../src/public/IListener.h; sourceTree = SOURCE_ROOT; };
+		159306FE6D164F7BB5DFBE7F /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = RecordingListener.cpp; path = ../test/RecordingListener.cpp; sourceTree = SOURCE_ROOT; };
+		1D5F48FA4B0E45C686D4AD94 /* /Users/kilpatjr/src/thermocouple/src/public/AbstractSensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = AbstractSensor.h; path = ../src/public/AbstractSensor.h; sourceTree = SOURCE_ROOT; };
+		2281A0D8F1254982BC79FA3A /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PhidgetsSensor.cpp; path = ../src/private/PhidgetsSensor.cpp; sourceTree = SOURCE_ROOT; };
+		38C1EB55ADFF4B499C1ECF5C /* /Users/kilpatjr/src/thermocouple/cmake/Thermocouple/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = Thermocouple/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		42641631CE0A45D5825A8001 /* /Users/kilpatjr/src/thermocouple/src/private/Subscription.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Subscription.cpp; path = ../src/private/Subscription.cpp; sourceTree = SOURCE_ROOT; };
+		429E3A92EFC74066A551C1B5 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = gtest_main.cc; path = "../vendor/gtest-1.7.0/src/gtest_main.cc"; sourceTree = SOURCE_ROOT; };
+		50BEEA9AA2EB4DC1B8245CFB /* ThermocoupleMonitor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ThermocoupleMonitor; sourceTree = BUILT_PRODUCTS_DIR; };
+		52C6D601D8E047708A0497D9 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = PhidgetsSensor.h; path = ../src/private/PhidgetsSensor.h; sourceTree = SOURCE_ROOT; };
+		6957ED92B287446BB7C10B2E /* /Users/kilpatjr/src/thermocouple/src/ThermocoupleMonitor/main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = ../src/ThermocoupleMonitor/main.cpp; sourceTree = SOURCE_ROOT; };
+		6A28F14C432D48B9B24FDA06 /* /Users/kilpatjr/src/thermocouple/src/public/ISensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ISensor.h; path = ../src/public/ISensor.h; sourceTree = SOURCE_ROOT; };
+		7C6B400FAC0D447A97664653 /* /Users/kilpatjr/src/thermocouple/src/private/SensorBroker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SensorBroker.cpp; path = ../src/private/SensorBroker.cpp; sourceTree = SOURCE_ROOT; };
+		800476118708439DAFB3A940 /* /Users/kilpatjr/src/thermocouple/src/private/AbstractSensor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AbstractSensor.cpp; path = ../src/private/AbstractSensor.cpp; sourceTree = SOURCE_ROOT; };
+		950A2B0A7DBC417B9461AB31 /* gtest */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgtest.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		983A2F5CC5E343ADB05C9A2F /* /Users/kilpatjr/src/thermocouple/src/public/MockSensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MockSensor.h; path = ../src/public/MockSensor.h; sourceTree = SOURCE_ROOT; };
+		A24597F836CA46DEB0F65B4D /* /Users/kilpatjr/src/thermocouple/src/public/Subscription.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Subscription.h; path = ../src/public/Subscription.h; sourceTree = SOURCE_ROOT; };
+		A29ED4D56647443FB5C23AD7 /* /Users/kilpatjr/src/thermocouple/cmake/gtest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = gtest/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		AE3AC3C9D9E44F2A88566D4F /* /Users/kilpatjr/src/thermocouple/src/private/MockSensor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MockSensor.cpp; path = ../src/private/MockSensor.cpp; sourceTree = SOURCE_ROOT; };
+		B70FA4057920426A8A0890FE /* /Users/kilpatjr/src/thermocouple/test/SensorBrokerTest.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SensorBrokerTest.cpp; path = ../test/SensorBrokerTest.cpp; sourceTree = SOURCE_ROOT; };
+		BCC335F160F14645AAF5498C /* /Users/kilpatjr/src/thermocouple/src/public/SensorBroker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SensorBroker.h; path = ../src/public/SensorBroker.h; sourceTree = SOURCE_ROOT; };
+		C16526F7E12E46AD9FE7F7E0 /* /Users/kilpatjr/src/thermocouple/src/public/PhidgetsManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = PhidgetsManager.h; path = ../src/public/PhidgetsManager.h; sourceTree = SOURCE_ROOT; };
+		C9929F580676465CAD922470 /* /Users/kilpatjr/src/thermocouple/src/public/SensorPoller.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SensorPoller.h; path = ../src/public/SensorPoller.h; sourceTree = SOURCE_ROOT; };
+		D6BCF66C866D45F2A901E62A /* /Users/kilpatjr/src/thermocouple/cmake/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		D7D58B89FADF43638B02F549 /* Thermocouple */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Thermocouple.framework/Thermocouple; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC01BB60ADF3461B93912D68 /* unittest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = unittest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E157430675694C7B8F9FAB94 /* /Users/kilpatjr/src/thermocouple/src/private/SensorPoller.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SensorPoller.cpp; path = ../src/private/SensorPoller.cpp; sourceTree = SOURCE_ROOT; };
+		E784A79580AB43ACAE3A318A /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = RecordingListener.h; path = ../test/RecordingListener.h; sourceTree = SOURCE_ROOT; };
+		F96FCC05BE014889A47F218C /* /Users/kilpatjr/src/thermocouple/cmake/unittest/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = unittest/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0B934DA0481F4A60B2BC91BD /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				6957ED92B287446BB7C10B2E /* /Users/kilpatjr/src/thermocouple/src/ThermocoupleMonitor/main.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		0E7CD77B8274449B96C7D5EB /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				C8429017015F461E89E51A52 /* CMake Rules */,
+				D6BCF66C866D45F2A901E62A /* /Users/kilpatjr/src/thermocouple/cmake/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		30E6A930449546ADBFBF5686 /* gtest */ = {
+			isa = PBXGroup;
+			children = (
+				84B6C044A3DC4A7CA10B36EF /* Source Files */,
+				A29ED4D56647443FB5C23AD7 /* /Users/kilpatjr/src/thermocouple/cmake/gtest/CMakeLists.txt */,
+			);
+			name = gtest;
+			sourceTree = "<group>";
+		};
+		37F3C137139D4406B805A702 /* ThermocoupleMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				0B934DA0481F4A60B2BC91BD /* Source Files */,
+				0E2CF6F639674BD887AA6A92 /* /Users/kilpatjr/src/thermocouple/cmake/ThermocoupleMonitor/CMakeLists.txt */,
+			);
+			name = ThermocoupleMonitor;
+			sourceTree = "<group>";
+		};
+		47189BF6BAA240288C62A349 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				08500E2B41C84A2FBC7AC53B /* /Users/kilpatjr/src/thermocouple/test/MockSensorTest.cpp */,
+				159306FE6D164F7BB5DFBE7F /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.cpp */,
+				B70FA4057920426A8A0890FE /* /Users/kilpatjr/src/thermocouple/test/SensorBrokerTest.cpp */,
+				429E3A92EFC74066A551C1B5 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest_main.cc */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		62250250305E4BBBA1EFA429 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7D58B89FADF43638B02F549 /* Thermocouple */,
+				50BEEA9AA2EB4DC1B8245CFB /* ThermocoupleMonitor */,
+				950A2B0A7DBC417B9461AB31 /* gtest */,
+				DC01BB60ADF3461B93912D68 /* unittest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		665EF1785CCA4F5DB7F10519 /* unittest */ = {
+			isa = PBXGroup;
+			children = (
+				47189BF6BAA240288C62A349 /* Source Files */,
+				D807FAD14C2A4F41BA85CCD9 /* Header Files */,
+				F96FCC05BE014889A47F218C /* /Users/kilpatjr/src/thermocouple/cmake/unittest/CMakeLists.txt */,
+			);
+			name = unittest;
+			sourceTree = "<group>";
+		};
+		69AB29EAF9E142CF9E17D11C /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				52C6D601D8E047708A0497D9 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.h */,
+				1D5F48FA4B0E45C686D4AD94 /* /Users/kilpatjr/src/thermocouple/src/public/AbstractSensor.h */,
+				13560A07AEE14A74A4309388 /* /Users/kilpatjr/src/thermocouple/src/public/IListener.h */,
+				6A28F14C432D48B9B24FDA06 /* /Users/kilpatjr/src/thermocouple/src/public/ISensor.h */,
+				983A2F5CC5E343ADB05C9A2F /* /Users/kilpatjr/src/thermocouple/src/public/MockSensor.h */,
+				C16526F7E12E46AD9FE7F7E0 /* /Users/kilpatjr/src/thermocouple/src/public/PhidgetsManager.h */,
+				BCC335F160F14645AAF5498C /* /Users/kilpatjr/src/thermocouple/src/public/SensorBroker.h */,
+				C9929F580676465CAD922470 /* /Users/kilpatjr/src/thermocouple/src/public/SensorPoller.h */,
+				A24597F836CA46DEB0F65B4D /* /Users/kilpatjr/src/thermocouple/src/public/Subscription.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		84B6C044A3DC4A7CA10B36EF /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				093852CA6BCB4A8389790854 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest-all.cc */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		9FCD375920824B2999171151 /* Thermocouple */ = {
+			isa = PBXGroup;
+			children = (
+				DC5353C4C8D049E282A99F8F /* Source Files */,
+				69AB29EAF9E142CF9E17D11C /* Header Files */,
+				38C1EB55ADFF4B499C1ECF5C /* /Users/kilpatjr/src/thermocouple/cmake/Thermocouple/CMakeLists.txt */,
+			);
+			name = Thermocouple;
+			sourceTree = "<group>";
+		};
+		C1480C881DDE4895BC5F538A = {
+			isa = PBXGroup;
+			children = (
+				0E7CD77B8274449B96C7D5EB /* ALL_BUILD */,
+				9FCD375920824B2999171151 /* Thermocouple */,
+				37F3C137139D4406B805A702 /* ThermocoupleMonitor */,
+				30E6A930449546ADBFBF5686 /* gtest */,
+				665EF1785CCA4F5DB7F10519 /* unittest */,
+				62250250305E4BBBA1EFA429 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C8429017015F461E89E51A52 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D807FAD14C2A4F41BA85CCD9 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				E784A79580AB43ACAE3A318A /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		DC5353C4C8D049E282A99F8F /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				800476118708439DAFB3A940 /* /Users/kilpatjr/src/thermocouple/src/private/AbstractSensor.cpp */,
+				AE3AC3C9D9E44F2A88566D4F /* /Users/kilpatjr/src/thermocouple/src/private/MockSensor.cpp */,
+				04B167A1AE0840D8A3B33181 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsManager.cpp */,
+				2281A0D8F1254982BC79FA3A /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.cpp */,
+				7C6B400FAC0D447A97664653 /* /Users/kilpatjr/src/thermocouple/src/private/SensorBroker.cpp */,
+				E157430675694C7B8F9FAB94 /* /Users/kilpatjr/src/thermocouple/src/private/SensorPoller.cpp */,
+				42641631CE0A45D5825A8001 /* /Users/kilpatjr/src/thermocouple/src/private/Subscription.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E34B16108F3F4E4F89CC8C84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DEF18895D7F4E9F94C60193 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.h */,
+				1690C250A5FF404096990FE0 /* /Users/kilpatjr/src/thermocouple/src/public/AbstractSensor.h */,
+				69EF280F14AE4EA7A10FEA10 /* /Users/kilpatjr/src/thermocouple/src/public/IListener.h */,
+				3CE2822F2FCF415FA8597ECC /* /Users/kilpatjr/src/thermocouple/src/public/ISensor.h */,
+				C5F5139373714F32849C5D7D /* /Users/kilpatjr/src/thermocouple/src/public/MockSensor.h */,
+				AE495BEF70CD4356B397F6E3 /* /Users/kilpatjr/src/thermocouple/src/public/PhidgetsManager.h */,
+				6096BB101BC94448AC7D009F /* /Users/kilpatjr/src/thermocouple/src/public/SensorBroker.h */,
+				2C593D89FC3E486CA1885C30 /* /Users/kilpatjr/src/thermocouple/src/public/SensorPoller.h */,
+				E71D5D39894E4BC4B7A6BF5D /* /Users/kilpatjr/src/thermocouple/src/public/Subscription.h */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		5AB9281A219342BCA650044E /* ThermocoupleMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 54BD69DFCCFE410D9FBF39B9 /* Build configuration list for PBXNativeTarget "ThermocoupleMonitor" */;
+			buildPhases = (
+				80DDDC2A2BEE486F8D58FDE2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				48555971BD284D4B9F6C544D /* PBXTargetDependency */,
+				0564D41CAB524F328640A983 /* PBXTargetDependency */,
+			);
+			name = ThermocoupleMonitor;
+			productName = ThermocoupleMonitor;
+			productReference = 50BEEA9AA2EB4DC1B8245CFB /* ThermocoupleMonitor */;
+			productType = "com.apple.product-type.tool";
+		};
+		5E1D65253DBE44B8A9C20386 /* gtest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9492D116B8B74572A9E70BE5 /* Build configuration list for PBXNativeTarget "gtest" */;
+			buildPhases = (
+				D977020E9F424751B7DE233C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A9B19EF031740CA8187DF92 /* PBXTargetDependency */,
+			);
+			name = gtest;
+			productName = gtest;
+			productReference = 950A2B0A7DBC417B9461AB31 /* gtest */;
+			productType = "com.apple.product-type.library.static";
+		};
+		9359B4795C9C4FC89A0CB296 /* Thermocouple */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FDC7EE3ADBD41DCA866CDAB /* Build configuration list for PBXNativeTarget "Thermocouple" */;
+			buildPhases = (
+				E34B16108F3F4E4F89CC8C84 /* Headers */,
+				1829D2CC79694EAA9E3932F5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4071EDEA4E2F4E4BAC19D454 /* PBXTargetDependency */,
+			);
+			name = Thermocouple;
+			productName = Thermocouple;
+			productReference = D7D58B89FADF43638B02F549 /* Thermocouple */;
+			productType = "com.apple.product-type.framework";
+		};
+		A775B560AF444A099B627B4C /* unittest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1845303039F4B6DA36BB5BD /* Build configuration list for PBXNativeTarget "unittest" */;
+			buildPhases = (
+				B9F6B085287146FDA270DA93 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDACB55FBF1A4E79B7E54296 /* PBXTargetDependency */,
+				73D6310C7D8D4B68AA8A905D /* PBXTargetDependency */,
+				806102236FBD4A0B80BBB78D /* PBXTargetDependency */,
+			);
+			name = unittest;
+			productName = unittest;
+			productReference = DC01BB60ADF3461B93912D68 /* unittest */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DEB0A4E4A89644C8920B399E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 40D2A941F8D449C895FCFA6F /* Build configuration list for PBXProject "Thermocouple" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				13109B951E054956B7E59EED /* Debug */,
+				D5A572D9606841AC94C69142 /* Release */,
+				1877BFA9A2E54549AA6E2A37 /* MinSizeRel */,
+				2976B1BA4C734A29A15C8C1B /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = C1480C881DDE4895BC5F538A;
+			projectDirPath = /Users/kilpatjr/src/thermocouple/cmake;
+			projectRoot = "";
+			targets = (
+				8E7AB1E8F3B3420ABA7D4C67 /* ALL_BUILD */,
+				9359B4795C9C4FC89A0CB296 /* Thermocouple */,
+				5AB9281A219342BCA650044E /* ThermocoupleMonitor */,
+				962C0324D70644A1A908E195 /* ZERO_CHECK */,
+				5E1D65253DBE44B8A9C20386 /* gtest */,
+				71CA71F494F9441C84BA6E13 /* install */,
+				A775B560AF444A099B627B4C /* unittest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2824619F96604644AACDBBBA = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		6F23E0050DE04F3FBE72D4EB = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		759145E79B194C03BDC97525 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/kilpatjr/src/thermocouple/xcode -f /Users/kilpatjr/src/thermocouple/xcode/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		79D9E3652FCD4BFBA1C21CF0 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		8037DE76BAC8460EA6F702ED /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/kilpatjr/src/thermocouple/xcode -f /Users/kilpatjr/src/thermocouple/xcode/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		D5A5BE0C15FD46B783789F08 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/kilpatjr/src/thermocouple/xcode -f /Users/kilpatjr/src/thermocouple/xcode/CMakeScripts/install_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1829D2CC79694EAA9E3932F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82029272387E4F2894DCF61E /* /Users/kilpatjr/src/thermocouple/src/private/AbstractSensor.cpp */,
+				8003AAE31590467EBD32AE87 /* /Users/kilpatjr/src/thermocouple/src/private/MockSensor.cpp */,
+				0AD7047F1A9C40A2A3F2D401 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsManager.cpp */,
+				B3222C7C5A5B4C69AC7D1ED2 /* /Users/kilpatjr/src/thermocouple/src/private/PhidgetsSensor.cpp */,
+				4F982F0494094AC6A147F9B1 /* /Users/kilpatjr/src/thermocouple/src/private/SensorBroker.cpp */,
+				61CB6446A4264BA5814C5B23 /* /Users/kilpatjr/src/thermocouple/src/private/SensorPoller.cpp */,
+				7F44F6C89ADA454E89F16279 /* /Users/kilpatjr/src/thermocouple/src/private/Subscription.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80DDDC2A2BEE486F8D58FDE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2137C51F541D41178254F7C2 /* /Users/kilpatjr/src/thermocouple/src/ThermocoupleMonitor/main.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9F6B085287146FDA270DA93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1E0995AF350490BB099730A /* /Users/kilpatjr/src/thermocouple/test/MockSensorTest.cpp */,
+				5A68080017124B70A589F1B4 /* /Users/kilpatjr/src/thermocouple/test/RecordingListener.cpp */,
+				FFA575046F9D4048B4AA2AE5 /* /Users/kilpatjr/src/thermocouple/test/SensorBrokerTest.cpp */,
+				E5DEA43B5C2848FDB13104DA /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest_main.cc */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D977020E9F424751B7DE233C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52BDB32647D942F281C146F0 /* /Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/src/gtest-all.cc */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0564D41CAB524F328640A983 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 962C0324D70644A1A908E195 /* ZERO_CHECK */;
+			targetProxy = B48B3151BB884491A7EF17BA /* PBXContainerItemProxy */;
+		};
+		09EBF369628F4E6AA0B3EE5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 962C0324D70644A1A908E195 /* ZERO_CHECK */;
+			targetProxy = D05C5FC5A79E440E893BEF2B /* PBXContainerItemProxy */;
+		};
+		1DB7B2E8B3A6416290A03602 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E1D65253DBE44B8A9C20386 /* gtest */;
+			targetProxy = 77566E61CC0F4D7283C00C79 /* PBXContainerItemProxy */;
+		};
+		2DB5B81404C84D9193953F7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E7AB1E8F3B3420ABA7D4C67 /* ALL_BUILD */;
+			targetProxy = DB5E3BEDCAA14D538400A1FF /* PBXContainerItemProxy */;
+		};
+		4071EDEA4E2F4E4BAC19D454 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 962C0324D70644A1A908E195 /* ZERO_CHECK */;
+			targetProxy = 75A4883BB08E4DE68915A920 /* PBXContainerItemProxy */;
+		};
+		48555971BD284D4B9F6C544D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9359B4795C9C4FC89A0CB296 /* Thermocouple */;
+			targetProxy = E7A78E38597C4D14A2D83EB5 /* PBXContainerItemProxy */;
+		};
+		7191FBC9D0D347149094271C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9359B4795C9C4FC89A0CB296 /* Thermocouple */;
+			targetProxy = F18025936FC54D07A9053BFC /* PBXContainerItemProxy */;
+		};
+		73D6310C7D8D4B68AA8A905D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E1D65253DBE44B8A9C20386 /* gtest */;
+			targetProxy = 743323BC40094FD7BBC0402B /* PBXContainerItemProxy */;
+		};
+		7A9B19EF031740CA8187DF92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 962C0324D70644A1A908E195 /* ZERO_CHECK */;
+			targetProxy = 46C156B72BAF45C9BFF93F55 /* PBXContainerItemProxy */;
+		};
+		806102236FBD4A0B80BBB78D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 962C0324D70644A1A908E195 /* ZERO_CHECK */;
+			targetProxy = 48598D795F144A11B2FA7538 /* PBXContainerItemProxy */;
+		};
+		C7D5B42AD219429DBEA4FA7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A775B560AF444A099B627B4C /* unittest */;
+			targetProxy = 8BA364760061433989D0EC07 /* PBXContainerItemProxy */;
+		};
+		CDACB55FBF1A4E79B7E54296 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9359B4795C9C4FC89A0CB296 /* Thermocouple */;
+			targetProxy = D4451C092BDD459A80B6923C /* PBXContainerItemProxy */;
+		};
+		E9F7FE84FCBC4CD6B380A087 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5AB9281A219342BCA650044E /* ThermocoupleMonitor */;
+			targetProxy = BE287E19FE9045E7B68592E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		01EAE79180DE455DB9E7BDAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Release;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Release/Thermocouple.framework/Versions/A/Thermocouple /Users/kilpatjr/src/thermocouple/xcode/gtest/Release/libgtest.a -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = unittest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/unittest;
+				SYSTEM_HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include");
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		0C666CE7C9EB4C2D8D8FF42B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include","/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = gtest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/gtest;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		0E30983F94C7493688BC259A /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Thermocouple_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public,/Library/Frameworks/Phidget21.framework/Headers);
+				INFOPLIST_FILE = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/CMakeFiles/Thermocouple.dir/Info.plist;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -fPIC -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++'  -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Thermocouple;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		0EFE9FDB7C034E3B89EC465F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Debug;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "   -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Debug/Thermocouple.framework/Versions/A/Thermocouple /Users/kilpatjr/src/thermocouple/xcode/gtest/Debug/libgtest.a -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = unittest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/unittest;
+				SYSTEM_HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include");
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		1A8F71C6E2854A8A8B0EA1E5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/MinSizeRel;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/MinSizeRel/Thermocouple.framework/Versions/A/Thermocouple /Users/kilpatjr/src/thermocouple/xcode/gtest/MinSizeRel/libgtest.a -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = unittest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/unittest;
+				SYSTEM_HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include");
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		3357A9EA489C44A79518ACFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include","/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "   -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = gtest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/gtest;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		38BE75D88B7E49FD9CA9E593 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",HAVE_PHIDGETS21);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Debug;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "   -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Debug/Thermocouple.framework/Versions/A/Thermocouple /usr/lib/libncurses.dylib -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ThermocoupleMonitor;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/ThermocoupleMonitor;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		3B1B82C17FF048408CC58821 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		44279BEA4E1F4A248CF5D35C /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include","/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = gtest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/gtest;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		50DDDD9ACE3C4FB2BE931095 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",HAVE_PHIDGETS21);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Release;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/Release/Thermocouple.framework/Versions/A/Thermocouple /usr/lib/libncurses.dylib -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ThermocoupleMonitor;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/ThermocoupleMonitor;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		59B3D44EDB6047F09C9AE85E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		5A155ECCACF84C4B8361803A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include","/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0");
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = gtest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/gtest;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		5B2379B8A4ED40F3BFE8176B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		5B3FEA2C209042EF96E7FBE9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Thermocouple_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public,/Library/Frameworks/Phidget21.framework/Headers);
+				INFOPLIST_FILE = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/CMakeFiles/Thermocouple.dir/Info.plist;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CPLUSPLUSFLAGS = "   -fPIC -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++'  -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Thermocouple;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		674373CB865A4E0A94550A9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		790EF4C9BD884552A42930D5 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/RelWithDebInfo;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/RelWithDebInfo/Thermocouple.framework/Versions/A/Thermocouple /Users/kilpatjr/src/thermocouple/xcode/gtest/RelWithDebInfo/libgtest.a -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = unittest;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/unittest;
+				SYSTEM_HEADER_SEARCH_PATHS = ("/Users/kilpatjr/src/thermocouple/vendor/gtest-1.7.0/include");
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		7CC00D043113450091E7CB50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		7DFD975C95594276B5A0E413 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		7EABE0C23ADA42FB9724AE8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Thermocouple_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public,/Library/Frameworks/Phidget21.framework/Headers);
+				INFOPLIST_FILE = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/CMakeFiles/Thermocouple.dir/Info.plist;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -fPIC -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++'  -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Thermocouple;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		815FF29AA72F4D148BDABA27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		9C41CE10C0A64C7E9E8A3099 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",HAVE_PHIDGETS21);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/RelWithDebInfo;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/RelWithDebInfo/Thermocouple.framework/Versions/A/Thermocouple /usr/lib/libncurses.dylib -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ThermocoupleMonitor;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/ThermocoupleMonitor;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		9E569BDEE4124654A084B0F8 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		AB15D10FD85D49F3972F21AA /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		B6B7CF4FD032424D917BB75D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		C2ECD7B381884A9E84B70BB5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = "/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/build;
+			};
+			name = MinSizeRel;
+		};
+		C7CE7186BDB74CD5A13B2DE5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",HAVE_PHIDGETS21);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/public);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/MinSizeRel;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++' -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/MinSizeRel/Thermocouple.framework/Versions/A/Thermocouple /usr/lib/libncurses.dylib -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ThermocoupleMonitor;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/ThermocoupleMonitor;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		C8DE16CCB2814BAB8D3D650D /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = "/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/build;
+			};
+			name = RelWithDebInfo;
+		};
+		CFC13239B5E54A328AC4B4A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = "/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/build;
+			};
+			name = Release;
+		};
+		D301E609F71141B5BDDD1F63 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		EE5C439053014B3DBCB77E23 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = "/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/build;
+			};
+			name = Debug;
+		};
+		F9706F67F4C64A0E9AF8F411 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = (/Library/Frameworks);
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",Thermocouple_EXPORTS);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/kilpatjr/src/thermocouple/src/private,/Users/kilpatjr/src/thermocouple/src/public,/Library/Frameworks/Phidget21.framework/Headers);
+				INFOPLIST_FILE = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple/CMakeFiles/Thermocouple.dir/Info.plist;
+				INSTALL_PATH = "@rpath";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG -fPIC -Werror -Wall -Wno-unknown-pragmas '-stdlib=libc++' '-std=gnu++1z'  ";
+				OTHER_LDFLAGS = "'-stdlib=libc++'  -framework phidget21";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Thermocouple;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode/Thermocouple;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		FFA1A92C63F54744A450D12A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = "'-stdlib=libc++' ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/kilpatjr/src/thermocouple/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40D2A941F8D449C895FCFA6F /* Build configuration list for PBXProject "Thermocouple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE5C439053014B3DBCB77E23 /* Debug */,
+				CFC13239B5E54A328AC4B4A6 /* Release */,
+				C2ECD7B381884A9E84B70BB5 /* MinSizeRel */,
+				C8DE16CCB2814BAB8D3D650D /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		54BD69DFCCFE410D9FBF39B9 /* Build configuration list for PBXNativeTarget "ThermocoupleMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38BE75D88B7E49FD9CA9E593 /* Debug */,
+				50DDDD9ACE3C4FB2BE931095 /* Release */,
+				C7CE7186BDB74CD5A13B2DE5 /* MinSizeRel */,
+				9C41CE10C0A64C7E9E8A3099 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6FDC7EE3ADBD41DCA866CDAB /* Build configuration list for PBXNativeTarget "Thermocouple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B3FEA2C209042EF96E7FBE9 /* Debug */,
+				7EABE0C23ADA42FB9724AE8F /* Release */,
+				0E30983F94C7493688BC259A /* MinSizeRel */,
+				F9706F67F4C64A0E9AF8F411 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9492D116B8B74572A9E70BE5 /* Build configuration list for PBXNativeTarget "gtest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3357A9EA489C44A79518ACFD /* Debug */,
+				5A155ECCACF84C4B8361803A /* Release */,
+				44279BEA4E1F4A248CF5D35C /* MinSizeRel */,
+				0C666CE7C9EB4C2D8D8FF42B /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B1845303039F4B6DA36BB5BD /* Build configuration list for PBXNativeTarget "unittest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EFE9FDB7C034E3B89EC465F /* Debug */,
+				01EAE79180DE455DB9E7BDAD /* Release */,
+				1A8F71C6E2854A8A8B0EA1E5 /* MinSizeRel */,
+				790EF4C9BD884552A42930D5 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BC737FFC6DE7411AB9BF2CC7 /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59B3D44EDB6047F09C9AE85E /* Debug */,
+				7CC00D043113450091E7CB50 /* Release */,
+				9E569BDEE4124654A084B0F8 /* MinSizeRel */,
+				D301E609F71141B5BDDD1F63 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ECD9A4BB3A0A42E2B01ED5A1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6B7CF4FD032424D917BB75D /* Debug */,
+				674373CB865A4E0A94550A9C /* Release */,
+				5B2379B8A4ED40F3BFE8176B /* MinSizeRel */,
+				AB15D10FD85D49F3972F21AA /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FC1C7D2EA66D4888920D68D8 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFA1A92C63F54744A450D12A /* Debug */,
+				815FF29AA72F4D148BDABA27 /* Release */,
+				7DFD975C95594276B5A0E413 /* MinSizeRel */,
+				3B1B82C17FF048408CC58821 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DEB0A4E4A89644C8920B399E /* Project object */;
+}
