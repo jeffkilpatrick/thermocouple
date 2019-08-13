@@ -1,5 +1,5 @@
 
-#if defined(HAVE_PHIGETS21)
+#if defined(HAVE_PHIDGETS21)
 #  if !defined(PHIDGETS_HOST)
 #    define PHIDGETS_HOST "localhost"
 #  endif
@@ -139,9 +139,10 @@ public:
 
 int main(int argc, char* argv[])
 {
-#if defined(HAVE_PHIGETS21)
+#if defined(HAVE_PHIDGETS21)
     const char* host = argc > 1 ? argv[1] : PHIDGETS_HOST;
-    std::shared_ptr<RemotePhidgetsManager> phidgetsManager = RemotePhidgetsManager::OpenAddress(host);
+    auto remotePhidgetsManager = RemotePhidgetsManager::OpenAddress(host);
+    LocalPhidgetsManager::Instance();
 #endif
 
     auto attachThread = std::thread(AttachRunLoop);
