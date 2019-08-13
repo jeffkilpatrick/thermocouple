@@ -8,7 +8,7 @@
 
 #include "PhidgetsSensor.h"
 
-#ifdef PHIGET21_FRAMEWORK
+#ifdef PHIDGET21_FRAMEWORK
 #include "Phidget21/phidget21.h"
 #else
 #include "phidget21.h"
@@ -61,9 +61,10 @@ TemperaturePhidget::Impl::Impl(
 {
     CPhidgetTemperatureSensor_create(&m_handle);
 
-    opener.OpenPhidget(m_handle, serial);
-
-    int result;
+    int result = opener.OpenPhidget(m_handle, serial);
+    if (result != EPHIDGET_OK) {
+        throw PhidgetException(result);
+    }
 
     if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 5000)) != 0) {
         throw PhidgetException(result);

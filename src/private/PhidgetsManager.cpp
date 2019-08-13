@@ -11,7 +11,7 @@
 #include "PhidgetsSensor.h"
 #include "SensorBroker.h"
 
-#ifdef PHIGET21_FRAMEWORK
+#ifdef PHIDGET21_FRAMEWORK
 #include "Phidget21/phidget21.h"
 #else
 #include "phidget21.h"
@@ -24,6 +24,8 @@
 #include <queue>
 #include <sstream>
 #include <thread>
+
+#define TRY_PHIDGET(op) { int result{0}; if ((result = (op)) != EPHIDGET_OK) { throw PhidgetException (result); } }
 
 class PhidgetsManager::Impl : public PhidgetOpener {
 public:
@@ -101,9 +103,9 @@ DetachHandler(CPhidgetHandle h, void* anImpl)
 void
 PhidgetsManager::Impl::Open()
 {
-    CPhidgetManager_create(&m_handle);
-    CPhidgetManager_set_OnAttach_Handler(m_handle, AttachHandler, this);
-    CPhidgetManager_set_OnDetach_Handler(m_handle, DetachHandler, this);
+    TRY_PHIDGET(CPhidgetManager_create(&m_handle));
+    TRY_PHIDGET(CPhidgetManager_set_OnAttach_Handler(m_handle, AttachHandler, this));
+    TRY_PHIDGET(CPhidgetManager_set_OnDetach_Handler(m_handle, DetachHandler, this));
     DoOpen();
 }
 
@@ -118,8 +120,8 @@ PhidgetsManager::Impl::Close()
         UnregisterSensor(m_phidgets.begin()->first);
     }
 
-    CPhidgetManager_close(m_handle);
-    CPhidgetManager_delete(m_handle);
+    TRY_PHIDGET(CPhidgetManager_close(m_handle));
+    TRY_PHIDGET(CPhidgetManager_delete(m_handle));
     m_handle = nullptr;
 }
 
@@ -131,7 +133,7 @@ PhidgetsManager::Impl::OnAttach(CPhidgetHandle h)
     }
 
 	int serialNo;
-	CPhidget_getSerialNumber(h, &serialNo);
+	TRY_PHIDGET(CPhidget_getSerialNumber(h, &serialNo));
 
     {
         std::lock_guard<std::mutex> lock(m_registrationMutex);
@@ -150,7 +152,7 @@ PhidgetsManager::Impl::OnDetach(CPhidgetHandle h)
     }
 
 	int serialNo;
-	CPhidget_getSerialNumber(h, &serialNo);
+	TRY_PHIDGET(CPhidget_getSerialNumber(h, &serialNo));
 
     {
         std::lock_guard<std::mutex> lock(m_registrationMutex);
@@ -165,7 +167,7 @@ PhidgetsManager::Impl::OnDetach(CPhidgetHandle h)
 PhidgetsManager::Impl::IsTempSensor(CPhidgetHandle h)
 {
 	CPhidget_DeviceClass cls;
-	CPhidget_getDeviceClass(h, &cls);
+	TRY_PHIDGET(CPhidget_getDeviceClass(h, &cls));
     return cls == PHIDCLASS_TEMPERATURESENSOR;
 }
 
@@ -294,17 +296,13 @@ LocalPhidgetsManager::Impl::Impl()
 void
 LocalPhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
 {
-    int result;
-
-    if ((result = CPhidget_open(reinterpret_cast<CPhidgetHandle>(handle), serial)) != 0) {
-        throw PhidgetException(result);
-    }
+    TRY_PHIDGET(CPhidget_open(reinterpret_cast<CPhidgetHandle>(handle), serial));
 }
 
 void
 LocalPhidgetsManager::Impl::DoOpen()
 {
-    CPhidgetManager_open(m_handle);
+    TRY_PHIDGET(CPhidgetManager_open(m_handle));
 }
 
 LocalPhidgetsManager::LocalPhidgetsManager()
@@ -351,35 +349,22 @@ RemotePhidgetsManager::Impl::Impl(const char *address, int port, const char* pas
 void
 RemotePhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
 {
-    int result;
-
     if (m_mdnsService != nullptr) {
-        result = CPhidget_openRemote(reinterpret_cast<CPhidgetHandle>(handle), serial, m_mdnsService, m_password);
+        TRY_PHIDGET(CPhidget_openRemote(reinterpret_cast<CPhidgetHandle>(handle), serial, m_mdnsService, m_password));
     }
     else {
-        result = CPhidget_openRemoteIP(reinterpret_cast<CPhidgetHandle>(handle), serial, m_address, m_port, m_password);
-    }
-
-    if (result != 0) {
-        throw PhidgetException(result);
+        TRY_PHIDGET(CPhidget_openRemoteIP(reinterpret_cast<CPhidgetHandle>(handle), serial, m_address, m_port, m_password));
     }
 }
 
 void
 RemotePhidgetsManager::Impl::DoOpen()
 {
-    int result;
     if (m_mdnsService != nullptr) {
-        result = CPhidgetManager_openRemote(m_handle, m_mdnsService, m_password);
+        TRY_PHIDGET(CPhidgetManager_openRemote(m_handle, m_mdnsService, m_password));
     }
     else {
-        result = CPhidgetManager_openRemoteIP(m_handle, m_address, m_port, m_password);
-    }
-
-    if (result != 0) {
-        const char* errorDesc;
-        CPhidget_getErrorDescription(result, &errorDesc);
-        throw std::runtime_error(errorDesc);
+        TRY_PHIDGET(CPhidgetManager_openRemoteIP(m_handle, m_address, m_port, m_password));
     }
 }
 
@@ -399,7 +384,7 @@ RemotePhidgetsManager::OpenMdns(const char *mdnsName, const char* password)
     try {
         return std::unique_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(mdnsName, password));
     }
-    catch (const std::runtime_error&) {
+    catch (const PhidgetException&) {
         return nullptr;
     }
 }
@@ -410,7 +395,7 @@ RemotePhidgetsManager::OpenAddress(const char *address, int port, const char* pa
     try {
         return std::unique_ptr<RemotePhidgetsManager>(new RemotePhidgetsManager(address, port, password));
     }
-    catch (const std::runtime_error&) {
+    catch (const PhidgetException&) {
         return nullptr;
     }
 }
