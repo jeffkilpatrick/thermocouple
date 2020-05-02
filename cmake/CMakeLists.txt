@@ -26,10 +26,6 @@ if(DEFINED ENV{CLANG_TIDY})
         CLANG_TIDY_EXE
         NAMES "clang-tidy"
         PATHS "/usr/local/opt/llvm/bin")
-
-    if(CLANG_TIDY_EXE)
-        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}")
-    endif()
 endif()
 
 find_program(CCACHE_EXE ccache)
