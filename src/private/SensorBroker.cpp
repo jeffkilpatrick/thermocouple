@@ -13,13 +13,27 @@
 
 #pragma mark SensorBroker::Impl Decl
 
-struct SensorBroker::Impl {
+class SensorBroker::Impl {
+public:
+    using Sensors = std::unordered_map<ISensor::SensorId, std::shared_ptr<ISensor>>;
+    using Subscriptions = std::unordered_map<ISensor::SubscriptionId, std::pair<ISensor::SensorId, std::shared_ptr<Subscription>>>;
     ISensor::SubscriptionId AddNotification(
         const ISensor::SensorId& sensorId,
         std::shared_ptr<Subscription> sub);
 
-    std::unordered_map<ISensor::SensorId, std::shared_ptr<ISensor>> m_sensors;
-    std::unordered_map<ISensor::SubscriptionId, std::pair<ISensor::SensorId, std::shared_ptr<Subscription>>> m_subscriptions;
+    bool AddSensor(const ISensor::SensorId& sensorId, std::shared_ptr<ISensor> sensor);
+    const Sensors& GetSensors() const { return m_sensors; }
+    ISensor* GetSensor(const ISensor::SensorId& sensorId);
+    bool RemoveSensor(const ISensor::SensorId& sensorId);
+
+    const Subscriptions& GetSubscriptions() const { return m_subscriptions; }
+    Subscription* GetSubscription(ISensor::SubscriptionId subId);
+    const ISensor::SensorId* GetSubscriptionSensor(ISensor::SubscriptionId subId) const;
+    void RemoveSubscription(ISensor::SubscriptionId subId);
+
+private:
+    Sensors m_sensors;
+    Subscriptions m_subscriptions;
     std::atomic<ISensor::SubscriptionId> m_lastSubscriptionId{};
 };
 
@@ -40,6 +54,47 @@ SensorBroker::Impl::AddNotification(
     }
 
     return subId;
+}
+
+bool
+SensorBroker::Impl::AddSensor(const ISensor::SensorId& sensorId, std::shared_ptr<ISensor> sensor)
+{
+    auto iterAndInserted = m_sensors.insert(std::make_pair(sensorId, std::move(sensor)));
+    return iterAndInserted.second;
+}
+
+ISensor*
+SensorBroker::Impl::GetSensor(const ISensor::SensorId& sensorId)
+{
+    auto s = m_sensors.find(sensorId);
+    return s == m_sensors.cend() ? nullptr : s->second.get();
+}
+
+bool
+SensorBroker::Impl::RemoveSensor(const ISensor::SensorId& sensorId)
+{
+    return m_sensors.erase(sensorId) > 0;
+}
+
+Subscription*
+SensorBroker::Impl::GetSubscription(ISensor::SubscriptionId subId)
+{
+    auto s = m_subscriptions.find(subId);
+    return s == m_subscriptions.cend() ? nullptr : s->second.second.get();
+}
+
+
+const ISensor::SensorId*
+SensorBroker::Impl::GetSubscriptionSensor(ISensor::SubscriptionId subId) const
+{
+    auto s = m_subscriptions.find(subId);
+    return s == m_subscriptions.cend() ? nullptr : &s->second.first;
+}
+
+void
+SensorBroker::Impl::RemoveSubscription(ISensor::SubscriptionId subId)
+{
+    m_subscriptions.erase(subId);
 }
 
 //
@@ -66,6 +121,8 @@ SensorBroker::GetInstance()
     return s_instance.get();
 }
 
+SensorBroker::~SensorBroker() = default;
+
 SensorBroker::SensorBroker()
     : m_impl(new Impl())
 { }
@@ -82,7 +139,7 @@ SensorBroker::AvailableSensors() const
 {
     std::set<ISensor::SensorId> sensors;
 
-    for (const auto& s : m_impl->m_sensors) {
+    for (const auto& s : m_impl->GetSensors()) {
         if (s.second && s.second->GetStatus() != Subscription::Status::NO_SENSOR) {
             sensors.insert(s.first);
         }
@@ -114,17 +171,17 @@ SensorBroker::NotifyOnChange(
 bool
 SensorBroker::Unsubscribe(ISensor::SubscriptionId subscription)
 {
-    auto sub = m_impl->m_subscriptions.find(subscription);
-    if (sub == m_impl->m_subscriptions.end()) {
+    const auto* sensorId = m_impl->GetSubscriptionSensor(subscription);
+    if (sensorId == nullptr) {
         return false;
     }
 
-    auto sensor = m_impl->m_sensors.find(sub->second.first);
-    if (sensor != m_impl->m_sensors.end()) {
-        sensor->second->Unsubscribe(subscription);
+    auto* sensor = m_impl->GetSensor(*sensorId);
+    if (sensor != nullptr) {
+        sensor->Unsubscribe(subscription);
     }
 
-    m_impl->m_subscriptions.erase(sub);
+    m_impl->RemoveSubscription(subscription);
 
     return true;
 }
@@ -132,12 +189,10 @@ SensorBroker::Unsubscribe(ISensor::SubscriptionId subscription)
 bool
 SensorBroker::Pause(ISensor::SubscriptionId subscription)
 {
-    auto subEntry = m_impl->m_subscriptions.find(subscription);
-    if (subEntry == m_impl->m_subscriptions.end()) {
+    auto* sub = m_impl->GetSubscription(subscription);
+    if (sub == nullptr) {
         return false;
     }
-
-    auto sub = subEntry->second.second;
 
     if (sub->GetStatus() == Subscription::Status::ACTIVE) {
         sub->SetStatus(Subscription::Status::PAUSED);
@@ -150,12 +205,10 @@ SensorBroker::Pause(ISensor::SubscriptionId subscription)
 bool
 SensorBroker::Unpause(ISensor::SubscriptionId subscription)
 {
-    auto subEntry = m_impl->m_subscriptions.find(subscription);
-    if (subEntry == m_impl->m_subscriptions.end()) {
+    auto* sub = m_impl->GetSubscription(subscription);
+    if (sub == nullptr) {
         return false;
     }
-
-    auto sub = subEntry->second.second;
 
     if (sub->GetStatus() == Subscription::Status::PAUSED) {
         sub->SetStatus(Subscription::Status::ACTIVE);
@@ -168,33 +221,33 @@ SensorBroker::Unpause(ISensor::SubscriptionId subscription)
 Subscription::Status
 SensorBroker::GetStatus(ISensor::SubscriptionId subscription) const
 {
-    auto sub = m_impl->m_subscriptions.find(subscription);
-    if (sub == m_impl->m_subscriptions.end()) {
+    const auto* sensorId = m_impl->GetSubscriptionSensor(subscription);
+    if (sensorId == nullptr) {
         return Subscription::Status::UNKNOWN_SUBSCRIPTION;
     }
 
-    auto sensor = m_impl->m_sensors.find(sub->second.first);
-    if (sensor == m_impl->m_sensors.end()) {
+    const auto* sensor = m_impl->GetSensor(*sensorId);
+    if (sensor == nullptr) {
         return Subscription::Status::NO_SENSOR;
     }
 
-    return sensor->second->GetStatus(subscription);
+    return sensor->GetStatus(subscription);
 }
 
 bool
-SensorBroker::Register(std::shared_ptr<ISensor> sensor)
+SensorBroker::Register(const std::shared_ptr<ISensor>& sensor)
 {
     if (sensor) {
         auto ident = sensor->Identifier();
-        auto iterAndInserted = m_impl->m_sensors.insert(std::make_pair(ident, std::move(sensor)));
-        if (!iterAndInserted.second) {
+        auto inserted = m_impl->AddSensor(ident, sensor);
+        if (!inserted) {
             return false;
         }
 
-        for (const auto& sub : m_impl->m_subscriptions) {
+        for (const auto& sub : m_impl->GetSubscriptions()) {
             if (sub.second.first == ident) {
                 sub.second.second->SetStatus(Subscription::Status::ACTIVE);
-                iterAndInserted.first->second->AddNotification(sub.first, sub.second.second);
+                sensor->AddNotification(sub.first, sub.second.second);
             }
         }
 
@@ -207,6 +260,6 @@ SensorBroker::Register(std::shared_ptr<ISensor> sensor)
 bool
 SensorBroker::Unregister(const ISensor::SensorId& sensorId)
 {
-    return m_impl->m_sensors.erase(sensorId) > 0;
+    return m_impl->RemoveSensor(sensorId);
 }
 

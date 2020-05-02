@@ -12,7 +12,7 @@
 
 class PhidgetException : public std::runtime_error {
 public:
-    PhidgetException(int errorCode);
+    explicit PhidgetException(int errorCode);
 };
 
 //
@@ -30,22 +30,24 @@ public:
 
 class TemperaturePhidget {
 public:
+    constexpr static int TIMEOUT_MS = 5000;
+
+    ~TemperaturePhidget();
+    TemperaturePhidget(const TemperaturePhidget&) = delete;
+    TemperaturePhidget(TemperaturePhidget&&) = delete;
+    TemperaturePhidget& operator=(const TemperaturePhidget&) = delete;
+    TemperaturePhidget& operator=(TemperaturePhidget&&) = delete;
+
     TemperaturePhidget(
         const PhidgetOpener& opener,
         int serial);
 
-    ~TemperaturePhidget();
-
-    int GetInputs() const;
-    void* GetHandle() const;
+    [[nodiscard]] int GetInputs() const;
+    [[nodiscard]] void* GetHandle() const;
 
 private:
     class Impl;
     std::unique_ptr<Impl> m_impl;
-
-public:
-    TemperaturePhidget(const TemperaturePhidget&) = delete;
-    TemperaturePhidget& operator=(const TemperaturePhidget&) = delete;
 };
 
 //
@@ -56,13 +58,22 @@ class PhidgetsSensor
     : public IPollableSensor
     , public AbstractSensor
 {
+public:
+    ~PhidgetsSensor();
+    PhidgetsSensor(const PhidgetsSensor&) = delete;
+    PhidgetsSensor(PhidgetsSensor&&) = delete;
+    PhidgetsSensor& operator=(const PhidgetsSensor&) = delete;
+    PhidgetsSensor& operator=(PhidgetsSensor&&) = delete;
+
 protected:
     PhidgetsSensor(
         std::shared_ptr<TemperaturePhidget> phidget,
         SensorId sensorId);
 
-    ~PhidgetsSensor();
+    [[nodiscard]]
+    TemperaturePhidget& GetPhidget();
 
+private:
     std::shared_ptr<TemperaturePhidget> m_phidget;
 };
 

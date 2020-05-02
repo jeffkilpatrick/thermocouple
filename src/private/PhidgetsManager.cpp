@@ -25,6 +25,7 @@
 #include <sstream>
 #include <thread>
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage) -- cannot be expressed as constexpr
 #define TRY_PHIDGET(op) { int result{0}; if ((result = (op)) != EPHIDGET_OK) { throw PhidgetException (result); } }
 
 class PhidgetsManager::Impl : public PhidgetOpener {
@@ -45,7 +46,7 @@ public:
 
 protected:
     virtual void DoOpen() = 0;
-    CPhidgetManagerHandle m_handle{nullptr};
+    CPhidgetManagerHandle GetHandle() { return m_handle; }
 
 private:
     static bool IsTempSensor(CPhidgetHandle h);
@@ -53,6 +54,7 @@ private:
     void UnregisterSensor(int serial);
     void RegistrationLoop();
 
+    CPhidgetManagerHandle m_handle{nullptr};
     std::condition_variable m_registrationCv;
     std::thread m_registrationThread;
     std::queue<int> m_registerQueue;
@@ -87,14 +89,14 @@ namespace {
 int
 AttachHandler(CPhidgetHandle h, void* anImpl)
 {
-    auto impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
+    auto* impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
     return impl->OnAttach(h);
 }
 
 int
 DetachHandler(CPhidgetHandle h, void* anImpl)
 {
-    auto impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
+    auto* impl = reinterpret_cast<PhidgetsManager::Impl*>(anImpl);
     return impl->OnDetach(h);
 }
 
@@ -132,7 +134,7 @@ PhidgetsManager::Impl::OnAttach(CPhidgetHandle h)
         return 0;
     }
 
-	int serialNo;
+	int serialNo = 0;
 	TRY_PHIDGET(CPhidget_getSerialNumber(h, &serialNo));
 
     {
@@ -151,7 +153,7 @@ PhidgetsManager::Impl::OnDetach(CPhidgetHandle h)
         return 0;
     }
 
-	int serialNo;
+	int serialNo = 0;
 	TRY_PHIDGET(CPhidget_getSerialNumber(h, &serialNo));
 
     {
@@ -166,7 +168,7 @@ PhidgetsManager::Impl::OnDetach(CPhidgetHandle h)
 /*static*/ bool
 PhidgetsManager::Impl::IsTempSensor(CPhidgetHandle h)
 {
-	CPhidget_DeviceClass cls;
+	CPhidget_DeviceClass cls{};
 	TRY_PHIDGET(CPhidget_getDeviceClass(h, &cls));
     return cls == PHIDCLASS_TEMPERATURESENSOR;
 }
@@ -217,7 +219,7 @@ PhidgetsManager::Impl::UnregisterSensor(int serial)
     auto phidget = m_phidgets[serial];
     m_phidgets.erase(serial);
 
-    auto broker = SensorBroker::GetInstance();
+    auto* broker = SensorBroker::GetInstance();
     if (broker == nullptr) {
         return;
     }
@@ -302,7 +304,7 @@ LocalPhidgetsManager::Impl::OpenPhidget(void* handle, int serial) const
 void
 LocalPhidgetsManager::Impl::DoOpen()
 {
-    TRY_PHIDGET(CPhidgetManager_open(m_handle));
+    TRY_PHIDGET(CPhidgetManager_open(GetHandle()));
 }
 
 LocalPhidgetsManager::LocalPhidgetsManager()
@@ -361,10 +363,10 @@ void
 RemotePhidgetsManager::Impl::DoOpen()
 {
     if (m_mdnsService != nullptr) {
-        TRY_PHIDGET(CPhidgetManager_openRemote(m_handle, m_mdnsService, m_password));
+        TRY_PHIDGET(CPhidgetManager_openRemote(GetHandle(), m_mdnsService, m_password));
     }
     else {
-        TRY_PHIDGET(CPhidgetManager_openRemoteIP(m_handle, m_address, m_port, m_password));
+        TRY_PHIDGET(CPhidgetManager_openRemoteIP(GetHandle(), m_address, m_port, m_password));
     }
 }
 

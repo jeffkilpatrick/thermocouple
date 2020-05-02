@@ -32,8 +32,14 @@ class SensorPoller {
 public:
     static const std::chrono::milliseconds DefaultInterval;
 
-    SensorPoller(std::chrono::milliseconds pollInterval = DefaultInterval);
     ~SensorPoller();
+
+    SensorPoller(const SensorPoller&) = delete;
+    SensorPoller(SensorPoller&&) = delete;
+    SensorPoller& operator=(const SensorPoller&) = delete;
+    SensorPoller& operator=(SensorPoller&&) = delete;
+
+    explicit SensorPoller(std::chrono::milliseconds pollInterval = DefaultInterval);
 
     template<class T, class... Ts>
     std::shared_ptr<T> CreateSensor(Ts&&... params)
@@ -68,8 +74,4 @@ private:
     std::shared_mutex m_sensorMutex;
     std::timed_mutex m_pollSleepMutex;
     std::atomic<bool> m_threadExit;
-
-public:
-    SensorPoller(const SensorPoller&) = delete;
-    SensorPoller& operator=(const SensorPoller&) = delete;
 };

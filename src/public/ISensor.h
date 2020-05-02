@@ -23,7 +23,14 @@ public:
     using SensorId = std::string;
     using SubscriptionId = uint32_t;
 
+    ~ISensor() = default;
+    ISensor(const ISensor&) = delete;
+    ISensor(ISensor&&) = delete;
+    ISensor& operator=(const ISensor&) = delete;
+    ISensor& operator=(ISensor&&) = delete;
+
     // Get this sensor's unique identifier.
+    [[nodiscard]]
     virtual const SensorId& Identifier() const = 0;
 
     // Register to be notified.
@@ -50,17 +57,15 @@ public:
     // @return If the sensor has no subscriptions, UNKNOWN_SUBSCRIPTION
     //         is returned. If all subscriptions are paused, the result
     //         is PAUSED. Otherwise, ACTIVE is returned.
+    [[nodiscard]]
     virtual Subscription::Status GetStatus() const = 0;
 
     // Get the status of a specific sensor.
+    [[nodiscard]]
     virtual Subscription::Status GetStatus(SubscriptionId) const = 0;
 
 protected:
-    ISensor() {};
-
-public:
-    ISensor(const ISensor&) = delete;
-    ISensor& operator=(const ISensor&) = delete;
+    ISensor() = default;
 };
 
 #pragma GCC visibility pop

@@ -10,6 +10,7 @@ if(POLICY CMP0025)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(UNIX)
     add_compile_options(-Werror -Wall -Wno-unknown-pragmas)
@@ -25,10 +26,11 @@ if(DEFINED ENV{CLANG_TIDY})
         CLANG_TIDY_EXE
         NAMES "clang-tidy"
         PATHS "/usr/local/opt/llvm/bin")
+endif()
 
-    if(CLANG_TIDY_EXE)
-        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-*-magic-numbers,-clang-analyzer-alpha.*,-cppcoreguidelines-pro-type-reinterpret-cast,-fuchsia-*,-google-readability-todo,-*-non-private-member-variables-in-classes")
-    endif()
+find_program(CCACHE_EXE ccache)
+if(CCACHE_EXE)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_EXE}")
 endif()
 
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)

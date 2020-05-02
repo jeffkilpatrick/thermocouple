@@ -14,9 +14,12 @@ class IListener {
 public:
     virtual void Notify(float celsius) = 0;
 
+    ~IListener() = default;
     IListener() = default;
     IListener(const IListener&) = delete;
+    IListener(IListener&&) = delete;
     IListener& operator=(const IListener&) = delete;
+    IListener& operator=(IListener&&) = delete;
 };
 
 #pragma GCC visibility pop

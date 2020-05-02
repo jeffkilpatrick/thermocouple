@@ -1,0 +1,10 @@
+#
+# Exceptions:
+#  * misc-non-private-member-variables-in-classes: redundant with equivalent rule in cppcoreguidlines
+#  * cppcoreguidelines-pro-type-reinterpret-cast: needed to work with Phidgets library
+#  * modernize-use-trailing-return-type: no thank you
+#
+Checks: '-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-*,-cppcoreguidelines-pro-type-reinterpret-cast,hicpp-*,misc-*,-misc-non-private-member-variables-in-classes,modernize-*,-modernize-use-trailing-return-type,performance-*,portability-*,readability-*'
+
+HeaderFilterRegex:   'src'
+WarningsAsErrors:    '*'

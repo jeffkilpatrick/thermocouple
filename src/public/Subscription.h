@@ -24,12 +24,17 @@ public:
     using Clock = std::chrono::system_clock;
 
     virtual ~Subscription() = default;
+    Subscription(const Subscription&) = delete;
+    Subscription(Subscription&&) = delete;
+    Subscription& operator=(const Subscription&) = delete;
+    Subscription& operator=(Subscription&&) = delete;
 
-    std::weak_ptr<IListener> GetListener() const;
+    [[nodiscard]] std::weak_ptr<IListener> GetListener() const;
 
-    Status GetStatus() const;
+    [[nodiscard]] Status GetStatus() const;
     void SetStatus(Status s);
 
+    [[nodiscard]]
     virtual bool ShouldNotify(
         float currentValue,
         Clock::time_point currentTime) const = 0;
@@ -39,7 +44,7 @@ public:
         Clock::time_point currentTime);
 
 protected:
-    Subscription(std::weak_ptr<IListener> listener);
+    explicit Subscription(std::weak_ptr<IListener> listener);
 
 private:
     std::weak_ptr<IListener> m_listener;
@@ -57,6 +62,7 @@ public:
         std::weak_ptr<IListener> listener,
         Interval interval);
 
+    [[nodiscard]]
     bool ShouldNotify(
         float currentValue,
         Clock::time_point currentTime) const override;
@@ -79,6 +85,7 @@ public:
         std::weak_ptr<IListener> listener,
         float delta);
 
+    [[nodiscard]]
     bool ShouldNotify(
         float currentValue,
         Clock::time_point currentTime) const override;
