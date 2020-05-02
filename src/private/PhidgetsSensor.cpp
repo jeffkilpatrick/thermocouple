@@ -17,7 +17,7 @@
 namespace {
 const char* GetPhidgetErrorString(int errorCode)
 {
-    const char* errorString;
+    const char* errorString = nullptr;
     CPhidget_getErrorDescription(errorCode, &errorString);
 
     return errorString;
@@ -39,7 +39,7 @@ public:
 
     Impl(
         const PhidgetOpener& opener,
-         int serial);
+        int serial);
 
     [[nodiscard]]
     int GetInputs() const;
@@ -64,7 +64,7 @@ TemperaturePhidget::Impl::Impl(
     opener.OpenPhidget(m_handle, serial);
 
     int result = 0;
-    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), 5000)) != 0) {
+    if ((result = CPhidget_waitForAttachment(reinterpret_cast<CPhidgetHandle>(m_handle), TIMEOUT_MS)) != 0) {
         throw PhidgetException(result);
     }
 
@@ -128,6 +128,12 @@ PhidgetsSensor::PhidgetsSensor(
 
 PhidgetsSensor::~PhidgetsSensor() = default;
 
+TemperaturePhidget&
+PhidgetsSensor::GetPhidget()
+{
+    return *m_phidget;
+}
+
 //
 //
 //
@@ -144,7 +150,7 @@ PhidgetsProbeSensor::PhidgetsProbeSensor(
 void
 PhidgetsProbeSensor::PollAndNotify()
 {
-    auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
+    auto* handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(GetPhidget().GetHandle());
     double temperature = 0.0;
     if (CPhidgetTemperatureSensor_getTemperature(handle, m_input, &temperature) != 0) {
         return;
@@ -167,7 +173,7 @@ PhidgetsAmbientSensor::PhidgetsAmbientSensor(
 void
 PhidgetsAmbientSensor::PollAndNotify()
 {
-    auto handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(m_phidget->GetHandle());
+    auto* handle = reinterpret_cast<CPhidgetTemperatureSensorHandle>(GetPhidget().GetHandle());
     double ambient = 0.0;
     if (CPhidgetTemperatureSensor_getAmbientTemperature(handle, &ambient) != 0) {
         return;

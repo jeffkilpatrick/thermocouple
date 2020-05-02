@@ -15,14 +15,14 @@
 class AbstractSensor : public ISensor {
 
 protected:
-    AbstractSensor(SensorId sensorId);
+    explicit AbstractSensor(SensorId sensorId);
 
 public:
     const SensorId& Identifier() const override;
 
     void AddNotification(
         SubscriptionId subId,
-        std::shared_ptr<Subscription>) override;
+        std::shared_ptr<Subscription> subscription) override;
 
     void Pause(SubscriptionId subId) override;
     void Unpause(SubscriptionId subId) override;

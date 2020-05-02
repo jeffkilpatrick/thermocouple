@@ -17,13 +17,21 @@
 
 class SensorBroker {
 public:
+    ~SensorBroker();
+    SensorBroker(const SensorBroker&) = delete;
+    SensorBroker(SensorBroker&&) = delete;
+    SensorBroker& operator=(const SensorBroker&) = delete;
+    SensorBroker& operator=(SensorBroker&&) = delete;
+
     // Get the SensorBroker instance, initializing if necessary.
     static SensorBroker& Instance();
 
     // Get the SensorBroker instance, but do not initialize.
+    [[nodiscard]]
     static SensorBroker* GetInstance();
 
     // Get the set of currently available sensors.
+    [[nodiscard]]
     std::set<ISensor::SensorId> AvailableSensors() const;
 
     // Notify the specified listener of the temperature at the given interval.
@@ -51,11 +59,12 @@ public:
     bool Unpause(ISensor::SubscriptionId subscription);
 
     // Get the status of the given subscription.
+    [[nodiscard]]
     Subscription::Status GetStatus(ISensor::SubscriptionId subscription) const;
 
     // Register a sensor.
     // @return true if the given sensor's ID is unique and registration succeeds.
-    bool Register(std::shared_ptr<ISensor> sensor);
+    bool Register(const std::shared_ptr<ISensor>& sensor);
 
     // Unregister a sensor
     // @return true if the given ID is valid and deregistration succeeds.
@@ -64,14 +73,10 @@ public:
     // Reset the broker, forgetting all sensors and subscriptions.
     void Reset();
 private:
-    struct Impl;
+    class Impl;
     std::unique_ptr<Impl> m_impl;
 
     SensorBroker();
-
-public:
-    SensorBroker(const SensorBroker&) = delete;
-    SensorBroker& operator=(const SensorBroker&) = delete;
 };
 
 #pragma GCC visibility pop

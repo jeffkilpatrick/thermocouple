@@ -27,7 +27,7 @@ if(DEFINED ENV{CLANG_TIDY})
         PATHS "/usr/local/opt/llvm/bin")
 
     if(CLANG_TIDY_EXE)
-        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-*-magic-numbers,-clang-analyzer-alpha.*,-cppcoreguidelines-pro-type-reinterpret-cast,-fuchsia-*,-google-readability-todo,-*-non-private-member-variables-in-classes")
+        set(RUN_CLANG_TIDY "${CLANG_TIDY_EXE}")
     endif()
 endif()
 

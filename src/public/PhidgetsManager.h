@@ -22,8 +22,11 @@ public:
     static LocalPhidgetsManager& Instance();
     static void ReleaseInstance();
 
+    ~LocalPhidgetsManager() = default;
     LocalPhidgetsManager(const LocalPhidgetsManager&) = delete;
-    LocalPhidgetsManager& operator=(LocalPhidgetsManager&) = delete;
+    LocalPhidgetsManager(LocalPhidgetsManager&&) = delete;
+    LocalPhidgetsManager& operator=(const LocalPhidgetsManager&) = delete;
+    LocalPhidgetsManager& operator=(LocalPhidgetsManager&&) = delete;
 
 private:
     LocalPhidgetsManager();
@@ -34,6 +37,7 @@ private:
 
 class RemotePhidgetsManager : public PhidgetsManager {
 public:
+    static constexpr int DEFAULT_PORT = 5001;
 
     // Open a Phidgets web service via mDNS.
     // @param mdnsName The service name; may be NULL to open any.
@@ -50,12 +54,14 @@ public:
     // @returns nullptr on error.
     static std::unique_ptr<RemotePhidgetsManager> OpenAddress(
         const char* address,
-        int port = 5001,
+        int port = DEFAULT_PORT,
         const char* password = nullptr);
 
     ~RemotePhidgetsManager();
     RemotePhidgetsManager(const RemotePhidgetsManager&) = delete;
+    RemotePhidgetsManager(RemotePhidgetsManager&&) = delete;
     RemotePhidgetsManager& operator=(const RemotePhidgetsManager&) = delete;
+    RemotePhidgetsManager& operator=(RemotePhidgetsManager&&) = delete;
 
 private:
     RemotePhidgetsManager(const char* mdnsName, const char* password);

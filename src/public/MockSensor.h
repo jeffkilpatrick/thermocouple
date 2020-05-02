@@ -21,6 +21,10 @@ public:
     using ValuesVec = std::vector<float>;
 
     virtual ~MockSensor() = default;
+    MockSensor(const MockSensor&) = delete;
+    MockSensor(MockSensor&&) = delete;
+    MockSensor& operator=(const MockSensor&) = delete;
+    MockSensor& operator=(MockSensor&&) = delete;
 
     MockSensor(
         SensorId sensorId,
@@ -31,12 +35,12 @@ public:
 protected:
     void PollAndNotify() override;
 
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes)
     ValuesVec m_values;
+
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes)
     mutable std::shared_mutex m_valuesMutex;
 
+    // NOLINTNEXTLINE(cppcoreguidelines-non-private-member-variables-in-classes)
     ValuesVec::size_type m_valueIndex{0};
-
-public:
-    MockSensor(const MockSensor&) = delete;
-    MockSensor& operator=(const MockSensor&) = delete;
 };
