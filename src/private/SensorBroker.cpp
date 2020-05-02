@@ -59,8 +59,8 @@ SensorBroker::Impl::AddNotification(
 bool
 SensorBroker::Impl::AddSensor(const ISensor::SensorId& sensorId, std::shared_ptr<ISensor> sensor)
 {
-    [[maybe_unused]] auto [_, inserted] = m_sensors.insert(std::make_pair(sensorId, std::move(sensor)));
-    return inserted;
+    auto iterAndInserted = m_sensors.insert(std::make_pair(sensorId, std::move(sensor)));
+    return iterAndInserted.second;
 }
 
 ISensor*
