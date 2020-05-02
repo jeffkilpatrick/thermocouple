@@ -31,6 +31,11 @@ if(DEFINED ENV{CLANG_TIDY})
     endif()
 endif()
 
+find_program(CCACHE_EXE ccache)
+if(CCACHE_EXE)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_EXE}")
+endif()
+
 get_filename_component(ROOTDIR ${CMAKE_SOURCE_DIR}/.. ABSOLUTE)
 set(SRCDIR ${ROOTDIR}/src)
 set(TESTDIR ${ROOTDIR}/test)
