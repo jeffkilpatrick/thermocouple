@@ -10,6 +10,7 @@ if(POLICY CMP0025)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(UNIX)
     add_compile_options(-Werror -Wall -Wno-unknown-pragmas)
