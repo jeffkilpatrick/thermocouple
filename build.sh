@@ -86,7 +86,7 @@ doBuild() {
     cd "$builddir"
 
     if [ ! -f "${cmakeOutput}" ]; then
-        cmake -b "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config "-DCMAKE_FRAMEWORK_PATH=${frameworkPath}"
+        cmake -S "$rootdir/cmake" -G "$cmakeGenerator" -DCMAKE_BUILD_TYPE:STRING=$config "-DCMAKE_FRAMEWORK_PATH=${frameworkPath}"
     fi
 
     runTarget $@
